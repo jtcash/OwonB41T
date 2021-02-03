@@ -3,7 +3,6 @@
 #include "stdafx.h"
 
 
-
 /** data_parser
  * this class handles the measurement data from the meter and allows it to be parsed
  * into a human readable format.
@@ -28,7 +27,9 @@ class data_parser {
 		"hFE", 
 		"NCV/ADP"
 	};
-	static inline constexpr std::array<std::string_view,8> status_names{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
+	static inline constexpr std::array<std::string_view,8> status_names{
+		"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"
+	};
 
 
 
@@ -54,26 +55,32 @@ private:
 	void init(); // Populate all other fields from the data 
 
 public:
+	// true if reading is OL
 	bool isOL() const noexcept {
 		return magnitude == uint8_t(0b111);
 	}
+	// true if reading is negative
 	bool isNegative() const noexcept {
 		return reading & (1<<15);
 	}
+	// true if data parsed successfully
 	bool isValid() const noexcept {
 		return valid;
 	}
 
-	
+	// Get the scale multiplier
 	double scale_factor() const noexcept {
 		return scales[scale];
 	}
-	std::string_view scale_string() const noexcept {
-		return std::string_view(&scale_chars[scale], 1);
-	}
+	//std::string_view scale_string() const noexcept {
+	//	return std::string_view(&scale_chars[scale], 1);
+	//} TODO: remove me, no longer needed
+
+	// Get SI unit representations for the scale multiplier
 	char scale_char() const noexcept {
 		return scale_chars[scale];
 	}
+	// Get a string representation of the meter's current function
 	std::string_view func_string() const noexcept {
 		return func_strings[func%func_strings.size()]; // crappy safety for unexpected values
 	}
@@ -81,7 +88,7 @@ public:
 
 
 
-	std::string status_string() const;
+	std::string status_string() const;      // get a string representing things like HOLD, MAX, REL... etc.
 
 	double decimal_value() const;						// get the measurement value
 
@@ -92,6 +99,6 @@ public:
 	std::string measurement_string() const; // get the measurement value as it is displayed on the meter
 
 
-	std::string formatted_string() const;
+	std::string formatted_string() const;   // get a nice human-readable string of the parsed data
 
 };
