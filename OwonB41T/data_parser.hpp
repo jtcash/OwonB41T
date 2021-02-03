@@ -2,6 +2,13 @@
 
 #include "stdafx.h"
 
+
+
+/** data_parser
+ * this class handles the measurement data from the meter and allows it to be parsed
+ * into a human readable format.
+ * 
+ */
 class data_parser {
 	static inline constexpr std::array<char, 8> scale_chars{ '%',  'n',  'u',  'm',  ' ', 'k', 'M', 'G'}; 
 	static inline constexpr std::array<double, 8> scales{    0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
@@ -53,6 +60,10 @@ public:
 	bool isNegative() const noexcept {
 		return reading & (1<<15);
 	}
+	bool isValid() const noexcept {
+		return valid;
+	}
+
 	
 	double scale_factor() const noexcept {
 		return scales[scale];
@@ -81,15 +92,6 @@ public:
 	std::string measurement_string() const; // get the measurement value as it is displayed on the meter
 
 
-	std::string formatted_string() const {
-		std::string toret(measurement_string());;
-		toret += ' ';
-		toret += scale_char();
-		toret += ' '; 
-		toret += func_string();
-		toret += '\t';
-		toret += status_string();
-		return toret;
-	}
+	std::string formatted_string() const;
 
 };

@@ -36,88 +36,6 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 }
 
 
-double decimal_value(std::array<uint16_t, 3> data) {
-	int mag = data[0] & 0x7;
-	if (mag == 0b111) {
-		return std::numeric_limits<double>::infinity();
-	}
-
-	uint16_t val = data[2];
-	double sign = 1.0;
-	if (val >= 0x7fff) {
-		sign = -1.0;
-		val &= 0x7fff;
-	}
-
-	return sign * val / std::pow(10.0, mag);
-
-}
-
-
-std::string status_string(std::array<uint16_t, 3> data) {
-	uint16_t val = data[1];
-	constexpr const char* names[]{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
-
-	std::string status = "";
-	for (int i = 0; i<8; ++i) {
-		if ((val&(1<<i)) != 0) {
-			if (status.size() > 0)
-				status += ' ';
-			status += names[i];
-		}
-	}
-	return status;
-}
-
-
-const char* func_string(std::array<uint16_t, 3> data) {
-	constexpr const char* funcs[]{"V DC", "V AC", "A DC", "A AC", "Ohm", "Farad", "Hz", "Duty", "TempC", "TempF", "Volts Diode", "Ohms Continuity", "hFE", "NCV/ADP"};
-	return funcs[((data[0] >> 6) & 0xf)%14];
-}
-
-const char* scale_string(std::array<uint16_t, 3> data) {
-	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M", "G"};
-	return scales[(data[0] >> 3) & 0x7];
-}
-double scale_factor(std::array<uint16_t, 3> data) {
-	constexpr double scales[]{0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
-	return scales[(data[0] >> 3) & 0x7];
-}
-
-std::string scientific_string(std::array<uint16_t, 3> data) {
-	std::ostringstream oss;
-	oss << std::setprecision(4) << std::scientific << decimal_value(data);
-	return oss.str();
-}
-
-
-// returns the value from the display with the same format/number of digits as displayed
-std::string value_string(std::array<uint16_t, 3> data) {
-	int mag = data[0] & 0x7;
-	//return std::to_string(mag) + " " + formatting::hex(data[2]);
-	if (mag == 0b111)
-		return "OL";
-	
-	uint16_t val = data[2];
-	bool negative = (1<<15) & val;
-	
-	// NOTE: there has to be a simple way to do this that i'm overlooking
-	// But I cannot figure out a universal way to make the string returned here
-	// exactly match the multimeter screen
-	auto posPart = [](uint16_t val, int mag) {
-		auto v = std::to_string(val);
-		std::string r = std::string(5-v.size(), '0') + v;
-		auto loc = r.insert(r.begin() + (6 -mag - 1), '.');
-
-		auto it = r.begin();
-		for (; it<loc-1; ++it)
-			if (*it != '0' || *(it+1) == '.')
-				break;
-		return r.substr((it-r.begin()));
-	};
-	// Append the negative symbol if needed
-	return negative ? "-" + posPart(val&0x7fff, mag) : posPart(val, mag);
-}
 
 
 
@@ -132,28 +50,8 @@ std::string value_string(std::array<uint16_t, 3> data) {
 
 
 std::string display_string(std::vector<uint8_t> bytes) {
-	if (bytes.size() != 6)
-		return "BAD DATA COLLECTION";
-
-	std::array<uint16_t, 3> data;
-
-	for (auto i = 0; i<3; ++i)	{
-		data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
-	}
-
 	data_parser dp(bytes);
-
-
-
-
-	
-
-	return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data)
-		 +"\t::\t" + dp.formatted_string();
-	//return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data);
-	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
-	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data) + '\t' + value_string(data);
-	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+	return dp.formatted_string();
 }
 
 

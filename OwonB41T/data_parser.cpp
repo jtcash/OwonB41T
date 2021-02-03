@@ -1,4 +1,9 @@
 #include "stdafx.h"
+
+#include <iomanip>
+#include <ios>
+#include <sstream> 
+
 #include "data_parser.hpp"
 
 
@@ -84,3 +89,20 @@ std::string data_parser::measurement_string() const {
 		? "-" + posPart(reading&0x7fff) 
 		: posPart(reading);
 }
+
+
+
+std::string data_parser::formatted_string() const {
+	if (!isValid())
+		return "Invalid data passed to parser";
+
+	std::string toret(measurement_string());;
+	toret += ' ';
+	toret += scale_char();
+	toret += ' ';
+	toret += func_string();
+	toret += '\t';
+	toret += status_string();
+	return toret;
+}
+
