@@ -1,5 +1,20 @@
 #pragma once
 #include "stdafx.h"
+
+
+
+// TODO: Move these somewhere nicer
+std::string display_string(std::vector<uint8_t> bytes);
+std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
+
+
+
+
+
+
+
+
+
 class B41T{
 
 	inline static auto serviceUUID = winrt::Windows::Devices::Bluetooth::BluetoothUuidHelper::FromShortId(0xfff0);
@@ -29,7 +44,7 @@ class B41T{
 	concurrency::task<bool> registerNotifications();
 
 public:
-	void scanByName(std::wstring nameSubstrMatch = L"B41T+");
+	void connectByName(std::wstring nameSubstrMatch = L"B41T+");
 	concurrency::task<bool> openByAddress(unsigned long long deviceAddress);
 
 

@@ -1,14 +1,124 @@
 #include "stdafx.h"
 #include "B41T.hpp"
 
-//TODO: move these into utilities file
-std::string display_string(std::vector<uint8_t> bytes);
-std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
+// TODO: Move these somewhere nicer
+namespace formatting {
+
+
+	static constexpr char nib(uint8_t b) {
+		uint8_t x = b&0xf;
+		return x < 10 ? '0' + x : 'a'+ (x-10);
+	}
+
+	static std::string hex(uint8_t x) {
+		return std::string({nib(x>>4), nib(x)});
+	}
+	static std::string hex(uint16_t x) {
+		return hex(uint8_t(x>>8)) + hex(uint8_t(x));
+	}
+	static std::string hex(uint32_t x) {
+		return hex(uint16_t(x>>16)) + hex(uint16_t(x));
+	}
+	static std::string hex(uint64_t x) {
+		return hex(uint32_t(x>>32)) + hex(uint32_t(x));
+	}
+
+}
+
+std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf) {
+	std::vector<uint8_t> toret(ibuf.Length());
+	auto reader = winrt::Windows::Storage::Streams::DataReader::FromBuffer(ibuf);
+
+	for (size_t i = 0; i<toret.size(); ++i)
+		toret[i] = reader.ReadByte();
+
+	return toret;
+}
+
+
+double decimal_value(std::array<uint16_t, 3> data) {
+	int mag = data[0] & 0x7;
+	if (mag == 0b111) {
+		return std::numeric_limits<double>::infinity();
+	}
+
+	uint16_t val = data[2];
+	double sign = 1.0;
+	if (val >= 0x7fff) {
+		sign = -1.0;
+		val &= 0x7fff;
+	}
+
+	return sign * val / std::pow(10.0, mag);
+
+}
+
+
+
+std::string status_string(const std::array<uint16_t, 3>& data) {
+	uint16_t val = data[1];
+	constexpr const char* names[]{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
+
+	std::string status = "";
+	for (int i = 0; i<8; ++i) {
+		if ((val&(1<<i)) != 0) {
+			if (status.size() > 0)
+				status += ' ';
+			status += names[i];
+		}
+	}
+	return status;
+}
+
+
+const char* func_string(const std::array<uint16_t, 3>& data) {
+	constexpr const char* funcs[]{"V DC", "V AC", "A DC", "A AC", "Ohm", "Farad", "Hz", "Duty", "TempC", "TempF", "Volts Diode", "Ohms Continuity", "hFE"};
+	return funcs[((data[0] >> 6) & 0xf)%13];
+}
+
+const char* scale_string(const std::array<uint16_t, 3>& data) {
+	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M"};
+	return scales[((data[0] >> 3) & 0x7)%7];
+}
+
+std::string display_string(std::vector<uint8_t> bytes)
+{
+	std::array<uint16_t, 3> data;
+	//uint16_t chunks = new ushort[3];
+
+	for (int i = 0; i<3; ++i)
+	{
+		data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
+		//chunks[i] |= (ushort)(data[1] << 8);
+	}
+
+	std::string funcString = func_string(data);
+
+	std::string scaleString = scale_string(data);
+
+	return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+}
 
 
 
 
-void B41T::scanByName(std::wstring nameSubstrMatch) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void B41T::connectByName(std::wstring nameSubstrMatch) {
 
 		// Thread-global list of the addresses and names found to avoid reporting or checking the same device more than once
 	static struct {
@@ -151,7 +261,7 @@ concurrency::task<bool> B41T::openByAddress(unsigned long long deviceAddress) {
 
 	std::cerr << "done finding characteristics" << std::endl;
 
-	if (registerNotifications().get())
+	if (!registerNotifications().get())
 		co_return false;
 
 
