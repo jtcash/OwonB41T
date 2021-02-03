@@ -7,8 +7,6 @@
 
 #include "targetver.h"
 
-//#include <stdio.h>
-//#include <tchar.h>
 
 #include <utility>
 #include <array>
@@ -37,8 +35,7 @@
 #include <winrt/Windows.Devices.Bluetooth.h>
 #include <winrt/Windows.Devices.Bluetooth.Advertisement.h>
 #include <winrt/Windows.Devices.Bluetooth.GenericAttributeProfile.h>
-#include <wrl/wrappers/corewrappers.h>
-#include <wrl/event.h>
+
 
 
 

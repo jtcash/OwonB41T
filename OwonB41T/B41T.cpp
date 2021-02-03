@@ -53,39 +53,9 @@ double decimal_value(std::array<uint16_t, 3> data) {
 
 }
 
-//std::string value_string(std::array<uint16_t, 3> data) {
-//	int mag = data[0] & 0x7;
-//	//return std::to_string(mag) + " " + formatting::hex(data[2]);
-//	if (mag == 0b111)
-//		return "OL";
-//	
-//	uint16_t val = data[2];
-//	bool negative = (1<<15) & val;
-//	val &= ~(1<<15);
-//
-//	std::string toret;
-//	if (negative)
-//		toret += '-';
-//	
-//	toret += std::to_string(val);
-//
-//	toret += ' ';
-//	toret += std::to_string(mag);
-//	return toret;
-//
-//	double sign = 1.0;
-//	if (val >= 0x7fff) {
-//		sign = -1.0;
-//		val &= 0x7fff;
-//	}
-//	return "oof";
-//	//return sign * val / std::pow(10.0, mag);
-//}
 
 
-
-
-std::string status_string(const std::array<uint16_t, 3>& data) {
+std::string status_string(std::array<uint16_t, 3> data) {
 	uint16_t val = data[1];
 	constexpr const char* names[]{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
 
@@ -101,12 +71,12 @@ std::string status_string(const std::array<uint16_t, 3>& data) {
 }
 
 
-const char* func_string(const std::array<uint16_t, 3>& data) {
+const char* func_string(std::array<uint16_t, 3> data) {
 	constexpr const char* funcs[]{"V DC", "V AC", "A DC", "A AC", "Ohm", "Farad", "Hz", "Duty", "TempC", "TempF", "Volts Diode", "Ohms Continuity", "hFE", "NCV/ADP"};
 	return funcs[((data[0] >> 6) & 0xf)%14];
 }
 
-const char* scale_string(const std::array<uint16_t, 3>& data) {
+const char* scale_string(std::array<uint16_t, 3> data) {
 	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M", "G"};
 	return scales[(data[0] >> 3) & 0x7];
 }
@@ -138,23 +108,13 @@ std::string value_string(std::array<uint16_t, 3> data) {
 
 
 std::string display_string(std::vector<uint8_t> bytes) {
-	
-
-
 	std::array<uint16_t, 3> data;
-	//uint16_t chunks = new ushort[3];
 
-	for (int i = 0; i<3; ++i)
-	{
+	for (auto i = 0; i<3; ++i)	{
 		data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
-		//chunks[i] |= (ushort)(data[1] << 8);
 	}
 
-	std::string funcString = func_string(data);
-
-	std::string scaleString = scale_string(data);
-
-	return value_string(data) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+	return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data) + '\t' + value_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
