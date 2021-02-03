@@ -4,7 +4,6 @@
 
 
 // TODO: Move these somewhere nicer
-std::string display_string(std::vector<uint8_t> bytes);
 std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
 
 

@@ -97,7 +97,7 @@ std::string data_parser::formatted_string() const {
 		return "Invalid data passed to parser";
 
 	std::string toret(measurement_string());;
-	toret += ' ';
+	toret += '\t';
 	toret += scale_char();
 	toret += ' ';
 	toret += func_string();

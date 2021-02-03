@@ -41,19 +41,6 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 
 
 
-// TODO: Create a class to handle processing the data
-// all of these formatting parts should be put into a class where the constructor takes the vector
-// of bytes and splits everything up into fields for easy processing once this program gets more
-// complicated
-
-
-
-
-std::string display_string(std::vector<uint8_t> bytes) {
-	data_parser dp(bytes);
-	return dp.formatted_string();
-}
-
 
 
 
@@ -173,7 +160,8 @@ concurrency::task<bool> B41T::registerNotifications() {
 	readCharacteristic.ValueChanged([](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
 		auto buf = read_IBuffer(args.CharacteristicValue());
 		// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
-		std::cout << display_string(buf) << std::endl;
+		data_parser dp(buf);
+		std::cout << dp.formatted_string() << std::endl;
 	});
 	co_return true;
 }
