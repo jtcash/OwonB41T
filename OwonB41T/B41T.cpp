@@ -80,7 +80,7 @@ const char* scale_string(std::array<uint16_t, 3> data) {
 	return scales[(data[0] >> 3) & 0x7];
 }
 double scale_factor(std::array<uint16_t, 3> data) {
-	double scales[]{1.0, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
+	constexpr double scales[]{0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
 	return scales[(data[0] >> 3) & 0x7];
 }
 
@@ -125,6 +125,8 @@ std::string value_string(std::array<uint16_t, 3> data) {
 // all of these formatting parts should be put into a class where the constructor takes the vector
 // of bytes and splits everything up into fields for easy processing once this program gets more
 // complicated
+
+
 
 
 std::string display_string(std::vector<uint8_t> bytes) {

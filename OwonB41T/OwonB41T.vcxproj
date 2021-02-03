@@ -182,11 +182,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="B41T.hpp" />
+    <ClInclude Include="data_parser.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="B41T.cpp" />
+    <ClCompile Include="data_parser.cpp" />
     <ClCompile Include="OwonB41T.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
