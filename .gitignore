@@ -1,0 +1,10 @@
+
+Win32
+x64
+OwonB41T/Win32
+OwonB41T/x64
+.vs
+.vscode
+*.user
+
+# Visual C++ cache files
