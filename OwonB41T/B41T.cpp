@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "B41T.hpp"
 
+//TODO: move these into utilities file
+std::string display_string(std::vector<uint8_t> bytes);
+std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
+
+
 
 
 void B41T::scanByName(std::wstring nameSubstrMatch) {
@@ -98,8 +103,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 	}
 
 
-	std::string display_string(std::vector<uint8_t> bytes);
-	std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
+
 
 	readCharacteristic.ValueChanged([](GattCharacteristic const& charateristic, GattValueChangedEventArgs const& args) {
 		auto buf = read_IBuffer(args.CharacteristicValue());
