@@ -3,7 +3,25 @@
 #include "stdafx.h"
 
 class data_parser {
-	static inline constexpr char scale_chars[]{'%', 'n', 'u', 'm', ' ', 'k', 'M', 'G'}; 
+	static inline constexpr std::array<char, 8> scale_chars{ '%',  'n',  'u',  'm',  ' ', 'k', 'M', 'G'}; 
+	static inline constexpr std::array<double, 8> scales{    0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
+	static inline constexpr std::array<std::string_view, 14> func_strings{
+		"V DC",
+		"V AC",
+		"A DC", 
+		"A AC", 
+		"Ohm", 
+		"Farad", 
+		"Hz", 
+		"Duty", 
+		"TempC", 
+		"TempF", 
+		"Volts Diode", 
+		"Ohms Continuity", 
+		"hFE", 
+		"NCV/ADP"
+	};
+	static inline constexpr std::array<std::string_view,8> status_names{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
 
 
 
@@ -20,28 +38,58 @@ class data_parser {
 public:
 	constexpr data_parser()
 	{  }
-	data_parser(std::vector<uint8_t> bytes) {
-		if (bytes.size() == 6) {
-			for (auto i = 0; i<3; ++i)
-				data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
-			
-			func = (data[0] >> 6) & 0b1111;
-			scale = (data[0] >> 3) & 0x111;
-			magnitude = data[0] & 0x111;
-
-			mode = data[1];
-
-			reading = data[2];
-
-
-			valid = true;
-		}
+	data_parser(std::array<uint16_t, 3> data) : data{data} {
+		init();
 	}
+	data_parser(std::vector<uint8_t> bytes);
 
-	constexpr double scale_factor() const {
-		constexpr double scales[]{0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
-		return scales[(data[0] >> 3) & 0x7];
+private:
+	void init(); // Populate all other fields from the data 
+
+public:
+	bool isOL() const noexcept {
+		return magnitude == uint8_t(0b111);
+	}
+	bool isNegative() const noexcept {
+		return reading & (1<<15);
 	}
 	
+	double scale_factor() const noexcept {
+		return scales[scale];
+	}
+	std::string_view scale_string() const noexcept {
+		return std::string_view(&scale_chars[scale], 1);
+	}
+	char scale_char() const noexcept {
+		return scale_chars[scale];
+	}
+	std::string_view func_string() const noexcept {
+		return func_strings[func%func_strings.size()]; // crappy safety for unexpected values
+	}
+
+
+
+
+	std::string status_string() const;
+
+	double decimal_value() const;						// get the measurement value
+
+
+	std::string scientific_string() const;	// get the measurement value in scientific notation 
+
+
+	std::string measurement_string() const; // get the measurement value as it is displayed on the meter
+
+
+	std::string formatted_string() const {
+		std::string toret(measurement_string());;
+		toret += ' ';
+		toret += scale_char();
+		toret += ' '; 
+		toret += func_string();
+		toret += '\t';
+		toret += status_string();
+		return toret;
+	}
 
 };

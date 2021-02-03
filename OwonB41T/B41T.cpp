@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "B41T.hpp"
-
+#include "data_parser.hpp"
 // TODO: Move these somewhere nicer
 namespace formatting {
 
@@ -121,6 +121,8 @@ std::string value_string(std::array<uint16_t, 3> data) {
 
 
 
+
+
 // TODO: Create a class to handle processing the data
 // all of these formatting parts should be put into a class where the constructor takes the vector
 // of bytes and splits everything up into fields for easy processing once this program gets more
@@ -139,7 +141,16 @@ std::string display_string(std::vector<uint8_t> bytes) {
 		data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
 	}
 
-	return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data);
+	data_parser dp(bytes);
+
+
+
+
+	
+
+	return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data)
+		 +"\t::\t" + dp.formatted_string();
+	//return value_string(data) + " " + scale_string(data) + " " + func_string(data) + "\t" + status_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data) + '\t' + value_string(data);
 	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
@@ -270,7 +281,8 @@ concurrency::task<bool> B41T::registerNotifications() {
 }
 
 concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress) {
-	std::unique_lock<std::mutex> lock(mut); // Ensure nothing can go wrong in very odd circumstances
+	// TODO: Better mutext handling
+	//std::unique_lock<std::mutex> lock(mut); // Ensure nothing can go wrong in very odd circumstances
 	if (opened) {
 		std::cerr << "Trying to reopen connection to multimeter that is already open" << std::endl;
 		co_return false;
