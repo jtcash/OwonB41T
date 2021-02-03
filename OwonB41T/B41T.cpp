@@ -97,8 +97,8 @@ std::string value_string(std::array<uint16_t, 3> data) {
 	// exactly match the multimeter screen
 	auto posPart = [](uint16_t val, int mag) {
 		auto v = std::to_string(val);
-		std::string r = std::string(5-v.size(), '0') + v;		// NOTE: 5 and 6 are magic numbers that represent the
-		auto loc = r.insert(r.begin() + (5 - mag), '.'); // 5 digits + decimal on the multimeter
+		std::string r = std::string(5-v.size(), '0') + v;		// NOTE: 5 is a magic number referencing the 5 digits
+		auto loc = r.insert(r.begin() + (5 - mag), '.');		// on the B41T+
 		auto it = r.begin();
 		for (; it<loc-1 && !(*it == '0' || *(it+1) != '.'); ++it);
 		return r.substr((it-r.begin()));
