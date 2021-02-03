@@ -92,17 +92,19 @@ std::string value_string(std::array<uint16_t, 3> data) {
 	uint16_t val = data[2];
 	bool negative = (1<<15) & val;
 	
+	// NOTE: there has to be a simple way to do this that i'm overlooking
+	// But I cannot figure out a universal way to make the string returned here
+	// exactly match the multimeter screen
 	auto posPart = [](uint16_t val, int mag) {
 		auto v = std::to_string(val);
-		std::string r = std::string(5-v.size(), '0') + v;
-		auto loc = r.insert(r.begin() + (6 -mag - 1), '.');
+		std::string r = std::string(5-v.size(), '0') + v;		// NOTE: 5 and 6 are magic numbers that represent the
+		auto loc = r.insert(r.begin() + (5 - mag), '.'); // 5 digits + decimal on the multimeter
 		auto it = r.begin();
-		for (; it<loc-1; ++it)
-			if (*it != '0' || *(it+1) == '.')
-				break;
+		for (; it<loc-1 && !(*it == '0' || *(it+1) != '.'); ++it);
 		return r.substr((it-r.begin()));
 	};
 
+	// Append the negative symbol if needed
 	return negative ? "-" + posPart(val&0x7fff, mag) : posPart(val, mag);
 }
 
@@ -159,7 +161,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 
 			decltype(foundList.addrs)::key_type key(eventArgs.BluetoothAddress(), eventArgs.Advertisement().LocalName().c_str());
 			// Skip this result if it is a duplicate advertisement
-			if (auto addr = eventArgs.BluetoothAddress(); foundList.addrs.find(key) == foundList.addrs.end()) {
+			if (foundList.addrs.find(key) == foundList.addrs.end()) {
 				foundList.addrs.emplace(key);
 			} else {
 				return;
@@ -207,7 +209,7 @@ concurrency::task<bool> B41T::sendControl(uint16_t cmd) {
 concurrency::task<bool> B41T::getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName) {
 	using namespace winrt::Windows::Devices::Bluetooth;
 
-	auto characteristicResult = co_await service.GetCharacteristicsForUuidAsync(uid);
+	decltype(auto) characteristicResult = co_await service.GetCharacteristicsForUuidAsync(uid);
 	if (characteristicResult.Status() != GenericAttributeProfile::GattCommunicationStatus::Success) {
 		std::cerr << "Failed to find " << characteristicName << " characteristic" << std::endl;
 		co_return false;
@@ -236,7 +238,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 
 
 
-	readCharacteristic.ValueChanged([](GattCharacteristic const& charateristic, GattValueChangedEventArgs const& args) {
+	readCharacteristic.ValueChanged([](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
 		auto buf = read_IBuffer(args.CharacteristicValue());
 		// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
 		std::cout << display_string(buf) << std::endl;
@@ -245,7 +247,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 }
 
 concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress) {
-	std::unique_lock<std::mutex>(mut); // Ensure nothing can go wrong in very odd circumstances
+	std::unique_lock<std::mutex> lock(mut); // Ensure nothing can go wrong in very odd circumstances
 	if (opened) {
 		std::cerr << "Trying to reopen connection to multimeter that is already open" << std::endl;
 		co_return false;
@@ -260,7 +262,7 @@ concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress)
 		"\tId:\t"				<< device.DeviceId().c_str()  << "\n\n";
 
 
-	auto services = co_await device.GetGattServicesForUuidAsync(serviceUUID);
+	decltype(auto) services = co_await device.GetGattServicesForUuidAsync(serviceUUID);
 	if (services.Status() != GenericAttributeProfile::GattCommunicationStatus::Success) {
 		std::cerr << "Failed to find service uuid" << std::endl; // TODO: Throw exception?
 		co_return false;
