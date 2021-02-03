@@ -54,7 +54,6 @@ double decimal_value(std::array<uint16_t, 3> data) {
 }
 
 
-
 std::string status_string(std::array<uint16_t, 3> data) {
 	uint16_t val = data[1];
 	constexpr const char* names[]{"HOLD", "REL", "AUTO", "Bat", "MIN", "MAX", "OL", "MAXMIN"};
@@ -80,6 +79,17 @@ const char* scale_string(std::array<uint16_t, 3> data) {
 	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M", "G"};
 	return scales[(data[0] >> 3) & 0x7];
 }
+//double scale_factor(std::array<uint16_t, 3> data) {
+//	double scales[]{}
+//	constexpr const char* scales[]{'%', 'n', 'u', 'm', ' ', "k", "M", "G"};
+//	return scales[(data[0] >> 3) & 0x7];
+//}
+
+std::string scientific_string(std::array<uint16_t, 3> data) {
+	std::ostringstream oss;
+	oss << std::setprecision(4) << std::scientific << decimal_value(data);
+	return oss.str();
+}
 
 
 // returns the value from the display with the same format/number of digits as displayed
@@ -95,15 +105,26 @@ std::string value_string(std::array<uint16_t, 3> data) {
 	// NOTE: there has to be a simple way to do this that i'm overlooking
 	// But I cannot figure out a universal way to make the string returned here
 	// exactly match the multimeter screen
+	//auto posPart = [](uint16_t val, int mag) {
+	//	auto v = std::to_string(val);
+	//	std::string r = std::string(5-v.size(), '0') + v;		// NOTE: 5 is a magic number referencing the 5 digits
+	//	auto loc = r.insert(r.begin() + (5 - mag), '.');		// on the B41T+
+	//	auto it = r.begin();
+	//	for (; it<loc-1 && !(*it == '0' || *(it+1) != '.'); ++it);
+	//	return r.substr((it-r.begin()));
+	//};
 	auto posPart = [](uint16_t val, int mag) {
 		auto v = std::to_string(val);
-		std::string r = std::string(5-v.size(), '0') + v;		// NOTE: 5 is a magic number referencing the 5 digits
-		auto loc = r.insert(r.begin() + (5 - mag), '.');		// on the B41T+
+		std::string r = std::string(5-v.size(), '0') + v;
+		auto loc = r.insert(r.begin() + (6 -mag - 1), '.');
+
 		auto it = r.begin();
-		for (; it<loc-1 && !(*it == '0' || *(it+1) != '.'); ++it);
+		for (; it<loc-1; ++it) {
+			if (*it != '0' || *(it+1) == '.')
+				break;
+		}
 		return r.substr((it-r.begin()));
 	};
-
 	// Append the negative symbol if needed
 	return negative ? "-" + posPart(val&0x7fff, mag) : posPart(val, mag);
 }
