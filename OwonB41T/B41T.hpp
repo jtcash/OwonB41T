@@ -45,7 +45,7 @@ class B41T{
 
 public:
 	void connectByName(std::wstring nameSubstrMatch = L"B41T+");
-	concurrency::task<bool> openByAddress(unsigned long long deviceAddress);
+	concurrency::task<bool> connectByAddress(unsigned long long deviceAddress);
 
 
 

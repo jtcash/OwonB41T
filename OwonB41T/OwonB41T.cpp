@@ -18,6 +18,7 @@ B41T meter;
 
 
 
+
 //int main(int argc, char* argv[]) {
 int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
@@ -30,13 +31,19 @@ int main(Platform::Array<Platform::String^>^ args) {
 
 	
 
-	// TODO: allow connection through bluetoo th address
+	uint64_t addr = 0x4c2498b0367b; // {};
 
-	std::wstring nameSubstring = L"B41T+";
-	if (args->Length > 1) {
-		nameSubstring = args[1]->Data();
+	// TODO: allow connection through bluetoo th address
+	if (addr) {
+		meter.connectByAddress(addr);
+	} else {
+		std::wstring nameSubstring = L"B41T+";
+		if (args->Length > 1) {
+			nameSubstring = args[1]->Data();
+		}
+		meter.connectByName(nameSubstring);
 	}
-	meter.connectByName(nameSubstring);
+
 
 	for (;;) {
 		char c;

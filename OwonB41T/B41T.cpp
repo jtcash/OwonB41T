@@ -53,6 +53,36 @@ double decimal_value(std::array<uint16_t, 3> data) {
 
 }
 
+//std::string value_string(std::array<uint16_t, 3> data) {
+//	int mag = data[0] & 0x7;
+//	//return std::to_string(mag) + " " + formatting::hex(data[2]);
+//	if (mag == 0b111)
+//		return "OL";
+//	
+//	uint16_t val = data[2];
+//	bool negative = (1<<15) & val;
+//	val &= ~(1<<15);
+//
+//	std::string toret;
+//	if (negative)
+//		toret += '-';
+//	
+//	toret += std::to_string(val);
+//
+//	toret += ' ';
+//	toret += std::to_string(mag);
+//	return toret;
+//
+//	double sign = 1.0;
+//	if (val >= 0x7fff) {
+//		sign = -1.0;
+//		val &= 0x7fff;
+//	}
+//	return "oof";
+//	//return sign * val / std::pow(10.0, mag);
+//}
+
+
 
 
 std::string status_string(const std::array<uint16_t, 3>& data) {
@@ -72,17 +102,45 @@ std::string status_string(const std::array<uint16_t, 3>& data) {
 
 
 const char* func_string(const std::array<uint16_t, 3>& data) {
-	constexpr const char* funcs[]{"V DC", "V AC", "A DC", "A AC", "Ohm", "Farad", "Hz", "Duty", "TempC", "TempF", "Volts Diode", "Ohms Continuity", "hFE"};
-	return funcs[((data[0] >> 6) & 0xf)%13];
+	constexpr const char* funcs[]{"V DC", "V AC", "A DC", "A AC", "Ohm", "Farad", "Hz", "Duty", "TempC", "TempF", "Volts Diode", "Ohms Continuity", "hFE", "NCV/ADP"};
+	return funcs[((data[0] >> 6) & 0xf)%14];
 }
 
 const char* scale_string(const std::array<uint16_t, 3>& data) {
-	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M"};
-	return scales[((data[0] >> 3) & 0x7)%7];
+	constexpr const char* scales[]{"%", "n", "u", "m", "", "k", "M", "G"};
+	return scales[(data[0] >> 3) & 0x7];
 }
 
-std::string display_string(std::vector<uint8_t> bytes)
-{
+
+// returns the value from the display with the same format/number of digits as displayed
+std::string value_string(std::array<uint16_t, 3> data) {
+	int mag = data[0] & 0x7;
+	//return std::to_string(mag) + " " + formatting::hex(data[2]);
+	if (mag == 0b111)
+		return "OL";
+	
+	uint16_t val = data[2];
+	bool negative = (1<<15) & val;
+	
+	auto posPart = [](uint16_t val, int mag) {
+		auto v = std::to_string(val);
+		std::string r = std::string(5-v.size(), '0') + v;
+		auto loc = r.insert(r.begin() + (6 -mag - 1), '.');
+		auto it = r.begin();
+		for (; it<loc-1; ++it)
+			if (*it != '0' || *(it+1) == '.')
+				break;
+		return r.substr((it-r.begin()));
+	};
+
+	return negative ? "-" + posPart(val&0x7fff, mag) : posPart(val, mag);
+}
+
+
+std::string display_string(std::vector<uint8_t> bytes) {
+	
+
+
 	std::array<uint16_t, 3> data;
 	//uint16_t chunks = new ushort[3];
 
@@ -96,7 +154,10 @@ std::string display_string(std::vector<uint8_t> bytes)
 
 	std::string scaleString = scale_string(data);
 
-	return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+	return value_string(data) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
+	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data) + '\t' + value_string(data);
+	//return std::to_string(decimal_value(data)) + " " + scaleString + " " + funcString + "\t" + status_string(data);
 }
 
 
@@ -153,7 +214,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 			std::cerr << "\nFOUND OWON B41T+" << std::endl;
 			watcher.Stop(); // End the advertisement watcher, we don't need it anymore
 
-			bool status = openByAddress(eventArgs.BluetoothAddress()).get();
+			bool status = connectByAddress(eventArgs.BluetoothAddress()).get();
 
 			if (!status) {
 				std::cerr << "Something went wrong while opening the device" << std::endl;
@@ -223,7 +284,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 	co_return true;
 }
 
-concurrency::task<bool> B41T::openByAddress(unsigned long long deviceAddress) {
+concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress) {
 	std::unique_lock<std::mutex>(mut); // Ensure nothing can go wrong in very odd circumstances
 	if (opened) {
 		std::cerr << "Trying to reopen connection to multimeter that is already open" << std::endl;
