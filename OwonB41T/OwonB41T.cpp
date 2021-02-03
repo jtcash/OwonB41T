@@ -31,7 +31,12 @@ int main(Platform::Array<Platform::String^>^ args) {
 
 	
 
-	uint64_t addr = 0x4c2498b0367b; // {};
+	// Set to your meter's mac address to directly connect
+	uint64_t addr{}; 
+	// note that you cannot connect back for a few seconds after a connection has been
+	// interrupted, so if you ctrl-c out of the program, it will fail if you restart it within
+	// a few seconds. The connectByName option does not fail in this way, it just takes longer to connect
+
 
 	// TODO: allow connection through bluetoo th address
 	if (addr) {
