@@ -26,7 +26,7 @@ void data_parser::init() {
 	valid = true;
 }
 
-std::string data_parser::status_string() const {
+std::string data_parser::statusString() const {
 	std::string status = "";
 	for (int i = 0; i<8; ++i) {
 		if ((mode&(1<<i)) != 0) {
@@ -39,7 +39,7 @@ std::string data_parser::status_string() const {
 }
 
 
-double data_parser::decimal_value() const {
+double data_parser::decimalValue() const {
 	int mag = data[0] & 0x7;
 	if (mag == 0b111)
 		return std::numeric_limits<double>::infinity();
@@ -56,14 +56,14 @@ double data_parser::decimal_value() const {
 
 
 
-std::string data_parser::scientific_string() const {
+std::string data_parser::scientificString() const {
 	std::ostringstream oss;
-	oss << std::setprecision(4) << std::scientific << decimal_value();
+	oss << std::setprecision(4) << std::scientific << decimalValue();
 	return oss.str();
 }
 
 
-std::string data_parser::measurement_string() const {
+std::string data_parser::measurementString() const {
 	if (isOL())
 		return "OL";
 
@@ -92,17 +92,20 @@ std::string data_parser::measurement_string() const {
 
 
 
-std::string data_parser::formatted_string() const {
+std::string data_parser::formattedString() const {
 	if (!isValid())
 		return "Invalid data passed to parser";
 
-	std::string toret(measurement_string());;
+	std::string toret(measurementString());;
 	toret += '\t';
-	toret += scale_char();
+	toret += scaleChar();
 	toret += ' ';
-	toret += func_string();
+	toret += funcString();
 	toret += '\t';
-	toret += status_string();
+	toret += statusString();
 	return toret;
 }
 
+std::string data_parser::hexString() const {
+	return "TODO";
+}

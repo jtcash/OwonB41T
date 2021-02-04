@@ -162,7 +162,6 @@ concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
 
 concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	auto status = sendCommand("*READlen?").get();
-
 	if (!status) {
 		std::cerr << "Failed to send query for recording length" << std::endl;
 		co_return false;
@@ -170,7 +169,6 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 	using namespace winrt::Windows::Devices::Bluetooth;
 	using namespace GenericAttributeProfile;
-
 	//Sleep(2000);
 	// Holy crap, it took a while to figure out that I was doing this correctly, it's just that
 	// windows caches characteristic values by default!!!
@@ -189,14 +187,9 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 	// TODO: Do not rely on machine byte order for this
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
+
 	std::cerr << std::hex << value << std::endl;
 	std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << std::endl;
-
-
-	//auto status = co_await 
-
-	//co_return status == winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCommunicationStatus::Success;
-
 
 	co_return size;
 }
@@ -244,7 +237,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 		auto buf = read_IBuffer(args.CharacteristicValue());
 		// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
 		data_parser dp(buf);
-		std::cout << dp.formatted_string() << std::endl;
+		std::cout << dp.formattedString() << std::endl;
 	});
 
 

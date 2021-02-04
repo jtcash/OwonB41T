@@ -70,7 +70,7 @@ public:
 	}
 
 	// Get the scale multiplier
-	double scale_factor() const noexcept {
+	double scaleFactor() const noexcept {
 		return scales[scale];
 	}
 	//std::string_view scale_string() const noexcept {
@@ -78,28 +78,30 @@ public:
 	//} TODO: remove me, no longer needed
 
 	// Get SI unit representations for the scale multiplier
-	char scale_char() const noexcept {
+	char scaleChar() const noexcept {
 		return scale_chars[scale];
 	}
 	// Get a string representation of the meter's current function
-	std::string_view func_string() const noexcept {
+	std::string_view funcString() const noexcept {
 		return func_strings[func%func_strings.size()]; // crappy safety for unexpected values
 	}
 
 
 
 
-	std::string status_string() const;      // get a string representing things like HOLD, MAX, REL... etc.
+	std::string statusString() const;      // get a string representing things like HOLD, MAX, REL... etc.
 
-	double decimal_value() const;						// get the measurement value
-
-
-	std::string scientific_string() const;	// get the measurement value in scientific notation 
+	double decimalValue() const;						// get the measurement value
 
 
-	std::string measurement_string() const; // get the measurement value as it is displayed on the meter
+	std::string scientificString() const;	// get the measurement value in scientific notation 
 
 
-	std::string formatted_string() const;   // get a nice human-readable string of the parsed data
+	std::string measurementString() const; // get the measurement value as it is displayed on the meter
 
+
+	std::string formattedString() const;   // get a nice human-readable string of the parsed data
+
+
+	std::string hexString() const;
 };
