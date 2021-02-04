@@ -2,28 +2,7 @@
 #include "B41T.hpp"
 #include "data_parser.hpp"
 // TODO: Move these somewhere nicer
-namespace formatting {
 
-
-	static constexpr char nib(uint8_t b) {
-		uint8_t x = b&0xf;
-		return x < 10 ? '0' + x : 'a'+ (x-10);
-	}
-
-	static std::string hex(uint8_t x) {
-		return std::string({nib(x>>4), nib(x)});
-	}
-	static std::string hex(uint16_t x) {
-		return hex(uint8_t(x>>8)) + hex(uint8_t(x));
-	}
-	static std::string hex(uint32_t x) {
-		return hex(uint16_t(x>>16)) + hex(uint16_t(x));
-	}
-	static std::string hex(uint64_t x) {
-		return hex(uint32_t(x>>32)) + hex(uint32_t(x));
-	}
-
-}
 
 std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf) {
 	std::vector<uint8_t> toret(ibuf.Length());

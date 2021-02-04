@@ -107,5 +107,8 @@ std::string data_parser::formattedString() const {
 }
 
 std::string data_parser::hexString() const {
-	return "TODO";
+	std::string toret;
+	for (auto&& e : data)
+		toret += formatting::hex(e);
+	return toret;
 }
