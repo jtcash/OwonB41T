@@ -9,6 +9,7 @@
  * 
  */
 class data_parser {
+	
 	static inline constexpr std::array<char, 8> scale_chars{ '%',  'n',  'u',  'm',  ' ', 'k', 'M', 'G'}; 
 	static inline constexpr std::array<double, 8> scales{    0.01, 1e-9, 1e-6, 1e-3, 1.0, 1e3, 1e6, 1e9};
 	static inline constexpr std::array<std::string_view, 14> func_strings{
