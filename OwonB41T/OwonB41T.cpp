@@ -18,8 +18,6 @@ B41T meter;
 
 
 
-
-
 //int main(int argc, char* argv[]) {
 int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
@@ -50,12 +48,23 @@ int main(Platform::Array<Platform::String^>^ args) {
 		meter.connectByName(nameSubstring);
 	}
 
+	//Sleep(4000);
+
+
+
 
 	for (;;) {
 		char c;
 		std::cin >> c;
 		std::cerr << "typed: '" << c << '\'' <<  std::endl;
 
+
+		if (c == 'q') {
+			std::cerr << "TESTING\n";
+			auto status = meter.queryOfflineLength().get();
+			eecho(status);
+			continue;
+		}
 		meter.press(c);
 
 	}

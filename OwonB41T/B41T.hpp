@@ -8,10 +8,32 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 
 
 
+namespace std {
+	template<typename CharT, typename Traits, typename T>
+	std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const std::vector<T>& v) {
+		os << "{ ";
+		bool first = true;
+		for (auto&& e : v) {
+			if (first)
+				first = false;
+			else
+				os << ", ";
+			os << e;
+		}
+		return os << '}';
+	}
+}
 
 
 
 
+
+
+
+
+
+#define echo(...) std::cout << __LINE__ << ":\t" #__VA_ARGS__ " = " << __VA_ARGS__ << std::endl
+#define eecho(...) std::cerr << __LINE__ << ":\t" #__VA_ARGS__ " = " << __VA_ARGS__ << std::endl
 
 
 class B41T{
@@ -34,15 +56,28 @@ class B41T{
 	std::mutex mut{};
 
 	bool opened{false};
+	bool registered{false};
 
 
 
 
 	concurrency::task<bool> sendControl(uint16_t cmd);
+
+public: // temp
+	concurrency::task<bool> sendCommand(const std::vector<uint8_t>& buf);
+		//concurrency::task<bool> B41T::sendCommand(uint8_t* buf, size_t size);
+	concurrency::task<bool> sendCommand(std::string_view cmd);
+
+	concurrency::task<uint32_t> queryOfflineLength();
+
+private: // temp
+
 	concurrency::task<bool> getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName = "a");
-	concurrency::task<bool> registerNotifications();
 
 public:
+	concurrency::task<bool> registerNotifications();
+
+
 	void connectByName(std::wstring nameSubstrMatch = L"B41T+");
 	concurrency::task<bool> connectByAddress(unsigned long long deviceAddress);
 
