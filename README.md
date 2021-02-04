@@ -17,7 +17,7 @@ This project is currently early in development, but I've completed the core func
 * Output format customization
 
 ## Example Usage
-If your haven't changed your multimeter's name, it should just connect automatically. Otherwise, you can pass the name (or a substring) of your multimeter as the first argument to the program.
+If you haven't changed your multimeter's name, it should just connect automatically. Otherwise, you can pass the name (or a substring) of your multimeter as the first argument to the program.
 ```
 $ ./x64/Release/OwonB41T.exe 2>/dev/null
 0.0082  V AC    AUTO
