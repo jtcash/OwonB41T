@@ -47,6 +47,10 @@ int main(Platform::Array<Platform::String^>^ args) {
 		}
 		meter.connectByName(nameSubstring);
 	}
+	std::cerr << "Connecting..." << std::endl;
+	meter.waitUntilConnected();
+	std::cerr << "Done connecting\n" << std::endl;
+
 
 	//Sleep(4000);
 

@@ -52,6 +52,10 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 
 
 
+void B41T::waitUntilConnected() {
+	std::unique_lock<std::mutex> lk(mut);
+	connecting_cv.wait(lk);
+}
 
 
 
@@ -158,43 +162,14 @@ concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
 
 concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	auto status = sendCommand("*READlen?").get();
-	//auto status = co_await sendCommand("*READlen?");
 
 	if (!status) {
 		std::cerr << "Failed to send query for recording length" << std::endl;
 		co_return false;
 	}
 
-
-
-	/*winrt::Windows::Storage::Streams::DataReader reader;
-	reader.ByteOrder(winrt::Windows::Storage::Streams::ByteOrder::LittleEndian);*/
-	//writer.ByteOrder(winrt::Windows::Storage::Streams::ByteOrder::LittleEndian);
-	//std::cerr << "Sending Control: " << std::hex << cmd << std::endl;
-	//writer.WriteInt16(cmd);
 	using namespace winrt::Windows::Devices::Bluetooth;
 	using namespace GenericAttributeProfile;
-
-	//GattCommunicationStatus stat = co_await readCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue::Notify);
-	//if (stat != GattCommunicationStatus::Success) {
-	//	std::cerr << "Connection Failed" << std::endl;
-	//	co_return false;
-	//}
-	//cmdCharacteristic.
-	//cmdCharacteristic.ValueChanged([](GattCharacteristic const&, GattValueChangedEventArgs const& args) {
-	//	auto value = read_IBuffer(args.CharacteristicValue());
-	//	// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
-	//	eecho(value.size());
-
-	//// TODO: Do not rely on machine byte order for this
-	//	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
-	//	eecho(size);
-	//	std::cerr << "SIZE: " << std::hex << size << std::endl;
-
-	//	std::cerr << std::hex << value << std::endl;
-	//});
-
-
 
 	//Sleep(2000);
 	// Holy crap, it took a while to figure out that I was doing this correctly, it's just that
@@ -204,7 +179,7 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	//decltype(auto) result = co_await cmdCharacteristic.ReadValueAsync();
 	auto resultStatus = result.Status();
 
-	if (resultStatus != winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCommunicationStatus::Success) {
+	if (resultStatus != GattCommunicationStatus::Success) {
 		std::cerr << "Failed to read length" << std::endl;
 		co_return false;
 	}
@@ -214,17 +189,16 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 	// TODO: Do not rely on machine byte order for this
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
-	eecho(size);
-	std::cerr << "SIZE: " << std::hex << size << std::endl;
-
 	std::cerr << std::hex << value << std::endl;
+	std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << std::endl;
+
 
 	//auto status = co_await 
 
 	//co_return status == winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCommunicationStatus::Success;
 
 
-	co_return true;
+	co_return size;
 }
 
 
@@ -321,6 +295,7 @@ concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress)
 		co_return false;
 
 
+	connecting_cv.notify_all();
 	opened = true;
 
 	co_return true; // TODO: Other returns

@@ -54,6 +54,8 @@ class B41T{
 	winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic readCharacteristic{nullptr};
 
 	std::mutex mut{};
+	std::condition_variable connecting_cv;
+
 
 	bool opened{false};
 	bool registered{false};
@@ -64,6 +66,10 @@ class B41T{
 	concurrency::task<bool> sendControl(uint16_t cmd);
 
 public: // temp
+
+	void waitUntilConnected();
+
+
 	concurrency::task<bool> sendCommand(const std::vector<uint8_t>& buf);
 		//concurrency::task<bool> B41T::sendCommand(uint8_t* buf, size_t size);
 	concurrency::task<bool> sendCommand(std::string_view cmd);
