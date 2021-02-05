@@ -3,6 +3,8 @@
 #include "data_parser.hpp"
 
 #include "packet_handler.hpp"
+
+#include <cctype>
 // TODO: Move these somewhere nicer
 
 
@@ -131,7 +133,7 @@ concurrency::task<bool> B41T::sendCommand(const std::vector<uint8_t>& buf) {
 }
 
 concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
-	if (cmd.size() > 16) {
+	if (cmd.size() > 15) {
 		std::cerr << "Attempting to send a command longer than 15 bytes" << std::endl;
 		co_return false;
 	}
@@ -140,6 +142,22 @@ concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
 
 	co_return co_await sendCommand(buf);
 }
+
+
+concurrency::task<bool> sendRenameCommand(std::string_view sv) {
+	if (sv.size() > 14) {
+		std::cerr << "rename strings cannot be longer than 14 characters" << std::endl;
+		co_return false;
+	}
+	for (auto&& c : sv) {
+		if (!std::isprint(c) || c == '?' || c == '*' || c == '@' || c == ',') // blacklist these to be safe
+			co_return false;
+	}
+
+		
+}
+
+
 
 concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	auto status = sendCommand("*READlen?").get();

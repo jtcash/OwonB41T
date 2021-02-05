@@ -72,6 +72,12 @@ public: // temp
 
 	concurrency::task<uint32_t> queryOfflineLength();
 
+
+
+	 // max 14 characters, be careful with special symbols!
+	concurrency::task<bool> sendRenameCommand(const std::string_view sv);
+
+
 private: // temp
 
 	concurrency::task<bool> getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName = "a");
