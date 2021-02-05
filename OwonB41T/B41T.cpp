@@ -268,7 +268,7 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 concurrency::task<bool> B41T::startDownload() {
 	auto size = co_await queryOfflineLength();
-	std::cerr << "Will attempt to downlod " << std::dec << size << " bytes" << std::endl;
+	std::cerr << "Will attempt to download " << std::dec << size << " bytes" << std::endl;
 
 	packets.setExpectedBytes(size);
 	packets.clear();
