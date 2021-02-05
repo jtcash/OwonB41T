@@ -3,6 +3,8 @@
 
 #include "data_parser.hpp"
 
+#include <ctime>
+
 
 struct packet_header {
   static inline constexpr uint8_t marker_byte = 0xff;
@@ -25,6 +27,37 @@ struct packet_header {
   uint32_t interval;
 
   uint32_t bytes;
+
+  std::string timeString() const;
+  std::string timeString(uint32_t addSeconds) const;
+
+  //std::time_t time() const;
+  std::tm time(uint32_t addSeconds = 0) const;
+
+
+  // TODO: use a native date/time format for printing each datapoint to be able to add n seconds between readings
+    // TODO: Horribly innefficient to do this every time
+   
+    /*std::string toret;
+
+    using std::to_string;
+    toret += to_string(century);
+    toret += to_string(year);
+    toret += '-';
+
+    toret += to_string(month);
+    toret += '-';
+    toret += to_string(day);
+    toret += ' ';
+
+    toret += to_string(hour);
+    toret += 
+
+    
+    
+
+    return toret;*/
+  
 
 };
 // TODO: This is not 100% portable, but will work for now. Basically all machines that would run this are little endian

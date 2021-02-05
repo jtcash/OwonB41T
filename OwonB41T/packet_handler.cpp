@@ -1,6 +1,67 @@
 #include "stdafx.h"
 #include "packet_handler.hpp"
 
+
+
+std::string packet_header::timeString() const {
+  std::ostringstream oss{};
+
+  auto put = [&oss](uint8_t x) {
+    oss << std::setw(2) << std::setfill('0') << uint16_t(x);
+  };
+
+  put(century);
+  put(year);
+  oss << '-';
+  put(month);
+  oss << '-';
+  put(day);
+
+  oss << ' ';
+  put(hour);
+  oss << ':';
+  put(minute);
+  oss << ':';
+  put(second);
+
+
+  //oss << std::setw(4) << std::setfill('0') 
+  //  << u(century) << u(year) << '-' << u(month) << '-' << u(day)
+  //  << ' ' << u(hour) << ':' << u(minute) << ':' << u(second);
+
+  return oss.str();
+}
+//std::time_t packet_header::time() const {
+//  //"%Y-%m-%d %H:%M:%S"
+//  //std::time_t tt;
+//
+//
+//}
+
+
+std::string packet_header::timeString(uint32_t addSeconds) const {
+  std::ostringstream oss{};
+  
+  std::tm tm = time(addSeconds);
+  oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+
+  return oss.str();
+}
+
+std::tm packet_header::time(uint32_t addSeconds) const {
+  std::tm tm{};
+
+  std::istringstream iss(timeString());
+
+  iss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+    
+  tm.tm_sec += addSeconds;
+
+  return tm;
+}
+
+
+
 bool packet_handler::is_marker_packet(const std::vector<uint8_t>& data) {
 	if (data.size() != packet_header::marker_length)
 		return false;
@@ -40,10 +101,13 @@ downloaded_data::downloaded_data(const std::vector<uint8_t>& packet) {
 
 void downloaded_data::print() const {
   //std::cerr << "Testing printing downloaded data\n\n";
+
+  uint32_t i = 0;
   for (auto&& r : readings) {
     auto d = dp.parseReading(r);
-    std::cout << "#\t" << d.formattedString() << "\tOFFLINE" << std::endl;
+    std::cout << header.timeString(i++ * header.interval) << '\t' << d.formattedString() << std::endl;
   }
+
 
 }
 
