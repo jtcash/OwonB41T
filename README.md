@@ -10,12 +10,13 @@ This project is currently early in development, but I've completed the core func
 * Printing data from the meter to stdout
 * Controlling the meter with simluated button presses from stdin
 * Downloading and printing stored offline data
-* Renaming your device (the LocalName for your meter's advertisements)
-
+* Sending non-button commands to the meter: start logging, download recorded data, rename device... etc.
+  * Start offline data recording
+  * Download recorded data
+  * Renaming your device (the LocalName for your meter's advertisements)
 ## Features Coming Soon
 * Retries for failed or dropped connections
 * Command line argument parsing to make this a useful interface for use with other programs
-* Sending non-button commands to the meter: start logging, stop logging, download recorded data, rename device... etc.
 * Output format customization
 
 ## Example Usage
@@ -39,9 +40,11 @@ After the meter is connected, you can interact with it using the following keys 
 
 To simulate pressing and holding a key, use a capital letter instead, e.g. sending an 'H' turns on the backlight. 
 
-## Offline/Recorded Data
-Offline data support is in progress right now, but sending `o` to stdin (followed by a newline) will download the recorded data and print it to stdout:
+## Offline Data Logging
+Offline data support is in progress right now, so the interaction methods will certainly change.
 
+### Downloading Recorded Data
+Sending `o` to stdin (followed by a newline) will download the recorded data and print it to stdout:
 ```
 typed: 'o'
 Sending command: *READlen?
@@ -59,6 +62,11 @@ downloading: 84.7458%
 #       2021-02-04 20:26:22     13.55   m V AC
 #       2021-02-04 20:26:23     13.96   m V AC
 ```
+
+### Starting Offline Data Logging
+Sending `p interval count` (where `interval` is an integer representing the number of seconds between data points and `count` is an integer representing the number of data points) to stdin (followed by a newline) will make the meter disconnect from Bluetooth and start recording.
+
+Currently, there is no real feedback about it disconnecting. This will come in the future when I implement retry/reconnect functionality.
 
 ## Renaming the Meter
 Sending an `@` followed by a new device name (then a newline) will rename your multimeter. The name is limited to 14 characters total and the string `B41T+` is currently appended to the end of your inputted name by default. This ensures the default search substring of `B41T` still finds your meter.  
