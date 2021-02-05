@@ -43,9 +43,20 @@ std::tm packet_header::time(uint32_t addSeconds) const {
   std::istringstream iss(timeString());
 
   iss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-    
-  tm.tm_sec += addSeconds;
+  
+  if (addSeconds) {
+    tm.tm_sec += addSeconds;
 
+    // Now normalize the time
+    std::tm tm2;
+    auto tt = std::mktime(&tm);
+    auto failure = localtime_s(&tm2, &tt);
+    if (failure) {
+      std::cerr << "Failed to normalize modified time" << std::endl;
+    } else {
+      tm = tm2;
+    }
+  }
   return tm;
 }
 
