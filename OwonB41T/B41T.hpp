@@ -48,12 +48,20 @@ class B41T{
 
 
 
+	std::mutex download_mut{};
+	//std::unique_lock<std::mutex> download_lock{download_mut};
+	std::atomic<uint32_t> downloading{};
+	std::vector<byte> download{};
+
+
+
 
 	concurrency::task<bool> sendControl(uint16_t cmd);
 
+
+	
 public: // temp
 
-	void waitUntilConnected();
 
 
 	concurrency::task<bool> sendCommand(const std::vector<uint8_t>& buf);
@@ -66,8 +74,15 @@ private: // temp
 
 	concurrency::task<bool> getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName = "a");
 
-public:
 	concurrency::task<bool> registerNotifications();
+public:
+	bool isDownloading() const noexcept {
+		return downloading != 0;
+	}
+
+	void waitUntilConnected(); // Block until the meter has been connected to
+
+	concurrency::task<bool> startDownload();
 
 
 	void connectByName(std::wstring nameSubstrMatch = L"B41T+");

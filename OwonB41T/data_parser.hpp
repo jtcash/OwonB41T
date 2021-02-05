@@ -19,6 +19,19 @@ namespace std {
 		}
 		return os << '}';
 	}
+	template<typename CharT, typename Traits>
+	std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const std::vector<uint8_t>& v) {
+		os << "{ ";
+		bool first = true;
+		for (auto&& e : v) {
+			if (first)
+				first = false;
+			else
+				os << ", ";
+			os << std::hex << uint32_t(e);
+		}
+		return os << '}';
+	}
 }
 namespace formatting {
 
@@ -144,4 +157,8 @@ public:
 
 
 	std::string hexString() const;
+
+
+
+	static bool is_marker_packet(const std::vector<uint8_t>& data);
 };

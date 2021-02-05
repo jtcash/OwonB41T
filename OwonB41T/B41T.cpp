@@ -143,7 +143,7 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	auto status = sendCommand("*READlen?").get();
 	if (!status) {
 		std::cerr << "Failed to send query for recording length" << std::endl;
-		co_return false;
+		co_return 0;
 	}
 
 	using namespace winrt::Windows::Devices::Bluetooth;
@@ -156,7 +156,7 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 	if (resultStatus != GattCommunicationStatus::Success) {
 		std::cerr << "Failed to read length" << std::endl;
-		co_return false;
+		co_return 0;
 	}
 
 	auto value = read_IBuffer(result.Value());
@@ -166,12 +166,58 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
 
 	std::cerr << std::hex << value << std::endl;
-	std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << std::endl;
+	std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << " records" << std::endl;
 
-	co_return size;
+	co_return size * 2;
 }
 
 
+concurrency::task<bool> B41T::startDownload() {
+	auto size = co_await queryOfflineLength();
+	std::cerr << "Will attempt to downlod " << size << " bytes" << std::endl;
+
+
+	// TODO: will this be a race condition? What if the download command goes through before this next statement
+	bool status{};
+	{
+		//download_lock.lock();
+		//std::lock_guard<std::mutex> guard(download_mut);
+		status = co_await sendCommand("*READ1?");
+		downloading = size - 10; // TODO: why is this necessary?
+		download.clear();
+		//download_lock.unlock();
+	}
+	if (!status) {
+		std::cerr << "Failed to send query for recording length" << std::endl;
+		co_return false;
+	}
+
+	using namespace winrt::Windows::Devices::Bluetooth;
+	using namespace GenericAttributeProfile;
+
+	co_return true;
+	//// Holy crap, it took a while to figure out that I was doing this correctly, it's just that
+	//// windows caches characteristic values by default!!!
+	//cmdCharacteristic.ReadValueAsync(BluetoothCacheMode::Uncached);
+	//decltype(auto) result = cmdCharacteristic.ReadValueAsync().get();
+	//auto resultStatus = result.Status();
+
+	//if (resultStatus != GattCommunicationStatus::Success) {
+	//	std::cerr << "Failed to read length" << std::endl;
+	//	co_return false;
+	//}
+
+	//auto value = read_IBuffer(result.Value());
+	//eecho(value.size());
+
+	//// TODO: Do not rely on machine byte order for this
+	//uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
+
+	//std::cerr << std::hex << value << std::endl;
+	//std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << std::endl;
+
+	//co_return size;
+}
 
 
 
@@ -207,11 +253,35 @@ concurrency::task<bool> B41T::registerNotifications() {
 		co_return false;
 	}
 
-	readCharacteristic.ValueChanged([](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
+	readCharacteristic.ValueChanged([this](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
 		auto buf = read_IBuffer(args.CharacteristicValue());
 		// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
-		data_parser dp(buf);
-		std::cout << dp.formattedString() << std::endl;
+		if (data_parser::is_marker_packet(buf)) {
+			std::cerr << "RECIEVED MARKER PACKET!" << std::endl;
+		} else if (buf.size() == 20 || downloading != 0) {
+			// START OF DOWNLOAD??
+			eecho(downloading);
+			eecho(download.size());
+			download.insert(download.end(), buf.begin(), buf.end());
+
+			if (download.size() == downloading) {
+				downloading = 0;
+				std::cerr << "DONE DOWNLOADING\n";
+				std::cerr << download << std::endl;
+			}
+
+
+		} else {
+
+
+			data_parser dp(buf);
+			if (dp.isValid()) {
+				std::cout << dp.formattedString() << std::endl;
+			} else {
+				std::cerr << "invalid data to parser, is it a download?" << std::endl;
+				std::cerr << "buf.size() = " << buf.size() << std::endl;
+			}
+		}
 	});
 
 

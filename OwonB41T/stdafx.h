@@ -28,6 +28,7 @@
 #include <set>
 #include <map>
 
+#include <atomic>
 
 
 #include <winrt/base.h>

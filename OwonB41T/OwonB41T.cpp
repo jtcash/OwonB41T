@@ -68,7 +68,13 @@ int main(Platform::Array<Platform::String^>^ args) {
 			auto status = meter.queryOfflineLength().get();
 			eecho(status);
 			continue;
+		} else if (c == 'w') {
+			auto status = meter.startDownload().get();
+			if (!status) std::cerr << "FAILED TO START DOWNLOAD" << std::endl;
+			continue;
 		}
+
+
 		meter.press(c);
 
 	}

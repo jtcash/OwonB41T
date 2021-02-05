@@ -118,3 +118,15 @@ std::string data_parser::hexString() const {
 	}
 	return toret;
 }
+
+
+
+
+bool data_parser::is_marker_packet(const std::vector<uint8_t>& data) {
+	if (data.size() != 20)
+		return false;
+	for (auto&& e : data)
+		if (e != uint8_t(0xff))
+			return false;
+	return true;
+}
