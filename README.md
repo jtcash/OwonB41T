@@ -10,6 +10,7 @@ This project is currently early in development, but I've completed the core func
 * Printing data from the meter to stdout
 * Controlling the meter with simluated button presses from stdin
 * Downloading and printing stored offline data
+* Renaming your device (the LocalName for your meter's advertisements)
 
 ## Features Coming Soon
 * Retries for failed or dropped connections
