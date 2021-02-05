@@ -8,21 +8,7 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 
 
 
-namespace std {
-	template<typename CharT, typename Traits, typename T>
-	std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const std::vector<T>& v) {
-		os << "{ ";
-		bool first = true;
-		for (auto&& e : v) {
-			if (first)
-				first = false;
-			else
-				os << ", ";
-			os << e;
-		}
-		return os << '}';
-	}
-}
+
 
 
 

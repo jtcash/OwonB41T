@@ -103,12 +103,18 @@ std::string data_parser::formattedString() const {
 	toret += funcString();
 	toret += '\t';
 	toret += statusString();
+
+	// TODO: Remove this
+	toret += '\t';	toret += hexString(); 
+
 	return toret;
 }
 
 std::string data_parser::hexString() const {
 	std::string toret;
-	for (auto&& e : data)
+	for (auto&& e : data) {
 		toret += formatting::hex(e);
+		toret += ' ';
+	}
 	return toret;
 }

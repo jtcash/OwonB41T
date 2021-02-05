@@ -148,12 +148,10 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 
 	using namespace winrt::Windows::Devices::Bluetooth;
 	using namespace GenericAttributeProfile;
-	//Sleep(2000);
 	// Holy crap, it took a while to figure out that I was doing this correctly, it's just that
 	// windows caches characteristic values by default!!!
 	cmdCharacteristic.ReadValueAsync(BluetoothCacheMode::Uncached);
 	decltype(auto) result = cmdCharacteristic.ReadValueAsync().get();
-	//decltype(auto) result = co_await cmdCharacteristic.ReadValueAsync();
 	auto resultStatus = result.Status();
 
 	if (resultStatus != GattCommunicationStatus::Success) {
@@ -208,9 +206,6 @@ concurrency::task<bool> B41T::registerNotifications() {
 		std::cerr << "Connection Failed" << std::endl;
 		co_return false;
 	}
-
-
-
 
 	readCharacteristic.ValueChanged([](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
 		auto buf = read_IBuffer(args.CharacteristicValue());
