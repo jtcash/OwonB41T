@@ -24,19 +24,8 @@ std::string packet_header::timeString() const {
   oss << ':';
   put(second);
 
-
-  //oss << std::setw(4) << std::setfill('0') 
-  //  << u(century) << u(year) << '-' << u(month) << '-' << u(day)
-  //  << ' ' << u(hour) << ':' << u(minute) << ':' << u(second);
-
   return oss.str();
 }
-//std::time_t packet_header::time() const {
-//  //"%Y-%m-%d %H:%M:%S"
-//  //std::time_t tt;
-//
-//
-//}
 
 
 std::string packet_header::timeString(uint32_t addSeconds) const {
@@ -100,15 +89,12 @@ downloaded_data::downloaded_data(const std::vector<uint8_t>& packet) {
 }
 
 void downloaded_data::print() const {
-  //std::cerr << "Testing printing downloaded data\n\n";
-
   uint32_t i = 0;
   for (auto&& r : readings) {
     auto d = dp.parseReading(r);
-    std::cout << header.timeString(i++ * header.interval) << '\t' << d.formattedString() << std::endl;
+    // TODO: very innefficient. do better.
+    std::cout << offline_prefix << header.timeString(i++ * header.interval) << '\t' << d.formattedString() << std::endl;
   }
-
-
 }
 
 

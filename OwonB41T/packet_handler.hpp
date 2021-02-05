@@ -31,33 +31,8 @@ struct packet_header {
   std::string timeString() const;
   std::string timeString(uint32_t addSeconds) const;
 
-  //std::time_t time() const;
   std::tm time(uint32_t addSeconds = 0) const;
 
-
-  // TODO: use a native date/time format for printing each datapoint to be able to add n seconds between readings
-    // TODO: Horribly innefficient to do this every time
-   
-    /*std::string toret;
-
-    using std::to_string;
-    toret += to_string(century);
-    toret += to_string(year);
-    toret += '-';
-
-    toret += to_string(month);
-    toret += '-';
-    toret += to_string(day);
-    toret += ' ';
-
-    toret += to_string(hour);
-    toret += 
-
-    
-    
-
-    return toret;*/
-  
 
 };
 // TODO: This is not 100% portable, but will work for now. Basically all machines that would run this are little endian
@@ -67,6 +42,8 @@ static_assert(offsetof(packet_header, day) == 3, "packet_header is not right3 :(
 
 
 struct downloaded_data {
+  static inline constexpr std::string_view offline_prefix = "#\t";
+
   packet_header header;
   data_parser dp;
 
@@ -81,9 +58,6 @@ struct downloaded_data {
 
 
 class packet_handler {
-
-
-
 
 
   std::vector<uint8_t> previous;

@@ -162,7 +162,6 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	}
 
 	auto value = read_IBuffer(result.Value());
-	//eecho(value.size());
 
 	// TODO: Do not rely on machine byte order for this
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
@@ -232,22 +231,13 @@ concurrency::task<bool> B41T::registerNotifications() {
 		packets << read_IBuffer(args.CharacteristicValue());
 
 		if (packets.isDownloading()) {
-		/*	eecho(packets.getExpectedBytes());
-			eecho(packets.getBuffer().size());
-			eecho(packets.getBuffer());*/
-
 			std::cerr << "downloading: " << packets.downloadedPercent() << '%' <<  std::endl;
 		} else if(packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
-				//std::cerr << "finished downloading" << std::endl;
-				//std::cerr << "BUFFER: " << packets.getBuffer() << std::endl;
-				//eecho(packets.getBuffer().size());
-				//// TODO: Handle the downloaded data here
-				//packets.test();
+			
+			auto dd = packets.getDownloadedData();
+			dd.print();
 
-				auto dd = packets.getDownloadedData();
-				dd.print();
-
-				packets.clear();
+			packets.clear();
 				
 		} else {
 			data_parser dp(packets.getPrevious());
