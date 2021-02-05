@@ -9,10 +9,9 @@ This project is currently early in development, but I've completed the core func
 * Connecting to an Owon B41T+ by device name (GATT LocalName) or MAC address
 * Printing data from the meter to stdout
 * Controlling the meter with simulated button presses from stdin
-* Downloading and printing stored offline data
 * Sending non-button commands to the meter: start logging, download recorded data, rename device... etc.
   * Start offline data recording
-  * Download recorded data
+  * Download and print recorded offline data
   * Renaming your device (the LocalName for your meter's advertisements)
 ## Features Coming Soon
 * Retries for failed or dropped connections
