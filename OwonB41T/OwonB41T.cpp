@@ -85,6 +85,11 @@ int main(Platform::Array<Platform::String^>^ args) {
 			std::cerr << "renamed device to \"" << name << "\"" << std::endl;
 			continue;
 			
+		} else if (c == 'p') { // TODO: Choose key 
+			auto status = meter.sendDateCommand().get();
+			if (!status) {
+				std::cerr << "Failed to send date command!" << std::endl;
+			}
 		}
 
 

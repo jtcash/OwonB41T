@@ -76,6 +76,11 @@ public: // temp
 
 	 // max 14 characters, be careful with special symbols!
 	concurrency::task<bool> sendRenameCommand(std::string_view sv);
+	
+	
+	concurrency::task<bool> sendDateCommand();
+	concurrency::task<bool> sendRecordCommand(uint32_t interval, uint32_t count);
+
 
 
 private: // temp

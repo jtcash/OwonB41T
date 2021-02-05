@@ -164,6 +164,47 @@ concurrency::task<bool> B41T::sendRenameCommand(std::string_view sv) {
 
 
 
+
+
+
+concurrency::task<bool> B41T::sendDateCommand() {
+	std::time_t tt = std::time(nullptr);
+	std::tm tm;
+
+	auto failure = localtime_s(&tm, &tt);
+	if (failure) {
+		std::cerr << "Could not get current time and date" << std::endl;
+		co_return false;
+	}
+
+
+	constexpr std::string_view prefix = "*DATe"; // why did they use lowercase e?
+	std::vector<uint8_t> cmd(16);
+
+	auto it = std::copy(prefix.begin(), prefix.end(), cmd.begin());
+	
+	int year = tm.tm_year + 1900;
+	*it++ = uint8_t(year/100);
+	*it++ = uint8_t(year%100);
+
+	*it++ = uint8_t(tm.tm_mon + 1);
+	*it++ = uint8_t(tm.tm_mday);
+	
+	*it++ = uint8_t(tm.tm_hour);
+	*it++ = uint8_t(tm.tm_min);
+	*it++ = uint8_t(tm.tm_sec);
+
+	std::cerr << "sending date command: \"" << cmd << "\"" << std::endl;
+
+	co_return co_await sendCommand(cmd);
+}
+concurrency::task<bool> sendRecordCommand(uint32_t interval, uint32_t count) {
+	co_return false;
+}
+
+
+
+
 concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	auto status = sendCommand("*READlen?").get();
 	if (!status) {
