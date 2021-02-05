@@ -198,10 +198,39 @@ concurrency::task<bool> B41T::sendDateCommand() {
 
 	co_return co_await sendCommand(cmd);
 }
-concurrency::task<bool> sendRecordCommand(uint32_t interval, uint32_t count) {
-	co_return false;
+
+concurrency::task<bool> B41T::sendRecordCommand(uint32_t interval, uint32_t count) {
+	if (count > 10000) {
+		std::cerr << "Cannot record more than 10000 readings" << std::endl;
+		co_return false;
+	}
+	if (!interval) {
+		std::cerr << "Recording interval cannot be 0"<< std::endl;
+		co_return false;
+	}
+	constexpr std::string_view prefix = "*RECOrd,"; // such weird command syntax
+	
+	std::vector<uint8_t> cmd(16);
+	auto it = std::copy(prefix.begin(), prefix.end(), cmd.begin());
+
+
+	// TODO: Endian issue here. handle it properly in the future! Little endian works here
+	auto tgt = reinterpret_cast<uint32*>(cmd.data()) + 2;
+	tgt[0] = interval;
+	tgt[1] = count;
+
+	std::cerr << "sending record start command: \"" << cmd << "\"" << std::endl;
+
+	co_return co_await sendCommand(cmd);
 }
 
+concurrency::task<bool> B41T::startRecording(uint32_t interval, uint32_t count) {
+	if (!co_await sendDateCommand()) {
+		std::cerr << "cannot start recording" << std::endl;
+		co_return false;
+	}
+	co_return co_await sendRecordCommand(interval, count);
+}
 
 
 

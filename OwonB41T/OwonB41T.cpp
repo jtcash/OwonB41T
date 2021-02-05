@@ -85,11 +85,23 @@ int main(Platform::Array<Platform::String^>^ args) {
 			std::cerr << "renamed device to \"" << name << "\"" << std::endl;
 			continue;
 			
-		} else if (c == 'p') { // TODO: Choose key 
+		} else if (c == 'l') { // TODO: Choose key 
 			auto status = meter.sendDateCommand().get();
 			if (!status) {
 				std::cerr << "Failed to send date command!" << std::endl;
 			}
+		} else if (c == 'p') {
+			uint32_t interval{};
+			uint32_t count{};
+
+			std::cin >> interval;
+			std::cin >> count;
+			eecho(interval);
+			eecho(count);
+
+			meter.startRecording(interval, count);
+			
+			
 		}
 
 

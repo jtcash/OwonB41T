@@ -82,6 +82,10 @@ public: // temp
 	concurrency::task<bool> sendRecordCommand(uint32_t interval, uint32_t count);
 
 
+	concurrency::task<bool> startRecording(uint32_t interval, uint32_t count);
+
+
+
 
 private: // temp
 
