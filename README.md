@@ -9,6 +9,7 @@ This project is currently early in development, but I've completed the core func
 * Connecting to an Owon B41T+ by device name or mac address
 * Printing data from the meter to stdout
 * Controlling the meter with simluated button presses from stdin
+* Downloading and printing stored offline data
 
 ## Features Coming Soon
 * Retries for failed or dropped connections
@@ -37,6 +38,28 @@ After the meter is connected, you can interact with it using the following keys 
 
 To simulate pressing and holding a key, use a capital letter instead, e.g. sending an 'H' turns on the backlight. 
 
+## Offline/Recorded Data
+Offline data support is in progress right now, but sending `o` to stdin (followed by a newline) will download the recorded data and print it to stdout:
+
+```
+typed: 'o'
+Sending command: *READlen?
+Will attempt to downlod 62 bytes
+Sending command: *READ1?
+downloading: 16.9492%
+downloading: 33.8983%
+downloading: 50.8475%
+downloading: 67.7966%
+downloading: 84.7458%
+#       2021-02-04 20:26:18     13.62   m V AC
+#       2021-02-04 20:26:19     13.69   m V AC
+#       2021-02-04 20:26:20     13.43   m V AC
+#       2021-02-04 20:26:21     13.84   m V AC
+#       2021-02-04 20:26:22     13.55   m V AC
+#       2021-02-04 20:26:23     13.96   m V AC
+```
+
 ---
+
 
 NOTE: The current methods of interacting with the meter will certainly be changed in the future. This is just what I slapped together while I was trying to get the more complicated bits working.
