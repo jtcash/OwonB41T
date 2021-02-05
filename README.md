@@ -15,6 +15,7 @@ This project is currently early in development, but I've completed the core func
   * Renaming your device (the LocalName for your meter's advertisements)
 ## Features Coming Soon
 * Retries for failed or dropped connections
+* Command line argument option to connect by MAC address
 * Command line argument parsing to make this a useful interface for use with other programs
 * Output format customization
 * Command line arguments for avoiding an interactive session (e.g. arguments to download recorded data to a file, start recording... etc.)
