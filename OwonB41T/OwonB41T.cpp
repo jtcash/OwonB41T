@@ -41,7 +41,7 @@ int main(Platform::Array<Platform::String^>^ args) {
 	if (addr) {
 		meter.connectByAddress(addr);
 	} else {
-		std::wstring nameSubstring = L"B41T+";
+		std::wstring nameSubstring = L"B41T";
 		if (args->Length > 1) {
 			nameSubstring = args[1]->Data();
 		}
