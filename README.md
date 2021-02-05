@@ -6,9 +6,9 @@ I will be posting binaries in the future, but you should be able to compile this
 ## Current Features
 This project is currently early in development, but I've completed the core functionality: 
 * Compatibility with any Bluetooth Low Energy adapter (built-in ones included)
-* Connecting to an Owon B41T+ by device name or mac address
+* Connecting to an Owon B41T+ by device name (GATT LocalName) or MAC address
 * Printing data from the meter to stdout
-* Controlling the meter with simluated button presses from stdin
+* Controlling the meter with simulated button presses from stdin
 * Downloading and printing stored offline data
 * Sending non-button commands to the meter: start logging, download recorded data, rename device... etc.
   * Start offline data recording
@@ -18,6 +18,8 @@ This project is currently early in development, but I've completed the core func
 * Retries for failed or dropped connections
 * Command line argument parsing to make this a useful interface for use with other programs
 * Output format customization
+* Command line arguments for avoiding an interactive session (e.g. arguments to download recorded data to a file, start recording... etc.)
+
 
 ## Example Usage
 If you haven't changed your multimeter's name, it should just connect automatically. Otherwise, you can pass the name (or a substring) of your multimeter as the first argument to the program.
@@ -76,7 +78,7 @@ Also, be careful of what characters you input for the name. I blocked all non-pr
 ---
 
 ## Notes
-I have tested this software on three different computers and I haven't seen any compatability issues, but your mileage may vary. Please let me know if the releases don't run or the .sln does not compile.
+I have tested this software on three different computers and I haven't seen any compatibility  issues, but your mileage may vary. Please let me know if the releases don't run or the .sln does not compile.
 
 The current methods of interacting with the meter will certainly be changed in the future. This is just what I slapped together while I was trying to get the more complicated bits working.
 
