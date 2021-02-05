@@ -144,17 +144,22 @@ concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
 }
 
 
-concurrency::task<bool> sendRenameCommand(std::string_view sv) {
+concurrency::task<bool> B41T::sendRenameCommand(std::string_view sv) {
 	if (sv.size() > 14) {
 		std::cerr << "rename strings cannot be longer than 14 characters" << std::endl;
 		co_return false;
 	}
-	for (auto&& c : sv) {
-		if (!std::isprint(c) || c == '?' || c == '*' || c == '@' || c == ',') // blacklist these to be safe
+	for (auto&& c : sv) 
+		if (!std::isprint(c) || c == '?' || c == '*' || c == '@' || c == ',') { // blacklist these to be safe
+			std::cerr << "rename strings cannot contain ceratain special characters" << std::endl;
 			co_return false;
-	}
+		}
+	
+	std::vector<uint8_t> buf(16); // zero filled
+	buf[0] = '@';
+	std::copy(sv.begin(), sv.end(), buf.begin()+1);
 
-		
+	co_return co_await sendCommand(buf);
 }
 
 

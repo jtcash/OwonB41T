@@ -71,8 +71,20 @@ int main(Platform::Array<Platform::String^>^ args) {
 		} else */
 		if (c == 'o') {
 			auto status = meter.startDownload().get();
-			if (!status) std::cerr << "FAILED TO START DOWNLOAD" << std::endl;
+			if (!status) 
+				std::cerr << "FAILED TO START DOWNLOAD" << std::endl;
 			continue;
+		} else if (c == '@') {
+			std::string name;
+			std::getline(std::cin, name);
+
+			name += "B41T+"; // for ease of use while debugging 
+			auto status = meter.sendRenameCommand(name).get();
+			if (!status)
+				std::cerr << "Failed to rename device to \"" << name << "\"" << std::endl;
+			std::cerr << "renamed device to \"" << name << "\"" << std::endl;
+			continue;
+			
 		}
 
 
