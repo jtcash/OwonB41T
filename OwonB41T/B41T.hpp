@@ -39,6 +39,7 @@ class B41T{
 	winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic ctrlCharacteristic{nullptr};
 	winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic readCharacteristic{nullptr};
 
+
 	std::mutex mut{};
 	std::condition_variable connecting_cv;
 
@@ -48,10 +49,10 @@ class B41T{
 
 
 
-	std::mutex download_mut{};
+	//std::mutex download_mut{};
 	//std::unique_lock<std::mutex> download_lock{download_mut};
-	std::atomic<uint32_t> downloading{};
-	std::vector<byte> download{};
+	//std::atomic<uint32_t> downloading{};
+	//std::vector<byte> download{};
 
 	packet_handler packets{};
 
@@ -67,8 +68,8 @@ public: // temp
 
 
 	concurrency::task<bool> sendCommand(const std::vector<uint8_t>& buf);
-		//concurrency::task<bool> B41T::sendCommand(uint8_t* buf, size_t size);
 	concurrency::task<bool> sendCommand(std::string_view cmd);
+
 
 	concurrency::task<uint32_t> queryOfflineLength();
 
@@ -93,16 +94,14 @@ private: // temp
 
 	concurrency::task<bool> registerNotifications();
 public:
-	bool isDownloading() const noexcept {
-		return downloading != 0;
-	}
+	//bool isDownloading() const noexcept {return downloading != 0;}
 
 	void waitUntilConnected(); // Block until the meter has been connected to
 
 	concurrency::task<bool> startDownload();
 
 
-	void connectByName(std::wstring nameSubstrMatch = L"B41T+");
+	void connectByName(std::wstring nameSubstrMatch = L"B41T");
 	concurrency::task<bool> connectByAddress(unsigned long long deviceAddress);
 
 

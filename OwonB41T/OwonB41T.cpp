@@ -52,23 +52,15 @@ int main(Platform::Array<Platform::String^>^ args) {
 	std::cerr << "Done connecting\n" << std::endl;
 
 
-	//Sleep(4000);
 
 
 
-
+	// TODO: Clean up the interactive loop
 	for (;;) {
 		char c;
 		std::cin >> c;
 		std::cerr << "typed: '" << c << '\'' <<  std::endl;
 
-
-		/* if (c == 'q') {
-			std::cerr << "TESTING\n";
-			auto status = meter.queryOfflineLength().get();
-			eecho(status);
-			continue;
-		} else */
 		if (c == 'o') {
 			auto status = meter.startDownload().get();
 			if (!status) 
@@ -96,11 +88,12 @@ int main(Platform::Array<Platform::String^>^ args) {
 
 			std::cin >> interval;
 			std::cin >> count;
+
+			// TODO: Error checking to ensure integers were given
 			eecho(interval);
 			eecho(count);
 
 			meter.startRecording(interval, count);
-			
 			
 		}
 

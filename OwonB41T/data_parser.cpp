@@ -32,15 +32,6 @@ data_parser data_parser::parseReading(uint16_t newReading) const {
 }
 
 
-//std::array<uint16_t, 3> data_parser::recreateData() const {
-//	std::array<uint16_t, 3> toret;
-//
-//	uint16_t 
-//
-//
-//	return toret;
-//}
-
 std::string data_parser::hexString() const {
 	std::string toret;
 	for (auto&& e : data) {
@@ -61,7 +52,6 @@ void data_parser::initFromData() {
 }
 
 std::string data_parser::statusString() const {
-	//uint16_t mode = data[1];
 	std::string status = "";
 	for (int i = 0; i<8; ++i) {
 		if ((mode&(1<<i)) != 0) {

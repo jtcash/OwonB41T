@@ -20,28 +20,10 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void B41T::waitUntilConnected() {
 	std::unique_lock<std::mutex> lk(mut);
 	connecting_cv.wait(lk);
 }
-
-
-
 
 
 
@@ -76,7 +58,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 
 
 		std::wstring name(eventArgs.Advertisement().LocalName().c_str());
-		std::wcerr << "FOUND: " << std::hex << eventArgs.BluetoothAddress() << "\t" << name << std::endl;
+		std::wcerr << "FOUND: " << std::hex << eventArgs.BluetoothAddress() << std::dec << "\t" << name << std::endl;
 
 		if (name.find(nameSubstrMatch) != std::wstring::npos) {
 			std::cerr << "\nFOUND OWON B41T+" << std::endl;
@@ -101,7 +83,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 concurrency::task<bool> B41T::sendControl(uint16_t cmd) {
 	winrt::Windows::Storage::Streams::DataWriter writer;
 	writer.ByteOrder(winrt::Windows::Storage::Streams::ByteOrder::LittleEndian);
-	std::cerr << "Sending Control: " << std::hex << cmd << std::endl;
+	std::cerr << "Sending Control: " << std::hex << cmd << std::dec << std::endl;
 	writer.WriteInt16(cmd);
 
 	auto status = co_await ctrlCharacteristic.WriteValueAsync(writer.DetachBuffer());
@@ -117,19 +99,14 @@ concurrency::task<bool> B41T::sendCommand(const std::vector<uint8_t>& buf) {
 	}
 
 	winrt::Windows::Storage::Streams::DataWriter writer;
-	//writer.ByteOrder(winrt::Windows::Storage::Streams::ByteOrder::LittleEndian);
 	std::cerr << "Sending command: " <<  std::string_view(reinterpret_cast<const char*>(buf.data()), buf.size()) << std::endl;
-	//writer.WriteInt32(cmd);
+	
 	winrt::array_view<const uint8_t> view(buf);
 	writer.WriteBytes(buf);
 
 
 	decltype(auto) status = co_await cmdCharacteristic.WriteValueWithResultAsync(writer.DetachBuffer());
-	//status.
-	//status.Status()
 	co_return status.Status() == winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCommunicationStatus::Success;
-	//auto status = co_await cmdCharacteristic.WriteValueAsync(writer.DetachBuffer());
-	//co_return status == winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCommunicationStatus::Success;
 }
 
 concurrency::task<bool> B41T::sendCommand(std::string_view cmd) {
@@ -259,8 +236,7 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	// TODO: Do not rely on machine byte order for this
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
 
-	//std::cerr << std::hex << value << std::endl;
-	//std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << " records" << std::endl;
+	//std::cerr << std::hex << value << std::endl << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << " records" << std::endl;
 
 	co_return size;
 }
@@ -362,7 +338,7 @@ concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress)
 	std::wcerr <<
 		"Meter Info:\n" <<
 		"\tName:\t"			<< device.Name().c_str() << '\n' <<
-		"\tAddr:\t"			<< std::hex << device.BluetoothAddress() << '\n' <<
+		"\tAddr:\t"			<< std::hex << device.BluetoothAddress() << std::dec << '\n' <<
 		"\tId:\t"				<< device.DeviceId().c_str()  << "\n\n";
 
 

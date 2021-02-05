@@ -30,7 +30,7 @@ namespace std {
 				os << ", ";
 			os << std::hex << uint32_t(e);
 		}
-		return os <<std::dec << '}';
+		return os << std::dec << '}';
 	}
 }
 namespace formatting {
