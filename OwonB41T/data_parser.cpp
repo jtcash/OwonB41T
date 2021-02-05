@@ -11,22 +11,59 @@ data_parser::data_parser(std::vector<uint8_t> bytes) {
 	if (bytes.size() == 6) {
 		for (auto i = 0; i<3; ++i)
 			data[i] = uint16_t(bytes[2*i] | uint16_t(bytes[2*i+1] << 8));
-		init();
+		initFromData();
 	}
 }
-void data_parser::init() {
-	func = uint8_t((data[0] >> 6) & 0b1111);
-	scale = uint8_t((data[0] >> 3) & 0b111);
-	magnitude = uint8_t(data[0] & 0b111);
-
-	mode = data[1];
-
-	reading = data[2];
+void data_parser::initFSM(uint16_t data0) {
+	func = uint8_t((data0 >> 6) & 0b1111);
+	scale = uint8_t((data0 >> 3) & 0b111);
+	magnitude = uint8_t(data0 & 0b111);
 
 	valid = true;
 }
 
+data_parser data_parser::parseReading(uint16_t newReading) const {
+	data_parser dp;
+	dp.func = func;
+	dp.scale = scale;
+	dp.magnitude = magnitude; 
+
+	dp.reading = newReading;
+	dp.valid = true;
+	return dp;
+}
+
+
+//std::array<uint16_t, 3> data_parser::recreateData() const {
+//	std::array<uint16_t, 3> toret;
+//
+//	uint16_t 
+//
+//
+//	return toret;
+//}
+
+std::string data_parser::hexString() const {
+	std::string toret;
+	for (auto&& e : data) {
+		toret += formatting::hex(e);
+		toret += ' ';
+	}
+	return toret;
+}
+
+
+
+void data_parser::initFromData() {
+	initFSM(data[0]);
+	mode = data[1];
+	reading = data[2];
+
+	fromData = true;
+}
+
 std::string data_parser::statusString() const {
+	//uint16_t mode = data[1];
 	std::string status = "";
 	for (int i = 0; i<8; ++i) {
 		if ((mode&(1<<i)) != 0) {
@@ -39,19 +76,19 @@ std::string data_parser::statusString() const {
 }
 
 
+
 double data_parser::decimalValue() const {
-	int mag = data[0] & 0x7;
-	if (mag == 0b111)
+	if (magnitude == 0b111)
 		return std::numeric_limits<double>::infinity();
 
-	uint16_t val = data[2];
+	uint16_t val = reading;
 	double sign = 1.0;
 	if (val >= 0x7fff) {
 		sign = -1.0;
 		val &= 0x7fff;
 	}
 
-	return sign * val / std::pow(10.0, mag);
+	return sign * val / std::pow(10.0, magnitude);
 }
 
 
@@ -101,32 +138,15 @@ std::string data_parser::formattedString() const {
 	toret += scaleChar();
 	toret += ' ';
 	toret += funcString();
-	toret += '\t';
-	toret += statusString();
+	if (isFromData()) {
+		toret += '\t';
+		toret += statusString();
 
-	// TODO: Remove this
-	toret += '\t';	toret += hexString(); 
 
-	return toret;
-}
-
-std::string data_parser::hexString() const {
-	std::string toret;
-	for (auto&& e : data) {
-		toret += formatting::hex(e);
-		toret += ' ';
+		// TODO: Remove this
+		toret += '\t';	toret += hexString();
 	}
 	return toret;
 }
 
 
-
-
-bool data_parser::is_marker_packet(const std::vector<uint8_t>& data) {
-	if (data.size() != 20)
-		return false;
-	for (auto&& e : data)
-		if (e != uint8_t(0xff))
-			return false;
-	return true;
-}

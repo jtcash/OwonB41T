@@ -30,7 +30,7 @@ namespace std {
 				os << ", ";
 			os << std::hex << uint32_t(e);
 		}
-		return os << '}';
+		return os <<std::dec << '}';
 	}
 }
 namespace formatting {
@@ -86,8 +86,11 @@ class data_parser {
 	};
 
 
-
+	// TODO: Remove this member, as it is no longer needed except for debugging the hex string
+	// and may cause issues in the future now that this class has become more flexible
 	std::array<uint16_t, 3> data{};
+
+
 	uint8_t func{};
 	uint8_t scale{};
 	uint8_t magnitude{};
@@ -97,22 +100,36 @@ class data_parser {
 	uint16_t reading{};
 
 	bool valid{};
+	bool fromData{};
+
 public:
 	constexpr data_parser()
 	{  }
+	data_parser(uint16_t fsm) {
+		initFSM(fsm);
+	}
 	data_parser(std::array<uint16_t, 3> data) : data{data} {
-		init();
+		initFromData();
 	}
 	data_parser(std::vector<uint8_t> bytes);
 
 private:
-	void init(); // Populate all other fields from the data 
+	void initFSM(uint16_t); // populate func, scale and magnitude, TODO rename because it's not a finite state machine
+	void initFromData(); // Populate all other fields from the data 
 
 public:
+	//std::array<uint16_t, 3> recreateData() const;
+	data_parser parseReading(uint16_t reading) const;
+
 	// true if reading is OL
 	bool isOL() const noexcept {
 		return magnitude == uint8_t(0b111);
 	}
+
+	bool isFromData() const noexcept {
+		return fromData;
+	}
+
 	// true if reading is negative
 	bool isNegative() const noexcept {
 		return reading & (1<<15);
@@ -120,6 +137,9 @@ public:
 	// true if data parsed successfully
 	bool isValid() const noexcept {
 		return valid;
+	}
+	bool isValidFromData() const noexcept {
+		return isValid() && isFromData();
 	}
 
 	// Get the scale multiplier
@@ -160,5 +180,4 @@ public:
 
 
 
-	static bool is_marker_packet(const std::vector<uint8_t>& data);
 };

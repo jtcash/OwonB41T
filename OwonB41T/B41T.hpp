@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-
+#include "packet_handler.hpp"
 
 // TODO: Move these somewhere nicer
 std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
@@ -52,6 +52,8 @@ class B41T{
 	//std::unique_lock<std::mutex> download_lock{download_mut};
 	std::atomic<uint32_t> downloading{};
 	std::vector<byte> download{};
+
+	packet_handler packets{};
 
 
 

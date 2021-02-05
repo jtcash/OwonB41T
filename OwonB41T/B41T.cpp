@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "B41T.hpp"
 #include "data_parser.hpp"
+
+#include "packet_handler.hpp"
 // TODO: Move these somewhere nicer
 
 
@@ -160,15 +162,15 @@ concurrency::task<uint32_t> B41T::queryOfflineLength() {
 	}
 
 	auto value = read_IBuffer(result.Value());
-	eecho(value.size());
+	//eecho(value.size());
 
 	// TODO: Do not rely on machine byte order for this
 	uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
 
-	std::cerr << std::hex << value << std::endl;
-	std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << " records" << std::endl;
+	//std::cerr << std::hex << value << std::endl;
+	//std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << " records" << std::endl;
 
-	co_return size * 2;
+	co_return size;
 }
 
 
@@ -176,47 +178,19 @@ concurrency::task<bool> B41T::startDownload() {
 	auto size = co_await queryOfflineLength();
 	std::cerr << "Will attempt to downlod " << size << " bytes" << std::endl;
 
+	packets.setExpectedBytes(size);
+	packets.clear();
 
 	// TODO: will this be a race condition? What if the download command goes through before this next statement
-	bool status{};
-	{
-		//download_lock.lock();
-		//std::lock_guard<std::mutex> guard(download_mut);
-		status = co_await sendCommand("*READ1?");
-		downloading = size - 10; // TODO: why is this necessary?
-		download.clear();
-		//download_lock.unlock();
-	}
+	auto status = co_await sendCommand("*READ1?");
+
 	if (!status) {
 		std::cerr << "Failed to send query for recording length" << std::endl;
 		co_return false;
 	}
 
-	using namespace winrt::Windows::Devices::Bluetooth;
-	using namespace GenericAttributeProfile;
-
 	co_return true;
-	//// Holy crap, it took a while to figure out that I was doing this correctly, it's just that
-	//// windows caches characteristic values by default!!!
-	//cmdCharacteristic.ReadValueAsync(BluetoothCacheMode::Uncached);
-	//decltype(auto) result = cmdCharacteristic.ReadValueAsync().get();
-	//auto resultStatus = result.Status();
 
-	//if (resultStatus != GattCommunicationStatus::Success) {
-	//	std::cerr << "Failed to read length" << std::endl;
-	//	co_return false;
-	//}
-
-	//auto value = read_IBuffer(result.Value());
-	//eecho(value.size());
-
-	//// TODO: Do not rely on machine byte order for this
-	//uint32_t size = *reinterpret_cast<const uint32_t*>(value.data());
-
-	//std::cerr << std::hex << value << std::endl;
-	//std::cerr << "OFFLINE SIZE: " << std::hex << size << '\t' << std::dec << size << std::endl;
-
-	//co_return size;
 }
 
 
@@ -254,34 +228,37 @@ concurrency::task<bool> B41T::registerNotifications() {
 	}
 
 	readCharacteristic.ValueChanged([this](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
-		auto buf = read_IBuffer(args.CharacteristicValue());
-		// for (const auto& b : buf) std::cout << formatting::hex(b) << ' '; std::cout << std::endl;
-		if (data_parser::is_marker_packet(buf)) {
-			std::cerr << "RECIEVED MARKER PACKET!" << std::endl;
-		} else if (buf.size() == 20 || downloading != 0) {
-			// START OF DOWNLOAD??
-			eecho(downloading);
-			eecho(download.size());
-			download.insert(download.end(), buf.begin(), buf.end());
 
-			if (download.size() == downloading) {
-				downloading = 0;
-				std::cerr << "DONE DOWNLOADING\n";
-				std::cerr << download << std::endl;
-			}
+		packets << read_IBuffer(args.CharacteristicValue());
 
+		if (packets.isDownloading()) {
+		/*	eecho(packets.getExpectedBytes());
+			eecho(packets.getBuffer().size());
+			eecho(packets.getBuffer());*/
 
+			std::cerr << "downloading: " << packets.downloadedPercent() << '%' <<  std::endl;
+		} else if(packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
+				//std::cerr << "finished downloading" << std::endl;
+				//std::cerr << "BUFFER: " << packets.getBuffer() << std::endl;
+				//eecho(packets.getBuffer().size());
+				//// TODO: Handle the downloaded data here
+				//packets.test();
+
+				auto dd = packets.getDownloadedData();
+				dd.print();
+
+				packets.clear();
+				
 		} else {
-
-
-			data_parser dp(buf);
-			if (dp.isValid()) {
+			data_parser dp(packets.getPrevious());
+			if (dp.isValidFromData()) {
 				std::cout << dp.formattedString() << std::endl;
 			} else {
-				std::cerr << "invalid data to parser, is it a download?" << std::endl;
-				std::cerr << "buf.size() = " << buf.size() << std::endl;
+				std::cerr << "BAD DATA PASSED TO PARSER" << std::endl;
 			}
 		}
+
+
 	});
 
 
