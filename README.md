@@ -59,7 +59,16 @@ downloading: 84.7458%
 #       2021-02-04 20:26:23     13.96   m V AC
 ```
 
+## Renaming the Meter
+Sending an `@` followed by a new device name (then a newline) will rename your multimeter. The name is limited to 14 characters total and the string `B41T+` is currently appended to the end of your inputted name by default. This ensures the default search substring of `B41T` still finds your meter.  
+This is just a quick solution, so this method of renaming is very likely to change in the future.  
+Also, be careful of what characters you input for the name. I blocked all non-print characters and a handful of symbols to ensure nothing very weird can happen where the meter would become unrecognizable due to unknown issues with special characters.
+
 ---
 
+## Notes
+I have tested this software on three different computers and I haven't seen any compatability issues, but your mileage may vary. Please let me know if the releases don't run or the .sln does not compile.
 
-NOTE: The current methods of interacting with the meter will certainly be changed in the future. This is just what I slapped together while I was trying to get the more complicated bits working.
+The current methods of interacting with the meter will certainly be changed in the future. This is just what I slapped together while I was trying to get the more complicated bits working.
+
+There is currently a bug where connecting to the meter will fail and hang in extremely rare circumstances. I have not tried figuring out the issue, as it is so difficult to replicate and happens so infrequently. Killing the program and restarting it resolves it.
