@@ -65,7 +65,6 @@ int main(Platform::Array<Platform::String^>^ args) {
 			auto status = meter.startDownload().get();
 			if (!status) 
 				std::cerr << "FAILED TO START DOWNLOAD" << std::endl;
-			continue;
 		} else if (c == '@') {
 			std::string name;
 			std::getline(std::cin, name);
@@ -75,7 +74,6 @@ int main(Platform::Array<Platform::String^>^ args) {
 			if (!status)
 				std::cerr << "Failed to rename device to \"" << name << "\"" << std::endl;
 			std::cerr << "renamed device to \"" << name << "\"" << std::endl;
-			continue;
 			
 		} else if (c == 'l') { // TODO: Choose key 
 			auto status = meter.sendDateCommand().get();
@@ -95,10 +93,9 @@ int main(Platform::Array<Platform::String^>^ args) {
 
 			meter.startRecording(interval, count);
 			
+		} else {
+			meter.press(c);
 		}
-
-
-		meter.press(c);
 
 	}
 	return 0;
