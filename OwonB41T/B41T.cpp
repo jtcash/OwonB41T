@@ -48,6 +48,8 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 	bleAdvertisementWatcher.ScanningMode(Advertisement::BluetoothLEScanningMode::Active);
 
 
+	// TODO: Am i forgetting something about lambda captures, or does this copy a vector of strings repeatedly?
+	// look into this as well as considering making it search by suffix in order to avoid name collisions
 	bleAdvertisementWatcher.Received([this, nameSubstrMatches](BluetoothLEAdvertisementWatcher const& watcher, BluetoothLEAdvertisementReceivedEventArgs const& eventArgs) {
 		{ // Track advertisements
 			std::lock_guard<std::mutex> guard(foundList.mut);
