@@ -102,6 +102,9 @@ public:
 
 
 	void connectByName(std::wstring nameSubstrMatch = L"B41T");
+
+	// Quick solution to allow seraching for numerous names. I cant pass the names by reference, as they could be destroyed in another thread
+	void connectByNames(std::vector<std::wstring> nameSubstrMatches = {L"B41T", L"BDM"});
 	concurrency::task<bool> connectByAddress(unsigned long long deviceAddress);
 
 

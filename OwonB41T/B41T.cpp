@@ -27,9 +27,14 @@ void B41T::waitUntilConnected() {
 
 
 
-
-
 void B41T::connectByName(std::wstring nameSubstrMatch) {
+	connectByNames({nameSubstrMatch});
+}
+
+
+
+
+void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 
 		// Thread-global list of the addresses and names found to avoid reporting or checking the same device more than once
 	static struct {
@@ -43,7 +48,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 	bleAdvertisementWatcher.ScanningMode(Advertisement::BluetoothLEScanningMode::Active);
 
 
-	bleAdvertisementWatcher.Received([this, nameSubstrMatch](BluetoothLEAdvertisementWatcher const& watcher, BluetoothLEAdvertisementReceivedEventArgs const& eventArgs) {
+	bleAdvertisementWatcher.Received([this, nameSubstrMatches](BluetoothLEAdvertisementWatcher const& watcher, BluetoothLEAdvertisementReceivedEventArgs const& eventArgs) {
 		{ // Track advertisements
 			std::lock_guard<std::mutex> guard(foundList.mut);
 
@@ -60,16 +65,18 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 		std::wstring name(eventArgs.Advertisement().LocalName().c_str());
 		std::wcerr << "FOUND: " << std::hex << eventArgs.BluetoothAddress() << std::dec << "\t" << name << std::endl;
 
-		if (name.find(nameSubstrMatch) != std::wstring::npos) {
-			std::cerr << "\nFOUND OWON B41T+" << std::endl;
-			watcher.Stop(); // End the advertisement watcher, we don't need it anymore
+		for (const auto& nameSubstr : nameSubstrMatches) {
+			if (name.find(nameSubstr) != std::wstring::npos) {
+				std::cerr << "\nFOUND OWON B41T+" << std::endl;
+				watcher.Stop(); // End the advertisement watcher, we don't need it anymore
 
-			bool status = connectByAddress(eventArgs.BluetoothAddress()).get();
+				bool status = connectByAddress(eventArgs.BluetoothAddress()).get();
 
-			if (!status) {
-				std::cerr << "Something went wrong while opening the device" << std::endl;
+				if (!status) {
+					std::cerr << "Something went wrong while opening the device" << std::endl;
+				}
+
 			}
-
 		}
 
 	});

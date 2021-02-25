@@ -41,12 +41,17 @@ int main(Platform::Array<Platform::String^>^ args) {
 	if (addr) {
 		meter.connectByAddress(addr);
 	} else {
-		std::wstring nameSubstring = L"B41T";
+		// TODO: clean up this workaround. Now, it will connect to the command line argument name, or search for BDM and B41T
 		if (args->Length > 1) {
-			nameSubstring = args[1]->Data();
+			std::wstring nameSubstring = args[1]->Data();
+			meter.connectByName(nameSubstring);
+		} else {
+			// I learned that the default name for the multimeter seems to be BDM
+			std::vector<std::wstring> nameSubstrings{L"BDM", L"B41T"};
+			meter.connectByNames(nameSubstrings);
 		}
-		meter.connectByName(nameSubstring);
 	}
+
 	std::cerr << "Connecting..." << std::endl;
 	meter.waitUntilConnected();
 	std::cerr << "Done connecting\n" << std::endl;
