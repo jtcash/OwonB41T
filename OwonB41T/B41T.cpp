@@ -306,6 +306,8 @@ concurrency::task<bool> B41T::registerNotifications() {
 
 	readCharacteristic.ValueChanged([this](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
 
+		// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
+
 		packets << read_IBuffer(args.CharacteristicValue());
 
 		if (packets.isDownloading()) {
