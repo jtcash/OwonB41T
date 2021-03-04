@@ -17,7 +17,6 @@ B41T meter;
 
 
 
-
 //int main(int argc, char* argv[]) {
 int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
@@ -99,7 +98,11 @@ int main(Platform::Array<Platform::String^>^ args) {
 			meter.startRecording(interval, count);
 			
 		} else {
-			meter.press(c);
+			if (meter.check_button(c)) {
+				meter.press(c);
+			} else {
+				std::cerr << "WARNING: attempting to send invalid command: '" << c << "'\n";
+			}
 		}
 
 	}
