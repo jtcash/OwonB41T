@@ -46,3 +46,12 @@
 #include <ppltasks.h>
 #include <pplawait.h>
 // TODO: reference additional headers your program requires here
+
+
+// What the heck is microsoft thinking??? Clobbering min and max is absurdly ignorant
+#pragma push_macro("max")
+#undef max
+
+#pragma push_macro("min")
+#undef min
+
