@@ -91,12 +91,19 @@ int main(Platform::Array<Platform::String^>^ args) {
 			std::cin >> interval;
 			std::cin >> count;
 
-			// TODO: Error checking to ensure integers were given
-			eecho(interval);
-			eecho(count);
-
-			meter.startRecording(interval, count);
-			
+			if (std::cin.fail()) {
+				std::cerr << "ERROR: For starting offline recording, interval and count must be provided and must be positive integers\n";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard this line of input
+			} else {
+				eecho(interval);
+				eecho(count);
+				if (interval <= 0 || count <= 0) {
+					std::cerr << "ERROR: For starting offline recording, interval nad count must be positive integers\n";
+				} else {
+					meter.startRecording(interval, count);
+				}
+			}
 		} else {
 			if (meter.check_button(c)) {
 				meter.press(c);
