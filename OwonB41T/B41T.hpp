@@ -129,6 +129,7 @@ public:
 
 		};
 
+		// The different buttons available for interacting with the meter
 		static inline constexpr button none{uint8_t(0)};
 		static inline constexpr button select{uint8_t(1)};
 		static inline constexpr button range{uint8_t(2)};
@@ -138,23 +139,7 @@ public:
 		static inline constexpr button max{uint8_t(6)};
 		static inline constexpr button all{uint8_t(7)};
 
-		/*static inline std::map<char, const button*> map{
-			{'s', &select},
-			{'r', &range},
-			{'h', &hold},
-			{'d', &rel},
-			{'z', &hz},
-			{'m', &max},
-			{'a', &all},
-		};
-		static const button& get(char c) {
-			if (auto it = map.find(c); it!=map.end()) {
-				return *(it->second);
-			} else {
-				return none;
-			}
-		}*/
-
+		// Get a button reference from a character used to index the buttons
 		static constexpr const button& get(char c) {
 			switch (c) {
 			case 's': return select;
@@ -164,7 +149,7 @@ public:
 			case 'z': return hz;
 			case 'm': return max;
 			case 'a': return all;
-			default: return none;
+			default:  return none;
 			}
 		}
 
