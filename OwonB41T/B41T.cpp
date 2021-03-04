@@ -287,6 +287,34 @@ concurrency::task<bool> B41T::getCharacteristic(winrt::guid uid, winrt::Windows:
 	co_return true;
 }
 
+
+void B41T::handlePacket(std::vector<uint8_t> pak) {
+		// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
+
+	packets << std::move(pak);
+
+	if (packets.isDownloading()) {
+		std::cerr << "downloading: " << packets.downloadedPercent() << '%' <<  std::endl;
+	} else if (packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
+
+		auto dd = packets.getDownloadedData();
+		dd.print();
+
+		packets.clear();
+
+	} else {
+		data_parser dp(packets.getPrevious());
+		if (dp.isValidFromData()) {
+			std::cout << dp.formattedString() << std::endl;
+		} else {
+			std::cerr << "BAD DATA PASSED TO PARSER" << std::endl;
+		}
+	}
+
+}
+
+
+
 concurrency::task<bool> B41T::registerNotifications() {
 	using namespace winrt::Windows::Devices::Bluetooth;
 	using namespace GenericAttributeProfile;
@@ -305,30 +333,7 @@ concurrency::task<bool> B41T::registerNotifications() {
 	}
 
 	readCharacteristic.ValueChanged([this](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
-
-		// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
-
-		packets << read_IBuffer(args.CharacteristicValue());
-
-		if (packets.isDownloading()) {
-			std::cerr << "downloading: " << packets.downloadedPercent() << '%' <<  std::endl;
-		} else if(packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
-			
-			auto dd = packets.getDownloadedData();
-			dd.print();
-
-			packets.clear();
-				
-		} else {
-			data_parser dp(packets.getPrevious());
-			if (dp.isValidFromData()) {
-				std::cout << dp.formattedString() << std::endl;
-			} else {
-				std::cerr << "BAD DATA PASSED TO PARSER" << std::endl;
-			}
-		}
-
-
+		handlePacket(read_IBuffer(args.CharacteristicValue()));
 	});
 
 

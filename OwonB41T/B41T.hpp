@@ -92,7 +92,11 @@ private: // temp
 
 	concurrency::task<bool> getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName = "a");
 
+	// Register a handler for packets from the meter on 0xfff4
 	concurrency::task<bool> registerNotifications();
+
+	// Take in a packet from the GATT notification handler and pass it to the packet handler
+	void handlePacket(std::vector<uint8_t> pak);
 public:
 	//bool isDownloading() const noexcept {return downloading != 0;}
 
