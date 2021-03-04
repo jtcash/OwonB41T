@@ -14,7 +14,7 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 class B41T{
 
 	struct {
-		bool rawOutput{true}; // Output raw notification data to stdout instead of parsing it
+		bool rawOutput{false}; // Output raw notification data to stdout instead of parsing it
 	} options{};
 
 	using BluetoothUuidHelper = winrt::Windows::Devices::Bluetooth::BluetoothUuidHelper;
