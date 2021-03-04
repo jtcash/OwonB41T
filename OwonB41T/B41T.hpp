@@ -138,7 +138,7 @@ public:
 		static inline constexpr button max{uint8_t(6)};
 		static inline constexpr button all{uint8_t(7)};
 
-		static inline std::map<char, const button*> map{
+		/*static inline std::map<char, const button*> map{
 			{'s', &select},
 			{'r', &range},
 			{'h', &hold},
@@ -152,6 +152,19 @@ public:
 				return *(it->second);
 			} else {
 				return none;
+			}
+		}*/
+
+		static constexpr const button& get(char c) {
+			switch (c) {
+			case 's': return select;
+			case 'r': return range;
+			case 'h': return hold;
+			case 'd': return rel;
+			case 'z': return hz;
+			case 'm': return max;
+			case 'a': return all;
+			default: return none;
 			}
 		}
 
