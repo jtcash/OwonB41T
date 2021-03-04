@@ -6,20 +6,9 @@
 // TODO: Move these somewhere nicer
 std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer const& ibuf);
 
-
-
-
-
-
-
-
-
-
-
-
-
 #define echo(...) std::cout << __LINE__ << ":\t" #__VA_ARGS__ " = " << __VA_ARGS__ << std::endl
 #define eecho(...) std::cerr << __LINE__ << ":\t" #__VA_ARGS__ " = " << __VA_ARGS__ << std::endl
+
 
 
 class B41T{
@@ -48,41 +37,32 @@ class B41T{
 	bool registered{false};
 
 
-
-	//std::mutex download_mut{};
-	//std::unique_lock<std::mutex> download_lock{download_mut};
-	//std::atomic<uint32_t> downloading{};
-	//std::vector<byte> download{};
-
+	// A structure for handling packets from the meter's read characteristic
 	packet_handler packets{};
 
-
-
-
+	// Send a control command to the meter. Used by button presses
 	concurrency::task<bool> sendControl(uint16_t cmd);
 
 
-	
-public: // temp
-
-
-
+	// Send a command directly to the meter on the cmd GATT characteristic
 	concurrency::task<bool> sendCommand(const std::vector<uint8_t>& buf);
 	concurrency::task<bool> sendCommand(std::string_view cmd);
 
+public:
 
+	// Query the length of the meter's offline data recording. Returns the number of bytes of the body of the recording
 	concurrency::task<uint32_t> queryOfflineLength();
-
-
 
 	 // max 14 characters, be careful with special symbols!
 	concurrency::task<bool> sendRenameCommand(std::string_view sv);
-	
-	
+		
+	// Send the current time and date to the meter. Used when starting an offline recording to track the recording time
 	concurrency::task<bool> sendDateCommand();
+
+	// Start an offline recording session.
 	concurrency::task<bool> sendRecordCommand(uint32_t interval, uint32_t count);
 
-
+	// Start an offline recording session. First sends the current time and date to make the recording reflect the time and date
 	concurrency::task<bool> startRecording(uint32_t interval, uint32_t count);
 
 
@@ -90,6 +70,7 @@ public: // temp
 
 private: // temp
 
+	// Given a UID and a member reference as a target, open the characteristic for use
 	concurrency::task<bool> getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName = "a");
 
 	// Register a handler for packets from the meter on 0xfff4
@@ -97,18 +78,24 @@ private: // temp
 
 	// Take in a packet from the GATT notification handler and pass it to the packet handler
 	void handlePacket(std::vector<uint8_t> pak);
+
+
 public:
-	//bool isDownloading() const noexcept {return downloading != 0;}
 
-	void waitUntilConnected(); // Block until the meter has been connected to
+	// Block until the meter has been connected to
+	void waitUntilConnected(); 
 
+	// Begin downloading stored offline data
 	concurrency::task<bool> startDownload();
 
 
+	// Connect to a meter by name, using a substring to match the meter
 	void connectByName(std::wstring nameSubstrMatch = L"B41T");
 
 	// Quick solution to allow seraching for numerous names. I cant pass the names by reference, as they could be destroyed in another thread
 	void connectByNames(std::vector<std::wstring> nameSubstrMatches = {L"B41T", L"BDM"});
+
+	// Connect to a meter by a BLE mac address. This is used by connectByNames() to actually create the connection
 	concurrency::task<bool> connectByAddress(unsigned long long deviceAddress);
 
 
@@ -117,7 +104,7 @@ public:
 
 
 
-
+	// A structure for abstracting away details of sending control messages to the ctrl characteristic
 	struct buttons {
 		struct button {
 			static constexpr uint16_t short_press(uint8_t code) {
@@ -166,7 +153,7 @@ public:
 
 	};
 
-
+	// Send press/hold commands to the meter
 	concurrency::task<bool> hold(const buttons::button& b);
 	concurrency::task<bool> press(const buttons::button& b);
 	
