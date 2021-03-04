@@ -111,14 +111,15 @@ public:
 	// A structure for abstracting away details of sending control messages to the ctrl characteristic
 	struct buttons {
 		struct button {
+			// Encode a button press/hold code
 			static constexpr uint16_t short_press(uint8_t code) {
 				return uint16_t(1<<8) | (code&uint8_t(0xf));
 			}
 			static constexpr uint16_t long_press(uint8_t code) {
 				return (code & uint8_t(0xf));
 			}
-			uint8_t code;
 
+			uint8_t code;
 
 			constexpr uint16_t press() const {
 				return short_press(code);
