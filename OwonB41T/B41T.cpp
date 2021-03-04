@@ -59,7 +59,7 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 			if (foundList.addrs.find(key) == foundList.addrs.end()) {
 				foundList.addrs.emplace(key);
 			} else {
-				return;
+				return; // Skip this device, as it's a duplicate
 			}
 		}
 
@@ -69,13 +69,13 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 
 		for (const auto& nameSubstr : nameSubstrMatches) {
 			if (name.find(nameSubstr) != std::wstring::npos) {
-				std::cerr << "\nFOUND OWON B41T+" << std::endl;
 				watcher.Stop(); // End the advertisement watcher, we don't need it anymore
+				std::cerr << "\nFOUND OWON B41T+" << std::endl;
 
 				bool status = connectByAddress(eventArgs.BluetoothAddress()).get();
 
 				if (!status) {
-					std::cerr << "Something went wrong while opening the device" << std::endl;
+					std::cerr << "ERROR: Something went wrong while opening the device" << std::endl;
 				}
 
 			}
@@ -290,7 +290,11 @@ concurrency::task<bool> B41T::getCharacteristic(winrt::guid uid, winrt::Windows:
 
 void B41T::handlePacket(std::vector<uint8_t> pak) {
 		// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
-
+	if (options.rawOutput) {
+		for (const auto& e : pak)
+			std::cout << e;
+		return;
+	}
 	packets << std::move(pak);
 
 	if (packets.isDownloading()) {
