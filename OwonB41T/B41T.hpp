@@ -128,6 +128,12 @@ public:
 				return long_press(code);
 			}
 
+			constexpr bool operator==(const button& that) const {
+				return code == that.code;
+			}
+			constexpr bool operator!=(const button& that) const {
+				return !operator==(that);
+			}
 		};
 
 		// The different buttons available for interacting with the meter
@@ -154,7 +160,14 @@ public:
 			}
 		}
 
+		static constexpr bool is_valid(char c) {
+			if (c >= 'A' && c <= 'Z')
+				return is_valid(c - 'A' + 'a');
+			else
+				return get(c) != none;
+		}
 	};
+
 
 	// Send press/hold commands to the meter
 	concurrency::task<bool> hold(const buttons::button& b);
@@ -163,6 +176,10 @@ public:
 
 	concurrency::task<bool> hold(char c);
 	concurrency::task<bool> press(char c);
+
+	static constexpr bool check_button(char c) {
+		return buttons::is_valid(c);
+	}
 
 
 };
