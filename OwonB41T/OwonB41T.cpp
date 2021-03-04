@@ -17,6 +17,14 @@ B41T meter;
 
 
 
+bool parse_arguments(Platform::Array<Platform::String^>^ args) {
+	/// TODO: Stub for argument parsing
+	return true;
+}
+
+
+
+
 //int main(int argc, char* argv[]) {
 int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
