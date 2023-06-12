@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Display_Mask.png" />
+    <Content Include="Images\User_Interface.png" />
     <None Include="Resources\Triangle25.png" />
     <None Include="Resources\Bluetooth25.png" />
     <None Include="Resources\Bluetooth.png" />
