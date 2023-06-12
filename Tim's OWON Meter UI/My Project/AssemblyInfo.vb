@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Tim's OWON Meter UI")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("Tim")>
 <Assembly: AssemblyProduct("Tim's OWON Meter UI")>
 <Assembly: AssemblyCopyright("Copyright ©  2023")>
 <Assembly: AssemblyTrademark("")>

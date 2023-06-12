@@ -78,6 +78,18 @@ Namespace My
                 Me("UI_Width_Max") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+        Public Property Form1_Location() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("Form1_Location"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("Form1_Location") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

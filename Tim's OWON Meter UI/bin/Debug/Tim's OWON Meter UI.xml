@@ -22,6 +22,16 @@ Tim's OWON Meter UI
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Battery">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -58,6 +68,16 @@ Tim's OWON Meter UI
 </summary>
 </member>
 <member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Light25">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Me_64_x_64_colour">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Negative">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
