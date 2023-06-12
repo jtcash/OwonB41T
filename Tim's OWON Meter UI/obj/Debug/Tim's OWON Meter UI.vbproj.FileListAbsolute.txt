@@ -1,0 +1,28 @@
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.exe.config
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.exe
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.pdb
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.xml
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.AssemblyReference.cache
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Form1.resources
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Resources.resources
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.GenerateResource.cache
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.CoreCompileInputs.cache
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.exe
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.xml
+E:\tim\Documents\Visual Studio Projects\Tim's OWON Meter UI\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.pdb
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.exe.config
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.exe
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.pdb
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.xml
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.AssemblyReference.cache
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Form1.resources
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Resources.resources
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.GenerateResource.cache
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.CoreCompileInputs.cache
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.exe
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.xml
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.pdb
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.exe.manifest
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.application
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.exe.manifest
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.application

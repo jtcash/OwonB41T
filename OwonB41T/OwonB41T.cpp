@@ -30,7 +30,7 @@ int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
 	//Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
 	
-	// Not sure if necesssary, but I'm leaving this here for now until I figure out. All UWP BLE examples had something like this,
+	// Not sure if necessary, but I'm leaving this here for now until I figure out. All UWP BLE examples had something like this,
 	/// But I cannot do SDDL stuff here because it is not UWP
 	/// L"O:BAG:BAD:(A;;0x7;;;PS)(A;;0x3;;;SY)(A;;0x7;;;BA)(A;;0x3;;;AC)(A;;0x3;;;LS)(A;;0x3;;;NS)"
 	//(void)CoInitializeSecurity(nullptr, -1, nullptr, nullptr, RPC_C_AUTHN_LEVEL_DEFAULT, RPC_C_IMP_LEVEL_IDENTIFY, NULL, EOAC_NONE, nullptr);
@@ -44,7 +44,7 @@ int main(Platform::Array<Platform::String^>^ args) {
 	// a few seconds. The connectByName option does not fail in this way, it just takes longer to connect
 
 
-	// TODO: allow connection through bluetoo th address
+	// TODO: allow connection through Bluetooth address
 	if (addr) {
 		meter.connectByAddress(addr);
 	} else {
@@ -53,8 +53,8 @@ int main(Platform::Array<Platform::String^>^ args) {
 			std::wstring nameSubstring = args[1]->Data();
 			meter.connectByName(nameSubstring);
 		} else {
-			// I learned that the default name for the multimeter seems to be BDM
-			std::vector<std::wstring> nameSubstrings{L"BDM", L"B41T"};
+			// I learned that the default name for the multi-meter seems to be BDM (Bench Digital Meter)
+			std::vector<std::wstring> nameSubstrings{L"BDM", L"B41T",L"B35T", L"B35T+"};
 			meter.connectByNames(nameSubstrings);
 		}
 	}
