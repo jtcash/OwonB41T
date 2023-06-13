@@ -24,6 +24,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://github.com/Palingenesis/OwonB41T</SupportUrl>
+    <ProductName>OwonB41T User Interface</ProductName>
+    <PublisherName>Tim</PublisherName>
+    <SuiteName>OWON Insruments %28Tim%29</SuiteName>
     <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
