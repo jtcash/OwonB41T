@@ -28,7 +28,7 @@
     <ProductName>OwonB41T User Interface</ProductName>
     <PublisherName>Tim</PublisherName>
     <SuiteName>OWON Insruments %28Tim%29</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -157,7 +157,10 @@
   <ItemGroup>
     <Content Include="Images\Display_Mask.png" />
     <Content Include="Images\User_Interface.png" />
-    <None Include="Resources\Bar_Values.png" />
+    <None Include="Resources\Bar_Values100.png" />
+    <None Include="Resources\Bar_Values10.png" />
+    <None Include="Resources\Bar_Values1.png" />
+    <None Include="Resources\Bar_Values01.png" />
     <None Include="Resources\Bar.png" />
     <None Include="Resources\Negative.png" />
     <None Include="Resources\Me 64 x 64 colour.ico" />

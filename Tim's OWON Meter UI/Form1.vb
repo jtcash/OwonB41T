@@ -399,59 +399,65 @@ Public Class Form1
         If OwonB41T_Data IsNot Nothing Then
             'VALUE need to check it is a number
             If OwonB41T_Data(0) <> "OL" Then
-
                 Bar_Value = Convert.ToDecimal(OwonB41T_Data(0))
 
-                If OwonB41T_Data(1).Contains("m V") Then
-                    If Bar_Value > 0 And Bar_Value <= 60 Then
-                        '0 to 60 mV
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 3
-                    ElseIf Bar_Value > 60 And Bar_Value <= 600 Then
-                        '0 to 600 mV
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 3
-                    Else
-                        Bar_Value = 500
-                    End If
-                ElseIf OwonB41T_Data(1).Contains("V") Then
-                    If Bar_Value > 0 And Bar_Value <= 6 Then
-                        '0 to 6 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 3
+                'Set Bar Graph Values
+                If Bar_Value < 0.6 Then
+                    PictureBox_BarFixed.Image = My.Resources.Bar_Values01
+                ElseIf Bar_Value >= 0.6 And Bar_Value < 10 Then
+                    PictureBox_BarFixed.Image = My.Resources.Bar_Values1
+                ElseIf Bar_Value >= 10 And Bar_Value < 100 Then
+                    PictureBox_BarFixed.Image = My.Resources.Bar_Values10
+                ElseIf Bar_Value >= 100 And Bar_Value < 1000 Then
+                    PictureBox_BarFixed.Image = My.Resources.Bar_Values100
+                Else
+                    PictureBox_BarFixed.Image = My.Resources.Bar_Values1
+                End If
+
+                'Bar Graph Size
+                If OwonB41T_Data(1).Contains("V") Then
+                    If Bar_Value <= 0.6 Then
+                        '<0.6 V
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 0.6F)) + 2
+                    ElseIf Bar_Value > 0.6 And Bar_Value <= 6 Then
+                        '0.6 to 6 V
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
                     ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
                         '6 to 60 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
                     ElseIf Bar_Value > 60 And Bar_Value <= 600 Then
                         '60 to 600 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("  Ohm") Then
                     If Bar_Value > 0 And Bar_Value <= 600 Then
                         '0 to 6
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("k Ohm") Then
                     If Bar_Value > 0 And Bar_Value <= 6 Then
                         '0 to 6 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
                     ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
                         '6 to 60 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
                     ElseIf Bar_Value > 60 And Bar_Value <= 600 Then
                         '60 to 600 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("M Ohm") Then
                     If Bar_Value > 0 And Bar_Value <= 6 Then
                         '0 to 6 M
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
                     ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
                         '6 to 60 M
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 3
+                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
@@ -459,30 +465,18 @@ Public Class Form1
 
                 _Pixle_width = Math.Round(Bar_Value)
 
-                '  Ohm
-                'k Ohm
-                'M Ohm
-
-
             Else
                 _Pixle_width = 500
             End If
         End If
 
-
-
+        'Display Bar Graph
         If _Pixle_width < 3 Then _Pixle_width = 3
-
         Dim _New_Image As Bitmap = New Bitmap(_Pixle_width, 44)
-
         Bar_Size = New Rectangle(0, 0, _Pixle_width, 44)
-
         Graphics_Draw_Bar = Graphics.FromImage(_New_Image)
-
         Graphics_Draw_Bar.Clear(Color.Silver)
-
         Graphics_Draw_Bar.DrawImage(My.Resources.Bar, Bar_Size, Bar_Size, GraphicsUnit.Pixel)
-
         PictureBox_Bar.Image = _New_Image
         PictureBox_Bar.Update()
 

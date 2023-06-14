@@ -232,10 +232,10 @@ Partial Class Form1
         'PictureBox_BarFixed
         '
         Me.PictureBox_BarFixed.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox_BarFixed.Image = Global.Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values
+        Me.PictureBox_BarFixed.Image = Global.Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values1
         Me.PictureBox_BarFixed.Location = New System.Drawing.Point(30, 191)
         Me.PictureBox_BarFixed.Name = "PictureBox_BarFixed"
-        Me.PictureBox_BarFixed.Size = New System.Drawing.Size(440, 20)
+        Me.PictureBox_BarFixed.Size = New System.Drawing.Size(467, 20)
         Me.PictureBox_BarFixed.TabIndex = 1
         Me.PictureBox_BarFixed.TabStop = False
         '
