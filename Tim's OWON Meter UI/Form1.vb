@@ -1,15 +1,23 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 
-'A user Inteface to use the Output from OwonB41T.cpp by: Jeffrey Cash
+'A user Inteface to use the Output from OwonB41T.cpp by: Jeffrey Cash https://github.com/jtcash/OwonB41T
 '
 'This is By: Tim Jackson.1960.
+'https://github.com/Palingenesis/OwonB41T
 'Use as you like.
 '
-'Some things I still need to do: Some bottons.
-
-
+'It is still work in progress. If you use and find an issue, let me know.
+'
 #Region "Notes"
+'
+'   Will have to make universal for B41T.
+'   B41T Will have a different Bar Graph. It has 20000 points.
+'   So I am guessing it will need to be multiples of 10 by 0 to 2. (Not 0 to 6 on the B35T)
+'
+'
+#End Region
+#Region "Standard Notes"
 'My Standard Notes
 '
 'AcceptButton = SendCommand_Button
@@ -41,12 +49,17 @@ Public Class Form1
     Private OwonB41T_StreamWriter As StreamWriter = Nothing
     Private OwonB41T_Path As String = "E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41T.exe" ' This path can be entered in the Application. And will be remembered.
     Private OwonB41T_Output As String = ""
-    Public ValueNegative As Boolean = False
+    Private ValueNegative As Boolean = False
     Private Button_Connected As Boolean = False
+    Private Close_Aplication As Boolean = False
+    Public Polt_Open As Boolean = False
     Private Graphics_Draw_Bar As Graphics
-    Public OwonB41T_Data() As String
-    Private Bar_Value As Decimal = 200.0F
-    Dim Bar_Size As New Rectangle(0, 0, Bar_Value, 44)
+    Private OwonB41T_Data() As String
+    Public Dec_Value As Decimal = 0.0F
+    Public Dev_Value As Decimal = 1.0F
+    Private Abs_Value As Decimal = Math.Abs(Dec_Value)
+    Private Bar_Value As Decimal = Abs_Value
+    Private Bar_Size As New Rectangle(0, 0, Bar_Value, 44)
 
     'FORM
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -60,7 +73,9 @@ Public Class Form1
     End Sub
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
+        Close_Aplication = True
         OwonB41T_Shell_Process?.Kill()
+        If Polt_Open Then Form_Plot.Dispose()
 
     End Sub
     Private Sub Clear_Screen()
@@ -115,9 +130,12 @@ Public Class Form1
                     RichTextBox_ShellOutput.ScrollToCaret()
 
                     OwonB41T_Data = OwonB41T_Output.Split(vbTab)
+                    ValueNegative = False
                     If OwonB41T_Data(0).StartsWith("-") Then ValueNegative = True
-                    Invoke(New EventHandler(AddressOf Update_Display))
-                    Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
+                    If Close_Aplication = False Then
+                        Invoke(New EventHandler(AddressOf Update_Display))
+                        Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
+                    End If
 
                 End If
             End Sub
@@ -143,17 +161,17 @@ Public Class Form1
 
             StartCmdProcess(Me)
             Button_Connect.Enabled = True
-            Button_Connect.BackColor = Color.Red
+            Button_Connect.BackColor = Color.DarkRed
             Button_Connect.Text = "Disconect"
-            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Orange
+            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Red
 
         Else
 
             OwonB41T_Shell_Process?.Kill()
             Button_Connect.Enabled = True
-            Button_Connect.BackColor = Color.Green
+            Button_Connect.BackColor = Color.DarkGreen
             Button_Connect.Text = "Connect"
-            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Lime
+            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Green
 
         End If
 
@@ -196,7 +214,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button_Auto_Click(sender As Object, e As EventArgs) Handles Button_Auto.Click
 
         'MIN MAX
         If OwonB41T_Data(2).Contains("MAX") Or OwonB41T_Data(2).Contains("MIN") Then
@@ -208,6 +226,16 @@ Public Class Form1
         End If
 
 
+
+    End Sub
+    Private Sub Button_Plot_Click(sender As Object, e As EventArgs) Handles Button_Plot.Click
+
+        Polt_Open = Not Polt_Open
+        If Polt_Open Then
+            Form_Plot.Show()
+        Else
+            Form_Plot.Hide()
+        End If
 
     End Sub
 
@@ -248,6 +276,7 @@ Public Class Form1
     Private Sub Update_Display()
 
         'NEGATIVE
+
         If ValueNegative Then
             RichTextBox_Negative.Text = "-"
             Picture_BoxNegative.Visible = True
@@ -384,9 +413,15 @@ Public Class Form1
 
         'Ω°µ
         'm V DC
-        'u A DC
         'Volts Diode
         'Ohms Continuity
+        'k Ohm
+        'M Ohm
+        'u A DC
+        'm A DC
+        'n Farad
+        'u Farad
+
 
 
     End Sub
@@ -399,16 +434,30 @@ Public Class Form1
         If OwonB41T_Data IsNot Nothing Then
             'VALUE need to check it is a number
             If OwonB41T_Data(0) <> "OL" Then
-                Bar_Value = Convert.ToDecimal(OwonB41T_Data(0))
+
+                Dec_Value = Convert.ToDecimal(OwonB41T_Data(0))
+                Abs_Value = Math.Abs(Dec_Value)
+                Bar_Value = Abs_Value
+                'Scaling for plot. (Need to think of a better way.)
+                Dev_Value = 1
+                If OwonB41T_Data(1).Contains("m V") Then Dev_Value = 1000
+                If OwonB41T_Data(1).Contains("u A") Then Dev_Value = 100
+                If OwonB41T_Data(1).Contains("m A") Then Dev_Value = 1000
+                If OwonB41T_Data(1).Contains(" Ohm") Then Dev_Value = 1000
+                If OwonB41T_Data(1).Contains("k Ohm") Then Dev_Value = 1
+                If OwonB41T_Data(1).Contains("M Ohm") Then Dev_Value = 0.001
+                If OwonB41T_Data(1).Contains("n Farad") Then Dev_Value = 1 '?
+                If OwonB41T_Data(1).Contains("u Farad") Then Dev_Value = 10 '?
+
 
                 'Set Bar Graph Values
-                If Bar_Value < 0.6 Then
+                If Abs_Value < 0.6 Then
                     PictureBox_BarFixed.Image = My.Resources.Bar_Values01
-                ElseIf Bar_Value >= 0.6 And Bar_Value < 10 Then
+                ElseIf Abs_Value >= 0.6 And Abs_Value < 10 Then
                     PictureBox_BarFixed.Image = My.Resources.Bar_Values1
-                ElseIf Bar_Value >= 10 And Bar_Value < 100 Then
+                ElseIf Abs_Value >= 10 And Abs_Value < 100 Then
                     PictureBox_BarFixed.Image = My.Resources.Bar_Values10
-                ElseIf Bar_Value >= 100 And Bar_Value < 1000 Then
+                ElseIf Abs_Value >= 100 And Abs_Value < 1000 Then
                     PictureBox_BarFixed.Image = My.Resources.Bar_Values100
                 Else
                     PictureBox_BarFixed.Image = My.Resources.Bar_Values1
@@ -416,48 +465,48 @@ Public Class Form1
 
                 'Bar Graph Size
                 If OwonB41T_Data(1).Contains("V") Then
-                    If Bar_Value <= 0.6 Then
+                    If Abs_Value <= 0.6 Then
                         '<0.6 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 0.6F)) + 2
-                    ElseIf Bar_Value > 0.6 And Bar_Value <= 6 Then
+                        Bar_Value = (Abs_Value * (432.0F / 0.6F)) + 2
+                    ElseIf Abs_Value > 0.6 And Abs_Value <= 6 Then
                         '0.6 to 6 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
-                    ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
+                        Bar_Value = (Abs_Value * (432.0F / 6.0F)) + 2
+                    ElseIf Abs_Value > 6 And Abs_Value <= 60 Then
                         '6 to 60 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
-                    ElseIf Bar_Value > 60 And Bar_Value <= 600 Then
+                        Bar_Value = (Abs_Value * (432.0F / 60.0F)) + 2
+                    ElseIf Abs_Value > 60 And Abs_Value <= 600 Then
                         '60 to 600 V
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
+                        Bar_Value = (Abs_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("  Ohm") Then
-                    If Bar_Value > 0 And Bar_Value <= 600 Then
+                    If Abs_Value > 0 And Abs_Value <= 600 Then
                         '0 to 6
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
+                        Bar_Value = (Abs_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("k Ohm") Then
-                    If Bar_Value > 0 And Bar_Value <= 6 Then
+                    If Abs_Value > 0 And Abs_Value <= 6 Then
                         '0 to 6 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
-                    ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
+                        Bar_Value = (Abs_Value * (432.0F / 6.0F)) + 2
+                    ElseIf Abs_Value > 6 And Abs_Value <= 60 Then
                         '6 to 60 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
-                    ElseIf Bar_Value > 60 And Bar_Value <= 600 Then
+                        Bar_Value = (Abs_Value * (432.0F / 60.0F)) + 2
+                    ElseIf Abs_Value > 60 And Abs_Value <= 600 Then
                         '60 to 600 k
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 600.0F)) + 2
+                        Bar_Value = (Abs_Value * (432.0F / 600.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
                 ElseIf OwonB41T_Data(1).Contains("M Ohm") Then
-                    If Bar_Value > 0 And Bar_Value <= 6 Then
+                    If Abs_Value > 0 And Abs_Value <= 6 Then
                         '0 to 6 M
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 6.0F)) + 2
-                    ElseIf Bar_Value > 6 And Bar_Value <= 60 Then
+                        Bar_Value = (Abs_Value * (432.0F / 6.0F)) + 2
+                    ElseIf Abs_Value > 6 And Abs_Value <= 60 Then
                         '6 to 60 M
-                        Bar_Value = Math.Abs(Bar_Value * (432.0F / 60.0F)) + 2
+                        Bar_Value = (Abs_Value * (432.0F / 60.0F)) + 2
                     Else
                         Bar_Value = 500
                     End If
@@ -472,7 +521,7 @@ Public Class Form1
 
         'Display Bar Graph
         If _Pixle_width < 3 Then _Pixle_width = 3
-        Dim _New_Image As Bitmap = New Bitmap(_Pixle_width, 44)
+        Dim _New_Image As New Bitmap(_Pixle_width, 44)
         Bar_Size = New Rectangle(0, 0, _Pixle_width, 44)
         Graphics_Draw_Bar = Graphics.FromImage(_New_Image)
         Graphics_Draw_Bar.Clear(Color.Silver)
@@ -481,6 +530,5 @@ Public Class Form1
         PictureBox_Bar.Update()
 
     End Sub
-
 
 End Class

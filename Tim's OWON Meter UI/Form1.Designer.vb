@@ -70,7 +70,8 @@ Partial Class Form1
         Me.Button_Relative = New System.Windows.Forms.Button()
         Me.Button_Bluetooth = New System.Windows.Forms.Button()
         Me.Button_Hold = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button_Auto = New System.Windows.Forms.Button()
+        Me.Button_Plot = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.PictureBox_Bar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -626,17 +627,29 @@ Partial Class Form1
         Me.Button_Hold.TabIndex = 19
         Me.Button_Hold.UseVisualStyleBackColor = False
         '
-        'Button1
+        'Button_Auto
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.Silver
-        Me.Button1.Location = New System.Drawing.Point(210, 319)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(100, 40)
-        Me.Button1.TabIndex = 52
-        Me.Button1.Text = "AUTO"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.Button_Auto.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button_Auto.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Auto.ForeColor = System.Drawing.Color.Silver
+        Me.Button_Auto.Location = New System.Drawing.Point(210, 319)
+        Me.Button_Auto.Name = "Button_Auto"
+        Me.Button_Auto.Size = New System.Drawing.Size(100, 40)
+        Me.Button_Auto.TabIndex = 52
+        Me.Button_Auto.Text = "AUTO"
+        Me.Button_Auto.UseVisualStyleBackColor = False
+        '
+        'Button_Plot
+        '
+        Me.Button_Plot.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button_Plot.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Plot.ForeColor = System.Drawing.Color.Silver
+        Me.Button_Plot.Location = New System.Drawing.Point(210, 365)
+        Me.Button_Plot.Name = "Button_Plot"
+        Me.Button_Plot.Size = New System.Drawing.Size(100, 40)
+        Me.Button_Plot.TabIndex = 53
+        Me.Button_Plot.Text = "Plot"
+        Me.Button_Plot.UseVisualStyleBackColor = False
         '
         'Form1
         '
@@ -644,7 +657,8 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(984, 411)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Button_Plot)
+        Me.Controls.Add(Me.Button_Auto)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button_MaxMin)
@@ -737,6 +751,7 @@ Partial Class Form1
     Friend WithEvents Button_Select As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Button_Auto As Button
     Friend WithEvents Picture_BoxNegative As PictureBox
+    Friend WithEvents Button_Plot As Button
 End Class

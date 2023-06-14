@@ -18,6 +18,7 @@ E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter U
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Debug\Tim's OWON Meter UI.xml
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.AssemblyReference.cache
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Form1.resources
+E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Form_Plot.resources
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim_s_OWON_Meter_UI.Resources.resources
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.GenerateResource.cache
 E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Debug\Tim's OWON Meter UI.vbproj.CoreCompileInputs.cache

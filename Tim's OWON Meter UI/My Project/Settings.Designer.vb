@@ -90,6 +90,18 @@ Namespace My
                 Me("Form1_Location") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+        Public Property Form_Plot_Location() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("Form_Plot_Location"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("Form_Plot_Location") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
