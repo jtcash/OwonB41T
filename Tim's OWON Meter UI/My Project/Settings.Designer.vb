@@ -102,6 +102,30 @@ Namespace My
                 Me("Form_Plot_Location") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("60")>  _
+        Public Property ComboBox_Range_Text() As String
+            Get
+                Return CType(Me("ComboBox_Range_Text"),String)
+            End Get
+            Set
+                Me("ComboBox_Range_Text") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property NumericUpDown_PlotPoints_Value() As Decimal
+            Get
+                Return CType(Me("NumericUpDown_PlotPoints_Value"),Decimal)
+            End Get
+            Set
+                Me("NumericUpDown_PlotPoints_Value") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -201,12 +201,32 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property Meter() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Meter", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Negative() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Negative", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property Plotter() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Plotter", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         

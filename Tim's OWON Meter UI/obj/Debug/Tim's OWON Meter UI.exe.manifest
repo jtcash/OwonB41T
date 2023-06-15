@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Tim's OWON Meter UI.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
-  <description asmv2:iconFile="Resources\Me 64 x 64 colour.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <asmv1:assemblyIdentity name="Tim's OWON Meter UI.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Resources\Meter.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="Tim's OWON Meter UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Tim's OWON Meter UI.exe" size="237480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Tim's OWON Meter UI.exe" size="315816">
       <assemblyIdentity name="Tim's OWON Meter UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>l74EDuP+yeP4AMhYHS+fvTLlz64NAW/Ll5vX3vPsLc8=</dsig:DigestValue>
+        <dsig:DigestValue>EvZ982CfOCsU4XUtW+6Dyc1M3OPrJtgA/Pqoj7u9AYQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -72,22 +72,22 @@
       <dsig:DigestValue>E0hy/obTj6L6yqIcTpoRX5hBy6wrb8rM3rqoubiqIPs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Resources\Me 64 x 64 colour.ico" size="34494">
+  <file name="Resources\Meter.ico" size="34494">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>WZjvqgc3bL7C2Zhq1xXRbKclpBJsYgJtivi50LCdJ30=</dsig:DigestValue>
+      <dsig:DigestValue>OQnnU8U7PoxzFQ+bRaaUrkFGXiwKacJPFeue12R7ez4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Tim's OWON Meter UI.exe.config" size="1412">
+  <file name="Tim's OWON Meter UI.exe.config" size="1684">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6jBmpdG/WTXnZN6ZYPYtakhUIF+B9DFB4YPHnHMrolY=</dsig:DigestValue>
+      <dsig:DigestValue>vjSY4dk4liNspqyHolNouUNG57Hl518Ci05uV5ZIfDk=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

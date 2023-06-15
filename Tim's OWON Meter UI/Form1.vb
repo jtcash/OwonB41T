@@ -21,7 +21,13 @@ Imports System.IO
 'My Standard Notes
 '
 'AcceptButton = SendCommand_Button
-'to update the UP/Down text make value = text
+
+'To update the UP/Down text
+'NumericUpDown.TextChanged
+'If NumericUpDown.Focused Then
+'        NumericUpDown.Value = NumericUpDown.Text
+'End If
+
 'Threading.Thread.Sleep(50)
 'Invoke(New Action(Of String)(AddressOf sub), TextToSend)
 'Invoke(New EventHandler(AddressOf sub))
@@ -54,7 +60,7 @@ Public Class Form1
     Private Close_Aplication As Boolean = False
     Public Polt_Open As Boolean = False
     Private Graphics_Draw_Bar As Graphics
-    Private OwonB41T_Data() As String
+    Public OwonB41T_Data() As String
     Public Dec_Value As Decimal = 0.0F
     Public Dev_Value As Decimal = 1.0F
     Private Abs_Value As Decimal = Math.Abs(Dec_Value)
@@ -64,7 +70,7 @@ Public Class Form1
     'FORM
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Icon = My.Resources.Me_64_x_64_colour
+        Icon = My.Resources.Meter
         AcceptButton = Button_Send
         Set_UI_Width()
         Clear_Screen()
@@ -213,7 +219,6 @@ Public Class Form1
         SendCommand("m")
     End Sub
 
-
     Private Sub Button_Auto_Click(sender As Object, e As EventArgs) Handles Button_Auto.Click
 
         'MIN MAX
@@ -239,9 +244,6 @@ Public Class Form1
 
     End Sub
 
-
-
-
     Private Sub SendCommand(command As String)
 
         If OwonB41T_StreamWriter Is Nothing Then
@@ -254,8 +256,6 @@ Public Class Form1
         End If
 
     End Sub
-
-
 
     Private Sub Button_UI_Click(sender As Object, e As EventArgs) Handles Button_UI.Click
 
@@ -438,17 +438,6 @@ Public Class Form1
                 Dec_Value = Convert.ToDecimal(OwonB41T_Data(0))
                 Abs_Value = Math.Abs(Dec_Value)
                 Bar_Value = Abs_Value
-                'Scaling for plot. (Need to think of a better way.)
-                Dev_Value = 1
-                If OwonB41T_Data(1).Contains("m V") Then Dev_Value = 1000
-                If OwonB41T_Data(1).Contains("u A") Then Dev_Value = 100
-                If OwonB41T_Data(1).Contains("m A") Then Dev_Value = 1000
-                If OwonB41T_Data(1).Contains(" Ohm") Then Dev_Value = 1000
-                If OwonB41T_Data(1).Contains("k Ohm") Then Dev_Value = 1
-                If OwonB41T_Data(1).Contains("M Ohm") Then Dev_Value = 0.001
-                If OwonB41T_Data(1).Contains("n Farad") Then Dev_Value = 1 '?
-                If OwonB41T_Data(1).Contains("u Farad") Then Dev_Value = 10 '?
-
 
                 'Set Bar Graph Values
                 If Abs_Value < 0.6 Then

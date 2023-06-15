@@ -644,7 +644,7 @@ Partial Class Form1
         Me.Button_Plot.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Plot.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Plot.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Plot.Location = New System.Drawing.Point(210, 365)
+        Me.Button_Plot.Location = New System.Drawing.Point(210, 360)
         Me.Button_Plot.Name = "Button_Plot"
         Me.Button_Plot.Size = New System.Drawing.Size(100, 40)
         Me.Button_Plot.TabIndex = 53
