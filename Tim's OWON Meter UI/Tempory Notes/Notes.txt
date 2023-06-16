@@ -19,7 +19,14 @@ u Farad
   Hz
   Duty
   hFE
-
+  TempC
+  TempF
+u A DC
+u A AC
+m A DC
+m A AC
+  A DC
+  A AC
 
 
 

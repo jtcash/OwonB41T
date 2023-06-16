@@ -97,9 +97,9 @@ Partial Class Form1
         Me.Button_Connect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime
         Me.Button_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button_Connect.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Connect.Location = New System.Drawing.Point(5, 365)
+        Me.Button_Connect.Location = New System.Drawing.Point(5, 393)
         Me.Button_Connect.Name = "Button_Connect"
-        Me.Button_Connect.Size = New System.Drawing.Size(105, 30)
+        Me.Button_Connect.Size = New System.Drawing.Size(105, 25)
         Me.Button_Connect.TabIndex = 11
         Me.Button_Connect.Text = "Connect"
         Me.Button_Connect.UseVisualStyleBackColor = False
@@ -150,9 +150,9 @@ Partial Class Form1
         Me.Button_UI.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Button_UI.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button_UI.ForeColor = System.Drawing.Color.Silver
-        Me.Button_UI.Location = New System.Drawing.Point(410, 365)
+        Me.Button_UI.Location = New System.Drawing.Point(410, 393)
         Me.Button_UI.Name = "Button_UI"
-        Me.Button_UI.Size = New System.Drawing.Size(105, 30)
+        Me.Button_UI.Size = New System.Drawing.Size(105, 25)
         Me.Button_UI.TabIndex = 17
         Me.Button_UI.Text = "UI"
         Me.Button_UI.UseVisualStyleBackColor = False
@@ -165,11 +165,13 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Label_BlueTooth)
         Me.Panel1.Location = New System.Drawing.Point(6, 6)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(510, 225)
+        Me.Panel1.Size = New System.Drawing.Size(510, 280)
         Me.Panel1.TabIndex = 21
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.Label_Hfe)
+        Me.Panel3.Controls.Add(Me.Label_Temp)
         Me.Panel3.Controls.Add(Me.PictureBox_Bar)
         Me.Panel3.Controls.Add(Me.Picture_BoxNegative)
         Me.Panel3.Controls.Add(Me.Label_RPM)
@@ -182,27 +184,25 @@ Partial Class Form1
         Me.Panel3.Controls.Add(Me.PictureBox_Hold)
         Me.Panel3.Controls.Add(Me.Label_Ohm)
         Me.Panel3.Controls.Add(Me.PictureBox_Triangle)
-        Me.Panel3.Controls.Add(Me.Label_Temp)
         Me.Panel3.Controls.Add(Me.PictureBox_HighV)
         Me.Panel3.Controls.Add(Me.Label_Auto)
         Me.Panel3.Controls.Add(Me.PictureBox_Speaker)
-        Me.Panel3.Controls.Add(Me.Label_Hfe)
         Me.Panel3.Controls.Add(Me.PictureBox_Diode)
         Me.Panel3.Controls.Add(Me.Label_Duty)
         Me.Panel3.Controls.Add(Me.Label_Max)
         Me.Panel3.Controls.Add(Me.Label_Min)
-        Me.Panel3.Controls.Add(Me.RichTextBox_MeterValue)
         Me.Panel3.Controls.Add(Me.RichTextBox_Negative)
+        Me.Panel3.Controls.Add(Me.RichTextBox_MeterValue)
         Me.Panel3.Location = New System.Drawing.Point(4, 4)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(500, 215)
+        Me.Panel3.Size = New System.Drawing.Size(500, 270)
         Me.Panel3.TabIndex = 42
         '
         'PictureBox_Bar
         '
         Me.PictureBox_Bar.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox_Bar.Image = CType(resources.GetObject("PictureBox_Bar.Image"), System.Drawing.Image)
-        Me.PictureBox_Bar.Location = New System.Drawing.Point(32, 147)
+        Me.PictureBox_Bar.Location = New System.Drawing.Point(32, 202)
         Me.PictureBox_Bar.Name = "PictureBox_Bar"
         Me.PictureBox_Bar.Size = New System.Drawing.Size(464, 44)
         Me.PictureBox_Bar.TabIndex = 0
@@ -211,7 +211,7 @@ Partial Class Form1
         'Picture_BoxNegative
         '
         Me.Picture_BoxNegative.Image = Global.Tim_s_OWON_Meter_UI.My.Resources.Resources.Negative
-        Me.Picture_BoxNegative.Location = New System.Drawing.Point(0, 156)
+        Me.Picture_BoxNegative.Location = New System.Drawing.Point(0, 202)
         Me.Picture_BoxNegative.Name = "Picture_BoxNegative"
         Me.Picture_BoxNegative.Size = New System.Drawing.Size(30, 35)
         Me.Picture_BoxNegative.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -221,10 +221,10 @@ Partial Class Form1
         '
         'Label_RPM
         '
-        Me.Label_RPM.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_RPM.Location = New System.Drawing.Point(445, 72)
+        Me.Label_RPM.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_RPM.Location = New System.Drawing.Point(439, 86)
         Me.Label_RPM.Name = "Label_RPM"
-        Me.Label_RPM.Size = New System.Drawing.Size(55, 22)
+        Me.Label_RPM.Size = New System.Drawing.Size(60, 22)
         Me.Label_RPM.TabIndex = 42
         Me.Label_RPM.Text = "RPM"
         Me.Label_RPM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -234,7 +234,7 @@ Partial Class Form1
         '
         Me.PictureBox_BarFixed.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox_BarFixed.Image = Global.Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values1
-        Me.PictureBox_BarFixed.Location = New System.Drawing.Point(30, 191)
+        Me.PictureBox_BarFixed.Location = New System.Drawing.Point(30, 246)
         Me.PictureBox_BarFixed.Name = "PictureBox_BarFixed"
         Me.PictureBox_BarFixed.Size = New System.Drawing.Size(467, 20)
         Me.PictureBox_BarFixed.TabIndex = 1
@@ -242,18 +242,18 @@ Partial Class Form1
         '
         'Label_Volts
         '
-        Me.Label_Volts.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Volts.Location = New System.Drawing.Point(410, 116)
+        Me.Label_Volts.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Volts.Location = New System.Drawing.Point(405, 158)
         Me.Label_Volts.Name = "Label_Volts"
-        Me.Label_Volts.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Volts.Size = New System.Drawing.Size(50, 22)
         Me.Label_Volts.TabIndex = 24
         Me.Label_Volts.Text = "mV"
         Me.Label_Volts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label_ACDC
         '
-        Me.Label_ACDC.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_ACDC.Location = New System.Drawing.Point(3, 116)
+        Me.Label_ACDC.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_ACDC.Location = New System.Drawing.Point(10, 158)
         Me.Label_ACDC.Name = "Label_ACDC"
         Me.Label_ACDC.Size = New System.Drawing.Size(45, 22)
         Me.Label_ACDC.TabIndex = 23
@@ -263,7 +263,7 @@ Partial Class Form1
         'PictureBox2
         '
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(2, 50)
+        Me.PictureBox2.Location = New System.Drawing.Point(10, 50)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -273,20 +273,20 @@ Partial Class Form1
         '
         'Label_Amps
         '
-        Me.Label_Amps.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Amps.Location = New System.Drawing.Point(455, 116)
+        Me.Label_Amps.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Amps.Location = New System.Drawing.Point(450, 158)
         Me.Label_Amps.Name = "Label_Amps"
-        Me.Label_Amps.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Amps.Size = New System.Drawing.Size(50, 22)
         Me.Label_Amps.TabIndex = 26
         Me.Label_Amps.Text = "mA"
         Me.Label_Amps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label_Hz
         '
-        Me.Label_Hz.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Hz.Location = New System.Drawing.Point(455, 94)
+        Me.Label_Hz.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Hz.Location = New System.Drawing.Point(451, 122)
         Me.Label_Hz.Name = "Label_Hz"
-        Me.Label_Hz.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Hz.Size = New System.Drawing.Size(50, 22)
         Me.Label_Hz.TabIndex = 27
         Me.Label_Hz.Text = "Hz"
         Me.Label_Hz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -294,7 +294,7 @@ Partial Class Form1
         'PictureBox_Hold
         '
         Me.PictureBox_Hold.Image = CType(resources.GetObject("PictureBox_Hold.Image"), System.Drawing.Image)
-        Me.PictureBox_Hold.Location = New System.Drawing.Point(240, 4)
+        Me.PictureBox_Hold.Location = New System.Drawing.Point(232, 4)
         Me.PictureBox_Hold.Name = "PictureBox_Hold"
         Me.PictureBox_Hold.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox_Hold.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -304,10 +304,10 @@ Partial Class Form1
         '
         'Label_Ohm
         '
-        Me.Label_Ohm.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Ohm.Location = New System.Drawing.Point(410, 94)
+        Me.Label_Ohm.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Ohm.Location = New System.Drawing.Point(405, 122)
         Me.Label_Ohm.Name = "Label_Ohm"
-        Me.Label_Ohm.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Ohm.Size = New System.Drawing.Size(50, 22)
         Me.Label_Ohm.TabIndex = 25
         Me.Label_Ohm.Text = "MΩ"
         Me.Label_Ohm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -315,7 +315,7 @@ Partial Class Form1
         'PictureBox_Triangle
         '
         Me.PictureBox_Triangle.Image = CType(resources.GetObject("PictureBox_Triangle.Image"), System.Drawing.Image)
-        Me.PictureBox_Triangle.Location = New System.Drawing.Point(280, 4)
+        Me.PictureBox_Triangle.Location = New System.Drawing.Point(289, 4)
         Me.PictureBox_Triangle.Name = "PictureBox_Triangle"
         Me.PictureBox_Triangle.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox_Triangle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -325,10 +325,10 @@ Partial Class Form1
         '
         'Label_Temp
         '
-        Me.Label_Temp.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Temp.Location = New System.Drawing.Point(455, 50)
+        Me.Label_Temp.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Temp.Location = New System.Drawing.Point(448, 50)
         Me.Label_Temp.Name = "Label_Temp"
-        Me.Label_Temp.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Temp.Size = New System.Drawing.Size(60, 22)
         Me.Label_Temp.TabIndex = 28
         Me.Label_Temp.Text = "°C"
         Me.Label_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -336,7 +336,7 @@ Partial Class Form1
         'PictureBox_HighV
         '
         Me.PictureBox_HighV.Image = CType(resources.GetObject("PictureBox_HighV.Image"), System.Drawing.Image)
-        Me.PictureBox_HighV.Location = New System.Drawing.Point(400, 4)
+        Me.PictureBox_HighV.Location = New System.Drawing.Point(456, 4)
         Me.PictureBox_HighV.Name = "PictureBox_HighV"
         Me.PictureBox_HighV.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox_HighV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -346,10 +346,10 @@ Partial Class Form1
         '
         'Label_Auto
         '
-        Me.Label_Auto.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Auto.Location = New System.Drawing.Point(50, 4)
+        Me.Label_Auto.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Auto.Location = New System.Drawing.Point(35, 4)
         Me.Label_Auto.Name = "Label_Auto"
-        Me.Label_Auto.Size = New System.Drawing.Size(70, 22)
+        Me.Label_Auto.Size = New System.Drawing.Size(75, 22)
         Me.Label_Auto.TabIndex = 29
         Me.Label_Auto.Text = "AUTO"
         Me.Label_Auto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -357,7 +357,7 @@ Partial Class Form1
         'PictureBox_Speaker
         '
         Me.PictureBox_Speaker.Image = CType(resources.GetObject("PictureBox_Speaker.Image"), System.Drawing.Image)
-        Me.PictureBox_Speaker.Location = New System.Drawing.Point(360, 4)
+        Me.PictureBox_Speaker.Location = New System.Drawing.Point(402, 4)
         Me.PictureBox_Speaker.Name = "PictureBox_Speaker"
         Me.PictureBox_Speaker.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox_Speaker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -367,10 +367,10 @@ Partial Class Form1
         '
         'Label_Hfe
         '
-        Me.Label_Hfe.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Hfe.Location = New System.Drawing.Point(410, 50)
+        Me.Label_Hfe.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Hfe.Location = New System.Drawing.Point(403, 50)
         Me.Label_Hfe.Name = "Label_Hfe"
-        Me.Label_Hfe.Size = New System.Drawing.Size(45, 22)
+        Me.Label_Hfe.Size = New System.Drawing.Size(60, 22)
         Me.Label_Hfe.TabIndex = 30
         Me.Label_Hfe.Text = "hFE"
         Me.Label_Hfe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -378,7 +378,7 @@ Partial Class Form1
         'PictureBox_Diode
         '
         Me.PictureBox_Diode.Image = CType(resources.GetObject("PictureBox_Diode.Image"), System.Drawing.Image)
-        Me.PictureBox_Diode.Location = New System.Drawing.Point(320, 4)
+        Me.PictureBox_Diode.Location = New System.Drawing.Point(345, 4)
         Me.PictureBox_Diode.Name = "PictureBox_Diode"
         Me.PictureBox_Diode.Size = New System.Drawing.Size(40, 22)
         Me.PictureBox_Diode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -388,8 +388,8 @@ Partial Class Form1
         '
         'Label_Duty
         '
-        Me.Label_Duty.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Duty.Location = New System.Drawing.Point(410, 72)
+        Me.Label_Duty.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Duty.Location = New System.Drawing.Point(407, 86)
         Me.Label_Duty.Name = "Label_Duty"
         Me.Label_Duty.Size = New System.Drawing.Size(35, 22)
         Me.Label_Duty.TabIndex = 31
@@ -398,8 +398,8 @@ Partial Class Form1
         '
         'Label_Max
         '
-        Me.Label_Max.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Max.Location = New System.Drawing.Point(120, 4)
+        Me.Label_Max.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Max.Location = New System.Drawing.Point(108, 4)
         Me.Label_Max.Name = "Label_Max"
         Me.Label_Max.Size = New System.Drawing.Size(60, 22)
         Me.Label_Max.TabIndex = 32
@@ -408,8 +408,8 @@ Partial Class Form1
         '
         'Label_Min
         '
-        Me.Label_Min.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Min.Location = New System.Drawing.Point(180, 4)
+        Me.Label_Min.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Min.Location = New System.Drawing.Point(167, 4)
         Me.Label_Min.Name = "Label_Min"
         Me.Label_Min.Size = New System.Drawing.Size(60, 22)
         Me.Label_Min.TabIndex = 33
@@ -420,24 +420,24 @@ Partial Class Form1
         '
         Me.RichTextBox_MeterValue.BackColor = System.Drawing.Color.Silver
         Me.RichTextBox_MeterValue.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBox_MeterValue.Font = New System.Drawing.Font("Arial Rounded MT Bold", 80.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox_MeterValue.Location = New System.Drawing.Point(100, 25)
+        Me.RichTextBox_MeterValue.Font = New System.Drawing.Font("Tims_OWON_Meter", 120.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox_MeterValue.Location = New System.Drawing.Point(70, 17)
         Me.RichTextBox_MeterValue.Name = "RichTextBox_MeterValue"
         Me.RichTextBox_MeterValue.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.RichTextBox_MeterValue.Size = New System.Drawing.Size(310, 126)
+        Me.RichTextBox_MeterValue.Size = New System.Drawing.Size(340, 185)
         Me.RichTextBox_MeterValue.TabIndex = 1
-        Me.RichTextBox_MeterValue.Text = "0.000"
+        Me.RichTextBox_MeterValue.Text = "66.88"
         '
         'RichTextBox_Negative
         '
         Me.RichTextBox_Negative.BackColor = System.Drawing.Color.Silver
         Me.RichTextBox_Negative.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBox_Negative.Font = New System.Drawing.Font("Arial Rounded MT Bold", 80.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox_Negative.Location = New System.Drawing.Point(50, 17)
+        Me.RichTextBox_Negative.Font = New System.Drawing.Font("Tims_OWON_Meter", 100.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox_Negative.Location = New System.Drawing.Point(10, 30)
         Me.RichTextBox_Negative.Multiline = False
         Me.RichTextBox_Negative.Name = "RichTextBox_Negative"
         Me.RichTextBox_Negative.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.RichTextBox_Negative.Size = New System.Drawing.Size(45, 126)
+        Me.RichTextBox_Negative.Size = New System.Drawing.Size(60, 185)
         Me.RichTextBox_Negative.TabIndex = 0
         Me.RichTextBox_Negative.Text = "-"
         '
@@ -454,9 +454,9 @@ Partial Class Form1
         '
         Me.Button_HzDuty.BackColor = System.Drawing.Color.Gold
         Me.Button_HzDuty.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_HzDuty.Location = New System.Drawing.Point(269, 276)
+        Me.Button_HzDuty.Location = New System.Drawing.Point(269, 317)
         Me.Button_HzDuty.Name = "Button_HzDuty"
-        Me.Button_HzDuty.Size = New System.Drawing.Size(115, 35)
+        Me.Button_HzDuty.Size = New System.Drawing.Size(115, 30)
         Me.Button_HzDuty.TabIndex = 49
         Me.Button_HzDuty.Text = "Hz/Duty"
         Me.Button_HzDuty.UseVisualStyleBackColor = False
@@ -465,9 +465,9 @@ Partial Class Form1
         '
         Me.Button_MaxMin.BackColor = System.Drawing.Color.Gold
         Me.Button_MaxMin.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_MaxMin.Location = New System.Drawing.Point(400, 276)
+        Me.Button_MaxMin.Location = New System.Drawing.Point(400, 317)
         Me.Button_MaxMin.Name = "Button_MaxMin"
-        Me.Button_MaxMin.Size = New System.Drawing.Size(115, 35)
+        Me.Button_MaxMin.Size = New System.Drawing.Size(115, 30)
         Me.Button_MaxMin.TabIndex = 48
         Me.Button_MaxMin.Text = "Max/Min"
         Me.Button_MaxMin.UseVisualStyleBackColor = False
@@ -476,9 +476,9 @@ Partial Class Form1
         '
         Me.Button_Range.BackColor = System.Drawing.Color.Gold
         Me.Button_Range.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_Range.Location = New System.Drawing.Point(136, 276)
+        Me.Button_Range.Location = New System.Drawing.Point(136, 317)
         Me.Button_Range.Name = "Button_Range"
-        Me.Button_Range.Size = New System.Drawing.Size(115, 35)
+        Me.Button_Range.Size = New System.Drawing.Size(115, 30)
         Me.Button_Range.TabIndex = 47
         Me.Button_Range.Text = "Range"
         Me.Button_Range.UseVisualStyleBackColor = False
@@ -487,9 +487,9 @@ Partial Class Form1
         '
         Me.Button_Select.BackColor = System.Drawing.Color.Gold
         Me.Button_Select.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_Select.Location = New System.Drawing.Point(5, 276)
+        Me.Button_Select.Location = New System.Drawing.Point(5, 317)
         Me.Button_Select.Name = "Button_Select"
-        Me.Button_Select.Size = New System.Drawing.Size(115, 35)
+        Me.Button_Select.Size = New System.Drawing.Size(115, 30)
         Me.Button_Select.TabIndex = 46
         Me.Button_Select.Text = "Select"
         Me.Button_Select.UseVisualStyleBackColor = False
@@ -565,7 +565,7 @@ Partial Class Form1
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Silver
-        Me.Label1.Location = New System.Drawing.Point(2, 240)
+        Me.Label1.Location = New System.Drawing.Point(2, 286)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(218, 28)
         Me.Label1.TabIndex = 50
@@ -576,7 +576,7 @@ Partial Class Form1
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Silver
-        Me.Label2.Location = New System.Drawing.Point(395, 240)
+        Me.Label2.Location = New System.Drawing.Point(395, 286)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(125, 28)
         Me.Label2.TabIndex = 51
@@ -587,7 +587,7 @@ Partial Class Form1
         Me.Button_BackLight.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_BackLight.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_BackLight.Image = CType(resources.GetObject("Button_BackLight.Image"), System.Drawing.Image)
-        Me.Button_BackLight.Location = New System.Drawing.Point(5, 319)
+        Me.Button_BackLight.Location = New System.Drawing.Point(5, 350)
         Me.Button_BackLight.Name = "Button_BackLight"
         Me.Button_BackLight.Size = New System.Drawing.Size(50, 40)
         Me.Button_BackLight.TabIndex = 43
@@ -598,7 +598,7 @@ Partial Class Form1
         Me.Button_Relative.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Relative.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Relative.Image = CType(resources.GetObject("Button_Relative.Image"), System.Drawing.Image)
-        Me.Button_Relative.Location = New System.Drawing.Point(410, 319)
+        Me.Button_Relative.Location = New System.Drawing.Point(410, 350)
         Me.Button_Relative.Name = "Button_Relative"
         Me.Button_Relative.Size = New System.Drawing.Size(50, 40)
         Me.Button_Relative.TabIndex = 45
@@ -610,7 +610,7 @@ Partial Class Form1
         Me.Button_Bluetooth.Enabled = False
         Me.Button_Bluetooth.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Bluetooth.Image = CType(resources.GetObject("Button_Bluetooth.Image"), System.Drawing.Image)
-        Me.Button_Bluetooth.Location = New System.Drawing.Point(465, 319)
+        Me.Button_Bluetooth.Location = New System.Drawing.Point(465, 350)
         Me.Button_Bluetooth.Name = "Button_Bluetooth"
         Me.Button_Bluetooth.Size = New System.Drawing.Size(50, 40)
         Me.Button_Bluetooth.TabIndex = 44
@@ -621,7 +621,7 @@ Partial Class Form1
         Me.Button_Hold.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Hold.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Hold.Image = CType(resources.GetObject("Button_Hold.Image"), System.Drawing.Image)
-        Me.Button_Hold.Location = New System.Drawing.Point(60, 319)
+        Me.Button_Hold.Location = New System.Drawing.Point(60, 350)
         Me.Button_Hold.Name = "Button_Hold"
         Me.Button_Hold.Size = New System.Drawing.Size(50, 40)
         Me.Button_Hold.TabIndex = 19
@@ -630,11 +630,11 @@ Partial Class Form1
         'Button_Auto
         '
         Me.Button_Auto.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button_Auto.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Auto.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Auto.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Auto.Location = New System.Drawing.Point(210, 319)
+        Me.Button_Auto.Location = New System.Drawing.Point(210, 350)
         Me.Button_Auto.Name = "Button_Auto"
-        Me.Button_Auto.Size = New System.Drawing.Size(100, 40)
+        Me.Button_Auto.Size = New System.Drawing.Size(100, 35)
         Me.Button_Auto.TabIndex = 52
         Me.Button_Auto.Text = "AUTO"
         Me.Button_Auto.UseVisualStyleBackColor = False
@@ -642,11 +642,11 @@ Partial Class Form1
         'Button_Plot
         '
         Me.Button_Plot.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button_Plot.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Plot.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Plot.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Plot.Location = New System.Drawing.Point(210, 360)
+        Me.Button_Plot.Location = New System.Drawing.Point(210, 388)
         Me.Button_Plot.Name = "Button_Plot"
-        Me.Button_Plot.Size = New System.Drawing.Size(100, 40)
+        Me.Button_Plot.Size = New System.Drawing.Size(100, 35)
         Me.Button_Plot.TabIndex = 53
         Me.Button_Plot.Text = "Plot"
         Me.Button_Plot.UseVisualStyleBackColor = False
@@ -656,7 +656,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(984, 411)
+        Me.ClientSize = New System.Drawing.Size(984, 431)
         Me.Controls.Add(Me.Button_Plot)
         Me.Controls.Add(Me.Button_Auto)
         Me.Controls.Add(Me.Label2)
@@ -680,8 +680,8 @@ Partial Class Form1
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Location = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.Form1_Location
-        Me.MaximumSize = New System.Drawing.Size(995, 440)
-        Me.MinimumSize = New System.Drawing.Size(538, 440)
+        Me.MaximumSize = New System.Drawing.Size(995, 460)
+        Me.MinimumSize = New System.Drawing.Size(538, 460)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Tim's OWON Meter UI"
