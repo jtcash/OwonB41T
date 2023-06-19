@@ -14,8 +14,15 @@ Imports System.IO
 '   Will have to make universal for B41T.
 '   B41T Will have a different Bar Graph. It has 20000 points.
 '   So I am guessing it will need to be multiples of 10 by 0 to 2. (Not 0 to 6 on the B35T)
+
+'   Recording:
+'       Max record counts = 10,000. Interval = seconds.
 '
-'
+'   BUGS to fix:
+
+'       System.ObjectDisposedException 'Cannot access a disposed object.
+'       Object name 'Form1'.'
+
 #End Region
 #Region "Standard Notes"
 'My Standard Notes
@@ -57,7 +64,7 @@ Public Class Form1
     Private OwonB41T_Output As String = ""
     Private ValueNegative As Boolean = False
     Private Button_Connected As Boolean = False
-    Private Close_Aplication As Boolean = False
+    Public Shell_Open As Boolean = False
     Public Polt_Open As Boolean = False
     Private Graphics_Draw_Bar As Graphics
     Public OwonB41T_Data() As String
@@ -79,9 +86,10 @@ Public Class Form1
     End Sub
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
-        Close_Aplication = True
-        OwonB41T_Shell_Process?.Kill()
         If Polt_Open Then Form_Plot.Dispose()
+        If OwonB41T_Shell_Process IsNot Nothing Then
+            If Shell_Open Then OwonB41T_Shell_Process.Kill()
+        End If
 
     End Sub
     Private Sub Clear_Screen()
@@ -130,7 +138,7 @@ Public Class Form1
 
         AddHandler OwonB41T_Shell_Process.OutputDataReceived,
             Sub(s, evt)
-                If evt.Data IsNot Nothing Then
+                If evt.Data IsNot Nothing And Shell_Open Then
                     OwonB41T_Output = evt.Data + Environment.NewLine
                     RichTextBox_ShellOutput.AppendText(evt.Data + Environment.NewLine)
                     RichTextBox_ShellOutput.ScrollToCaret()
@@ -138,10 +146,8 @@ Public Class Form1
                     OwonB41T_Data = OwonB41T_Output.Split(vbTab)
                     ValueNegative = False
                     If OwonB41T_Data(0).StartsWith("-") Then ValueNegative = True
-                    If Close_Aplication = False Then
-                        Invoke(New EventHandler(AddressOf Update_Display))
-                        Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
-                    End If
+                    Invoke(New EventHandler(AddressOf Update_Display))
+                    Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
 
                 End If
             End Sub
@@ -166,6 +172,7 @@ Public Class Form1
         If Button_Connected Then
 
             StartCmdProcess(Me)
+            Shell_Open = True
             Button_Connect.Enabled = True
             Button_Connect.BackColor = Color.DarkRed
             Button_Connect.Text = "Disconect"
@@ -174,6 +181,7 @@ Public Class Form1
         Else
 
             OwonB41T_Shell_Process?.Kill()
+            Shell_Open = False
             Button_Connect.Enabled = True
             Button_Connect.BackColor = Color.DarkGreen
             Button_Connect.Text = "Connect"
@@ -198,6 +206,12 @@ Public Class Form1
 
     End Sub
     Private Sub Button_Hold_Click(sender As Object, e As EventArgs) Handles Button_Hold.Click
+        If Button_Hold.Focused Then
+            Hold()
+            Form_Plot.Hold()
+        End If
+    End Sub
+    Public Sub Hold()
         SendCommand("h")
     End Sub
     Private Sub Button_BackLight_Click(sender As Object, e As EventArgs) Handles Button_BackLight.Click

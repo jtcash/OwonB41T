@@ -30,6 +30,8 @@ Partial Class Form1
         Me.Button_UI = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Label_Hfe = New System.Windows.Forms.Label()
+        Me.Label_Temp = New System.Windows.Forms.Label()
         Me.PictureBox_Bar = New System.Windows.Forms.PictureBox()
         Me.Picture_BoxNegative = New System.Windows.Forms.PictureBox()
         Me.Label_RPM = New System.Windows.Forms.Label()
@@ -42,17 +44,15 @@ Partial Class Form1
         Me.PictureBox_Hold = New System.Windows.Forms.PictureBox()
         Me.Label_Ohm = New System.Windows.Forms.Label()
         Me.PictureBox_Triangle = New System.Windows.Forms.PictureBox()
-        Me.Label_Temp = New System.Windows.Forms.Label()
         Me.PictureBox_HighV = New System.Windows.Forms.PictureBox()
         Me.Label_Auto = New System.Windows.Forms.Label()
         Me.PictureBox_Speaker = New System.Windows.Forms.PictureBox()
-        Me.Label_Hfe = New System.Windows.Forms.Label()
         Me.PictureBox_Diode = New System.Windows.Forms.PictureBox()
         Me.Label_Duty = New System.Windows.Forms.Label()
         Me.Label_Max = New System.Windows.Forms.Label()
         Me.Label_Min = New System.Windows.Forms.Label()
-        Me.RichTextBox_MeterValue = New System.Windows.Forms.RichTextBox()
         Me.RichTextBox_Negative = New System.Windows.Forms.RichTextBox()
+        Me.RichTextBox_MeterValue = New System.Windows.Forms.RichTextBox()
         Me.Label_BlueTooth = New System.Windows.Forms.Label()
         Me.Button_HzDuty = New System.Windows.Forms.Button()
         Me.Button_MaxMin = New System.Windows.Forms.Button()
@@ -97,7 +97,7 @@ Partial Class Form1
         Me.Button_Connect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime
         Me.Button_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button_Connect.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Connect.Location = New System.Drawing.Point(5, 393)
+        Me.Button_Connect.Location = New System.Drawing.Point(5, 399)
         Me.Button_Connect.Name = "Button_Connect"
         Me.Button_Connect.Size = New System.Drawing.Size(105, 25)
         Me.Button_Connect.TabIndex = 11
@@ -125,7 +125,7 @@ Partial Class Form1
         Me.RichTextBox_ErrorStream.Location = New System.Drawing.Point(5, 15)
         Me.RichTextBox_ErrorStream.Name = "RichTextBox_ErrorStream"
         Me.RichTextBox_ErrorStream.ReadOnly = True
-        Me.RichTextBox_ErrorStream.Size = New System.Drawing.Size(430, 98)
+        Me.RichTextBox_ErrorStream.Size = New System.Drawing.Size(430, 108)
         Me.RichTextBox_ErrorStream.TabIndex = 10
         Me.RichTextBox_ErrorStream.TabStop = False
         Me.RichTextBox_ErrorStream.Text = ""
@@ -137,7 +137,7 @@ Partial Class Form1
         Me.RichTextBox_ShellOutput.Location = New System.Drawing.Point(5, 15)
         Me.RichTextBox_ShellOutput.Name = "RichTextBox_ShellOutput"
         Me.RichTextBox_ShellOutput.ReadOnly = True
-        Me.RichTextBox_ShellOutput.Size = New System.Drawing.Size(430, 148)
+        Me.RichTextBox_ShellOutput.Size = New System.Drawing.Size(430, 168)
         Me.RichTextBox_ShellOutput.TabIndex = 8
         Me.RichTextBox_ShellOutput.TabStop = False
         Me.RichTextBox_ShellOutput.Text = ""
@@ -150,7 +150,7 @@ Partial Class Form1
         Me.Button_UI.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Button_UI.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button_UI.ForeColor = System.Drawing.Color.Silver
-        Me.Button_UI.Location = New System.Drawing.Point(410, 393)
+        Me.Button_UI.Location = New System.Drawing.Point(410, 399)
         Me.Button_UI.Name = "Button_UI"
         Me.Button_UI.Size = New System.Drawing.Size(105, 25)
         Me.Button_UI.TabIndex = 17
@@ -197,6 +197,26 @@ Partial Class Form1
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(500, 270)
         Me.Panel3.TabIndex = 42
+        '
+        'Label_Hfe
+        '
+        Me.Label_Hfe.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Hfe.Location = New System.Drawing.Point(403, 50)
+        Me.Label_Hfe.Name = "Label_Hfe"
+        Me.Label_Hfe.Size = New System.Drawing.Size(60, 22)
+        Me.Label_Hfe.TabIndex = 30
+        Me.Label_Hfe.Text = "hFE"
+        Me.Label_Hfe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label_Temp
+        '
+        Me.Label_Temp.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Temp.Location = New System.Drawing.Point(448, 50)
+        Me.Label_Temp.Name = "Label_Temp"
+        Me.Label_Temp.Size = New System.Drawing.Size(60, 22)
+        Me.Label_Temp.TabIndex = 28
+        Me.Label_Temp.Text = "°C"
+        Me.Label_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox_Bar
         '
@@ -323,16 +343,6 @@ Partial Class Form1
         Me.PictureBox_Triangle.TabStop = False
         Me.PictureBox_Triangle.Visible = False
         '
-        'Label_Temp
-        '
-        Me.Label_Temp.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Temp.Location = New System.Drawing.Point(448, 50)
-        Me.Label_Temp.Name = "Label_Temp"
-        Me.Label_Temp.Size = New System.Drawing.Size(60, 22)
-        Me.Label_Temp.TabIndex = 28
-        Me.Label_Temp.Text = "°C"
-        Me.Label_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'PictureBox_HighV
         '
         Me.PictureBox_HighV.Image = CType(resources.GetObject("PictureBox_HighV.Image"), System.Drawing.Image)
@@ -364,16 +374,6 @@ Partial Class Form1
         Me.PictureBox_Speaker.TabIndex = 37
         Me.PictureBox_Speaker.TabStop = False
         Me.PictureBox_Speaker.Visible = False
-        '
-        'Label_Hfe
-        '
-        Me.Label_Hfe.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label_Hfe.Location = New System.Drawing.Point(403, 50)
-        Me.Label_Hfe.Name = "Label_Hfe"
-        Me.Label_Hfe.Size = New System.Drawing.Size(60, 22)
-        Me.Label_Hfe.TabIndex = 30
-        Me.Label_Hfe.Text = "hFE"
-        Me.Label_Hfe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox_Diode
         '
@@ -416,18 +416,6 @@ Partial Class Form1
         Me.Label_Min.Text = "MIN"
         Me.Label_Min.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'RichTextBox_MeterValue
-        '
-        Me.RichTextBox_MeterValue.BackColor = System.Drawing.Color.Silver
-        Me.RichTextBox_MeterValue.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBox_MeterValue.Font = New System.Drawing.Font("Tims_OWON_Meter", 120.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RichTextBox_MeterValue.Location = New System.Drawing.Point(70, 17)
-        Me.RichTextBox_MeterValue.Name = "RichTextBox_MeterValue"
-        Me.RichTextBox_MeterValue.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.RichTextBox_MeterValue.Size = New System.Drawing.Size(340, 185)
-        Me.RichTextBox_MeterValue.TabIndex = 1
-        Me.RichTextBox_MeterValue.Text = "66.88"
-        '
         'RichTextBox_Negative
         '
         Me.RichTextBox_Negative.BackColor = System.Drawing.Color.Silver
@@ -440,6 +428,18 @@ Partial Class Form1
         Me.RichTextBox_Negative.Size = New System.Drawing.Size(60, 185)
         Me.RichTextBox_Negative.TabIndex = 0
         Me.RichTextBox_Negative.Text = "-"
+        '
+        'RichTextBox_MeterValue
+        '
+        Me.RichTextBox_MeterValue.BackColor = System.Drawing.Color.Silver
+        Me.RichTextBox_MeterValue.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.RichTextBox_MeterValue.Font = New System.Drawing.Font("Tims_OWON_Meter", 120.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox_MeterValue.Location = New System.Drawing.Point(70, 17)
+        Me.RichTextBox_MeterValue.Name = "RichTextBox_MeterValue"
+        Me.RichTextBox_MeterValue.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
+        Me.RichTextBox_MeterValue.Size = New System.Drawing.Size(340, 185)
+        Me.RichTextBox_MeterValue.TabIndex = 1
+        Me.RichTextBox_MeterValue.Text = "66.88"
         '
         'Label_BlueTooth
         '
@@ -454,7 +454,7 @@ Partial Class Form1
         '
         Me.Button_HzDuty.BackColor = System.Drawing.Color.Gold
         Me.Button_HzDuty.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_HzDuty.Location = New System.Drawing.Point(269, 317)
+        Me.Button_HzDuty.Location = New System.Drawing.Point(269, 319)
         Me.Button_HzDuty.Name = "Button_HzDuty"
         Me.Button_HzDuty.Size = New System.Drawing.Size(115, 30)
         Me.Button_HzDuty.TabIndex = 49
@@ -465,7 +465,7 @@ Partial Class Form1
         '
         Me.Button_MaxMin.BackColor = System.Drawing.Color.Gold
         Me.Button_MaxMin.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_MaxMin.Location = New System.Drawing.Point(400, 317)
+        Me.Button_MaxMin.Location = New System.Drawing.Point(400, 319)
         Me.Button_MaxMin.Name = "Button_MaxMin"
         Me.Button_MaxMin.Size = New System.Drawing.Size(115, 30)
         Me.Button_MaxMin.TabIndex = 48
@@ -476,7 +476,7 @@ Partial Class Form1
         '
         Me.Button_Range.BackColor = System.Drawing.Color.Gold
         Me.Button_Range.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_Range.Location = New System.Drawing.Point(136, 317)
+        Me.Button_Range.Location = New System.Drawing.Point(136, 319)
         Me.Button_Range.Name = "Button_Range"
         Me.Button_Range.Size = New System.Drawing.Size(115, 30)
         Me.Button_Range.TabIndex = 47
@@ -487,7 +487,7 @@ Partial Class Form1
         '
         Me.Button_Select.BackColor = System.Drawing.Color.Gold
         Me.Button_Select.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button_Select.Location = New System.Drawing.Point(5, 317)
+        Me.Button_Select.Location = New System.Drawing.Point(5, 319)
         Me.Button_Select.Name = "Button_Select"
         Me.Button_Select.Size = New System.Drawing.Size(115, 30)
         Me.Button_Select.TabIndex = 46
@@ -510,7 +510,7 @@ Partial Class Form1
         Me.GroupBox_ShellOutput.ForeColor = System.Drawing.Color.Silver
         Me.GroupBox_ShellOutput.Location = New System.Drawing.Point(535, 50)
         Me.GroupBox_ShellOutput.Name = "GroupBox_ShellOutput"
-        Me.GroupBox_ShellOutput.Size = New System.Drawing.Size(440, 170)
+        Me.GroupBox_ShellOutput.Size = New System.Drawing.Size(440, 190)
         Me.GroupBox_ShellOutput.TabIndex = 23
         Me.GroupBox_ShellOutput.TabStop = False
         Me.GroupBox_ShellOutput.Text = "Shell Output"
@@ -541,9 +541,9 @@ Partial Class Form1
         '
         Me.GroupBox_Status.Controls.Add(Me.RichTextBox_ErrorStream)
         Me.GroupBox_Status.ForeColor = System.Drawing.Color.Silver
-        Me.GroupBox_Status.Location = New System.Drawing.Point(535, 222)
+        Me.GroupBox_Status.Location = New System.Drawing.Point(535, 242)
         Me.GroupBox_Status.Name = "GroupBox_Status"
-        Me.GroupBox_Status.Size = New System.Drawing.Size(440, 120)
+        Me.GroupBox_Status.Size = New System.Drawing.Size(440, 130)
         Me.GroupBox_Status.TabIndex = 25
         Me.GroupBox_Status.TabStop = False
         Me.GroupBox_Status.Text = "Status"
@@ -553,7 +553,7 @@ Partial Class Form1
         Me.GroupBox_CommandInput.Controls.Add(Me.RichTextBox_Input)
         Me.GroupBox_CommandInput.Controls.Add(Me.Button_Send)
         Me.GroupBox_CommandInput.ForeColor = System.Drawing.Color.Silver
-        Me.GroupBox_CommandInput.Location = New System.Drawing.Point(535, 341)
+        Me.GroupBox_CommandInput.Location = New System.Drawing.Point(535, 375)
         Me.GroupBox_CommandInput.Name = "GroupBox_CommandInput"
         Me.GroupBox_CommandInput.Size = New System.Drawing.Size(440, 52)
         Me.GroupBox_CommandInput.TabIndex = 26
@@ -565,7 +565,7 @@ Partial Class Form1
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Silver
-        Me.Label1.Location = New System.Drawing.Point(2, 286)
+        Me.Label1.Location = New System.Drawing.Point(2, 287)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(218, 28)
         Me.Label1.TabIndex = 50
@@ -576,7 +576,7 @@ Partial Class Form1
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Silver
-        Me.Label2.Location = New System.Drawing.Point(395, 286)
+        Me.Label2.Location = New System.Drawing.Point(395, 287)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(125, 28)
         Me.Label2.TabIndex = 51
@@ -587,7 +587,7 @@ Partial Class Form1
         Me.Button_BackLight.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_BackLight.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_BackLight.Image = CType(resources.GetObject("Button_BackLight.Image"), System.Drawing.Image)
-        Me.Button_BackLight.Location = New System.Drawing.Point(5, 350)
+        Me.Button_BackLight.Location = New System.Drawing.Point(5, 354)
         Me.Button_BackLight.Name = "Button_BackLight"
         Me.Button_BackLight.Size = New System.Drawing.Size(50, 40)
         Me.Button_BackLight.TabIndex = 43
@@ -598,7 +598,7 @@ Partial Class Form1
         Me.Button_Relative.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Relative.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Relative.Image = CType(resources.GetObject("Button_Relative.Image"), System.Drawing.Image)
-        Me.Button_Relative.Location = New System.Drawing.Point(410, 350)
+        Me.Button_Relative.Location = New System.Drawing.Point(410, 354)
         Me.Button_Relative.Name = "Button_Relative"
         Me.Button_Relative.Size = New System.Drawing.Size(50, 40)
         Me.Button_Relative.TabIndex = 45
@@ -610,7 +610,7 @@ Partial Class Form1
         Me.Button_Bluetooth.Enabled = False
         Me.Button_Bluetooth.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Bluetooth.Image = CType(resources.GetObject("Button_Bluetooth.Image"), System.Drawing.Image)
-        Me.Button_Bluetooth.Location = New System.Drawing.Point(465, 350)
+        Me.Button_Bluetooth.Location = New System.Drawing.Point(465, 354)
         Me.Button_Bluetooth.Name = "Button_Bluetooth"
         Me.Button_Bluetooth.Size = New System.Drawing.Size(50, 40)
         Me.Button_Bluetooth.TabIndex = 44
@@ -621,7 +621,7 @@ Partial Class Form1
         Me.Button_Hold.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Hold.Font = New System.Drawing.Font("Arial Rounded MT Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Hold.Image = CType(resources.GetObject("Button_Hold.Image"), System.Drawing.Image)
-        Me.Button_Hold.Location = New System.Drawing.Point(60, 350)
+        Me.Button_Hold.Location = New System.Drawing.Point(60, 354)
         Me.Button_Hold.Name = "Button_Hold"
         Me.Button_Hold.Size = New System.Drawing.Size(50, 40)
         Me.Button_Hold.TabIndex = 19
@@ -632,7 +632,7 @@ Partial Class Form1
         Me.Button_Auto.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Auto.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Auto.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Auto.Location = New System.Drawing.Point(210, 350)
+        Me.Button_Auto.Location = New System.Drawing.Point(210, 354)
         Me.Button_Auto.Name = "Button_Auto"
         Me.Button_Auto.Size = New System.Drawing.Size(100, 35)
         Me.Button_Auto.TabIndex = 52
@@ -644,7 +644,7 @@ Partial Class Form1
         Me.Button_Plot.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button_Plot.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button_Plot.ForeColor = System.Drawing.Color.Silver
-        Me.Button_Plot.Location = New System.Drawing.Point(210, 388)
+        Me.Button_Plot.Location = New System.Drawing.Point(210, 394)
         Me.Button_Plot.Name = "Button_Plot"
         Me.Button_Plot.Size = New System.Drawing.Size(100, 35)
         Me.Button_Plot.TabIndex = 53
@@ -656,7 +656,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(984, 431)
+        Me.ClientSize = New System.Drawing.Size(980, 432)
         Me.Controls.Add(Me.Button_Plot)
         Me.Controls.Add(Me.Button_Auto)
         Me.Controls.Add(Me.Label2)
@@ -678,10 +678,10 @@ Partial Class Form1
         Me.Controls.Add(Me.Button_Connect)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Tim_s_OWON_Meter_UI.My.MySettings.Default, "Form1_Location", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Location = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.Form1_Location
-        Me.MaximumSize = New System.Drawing.Size(995, 460)
-        Me.MinimumSize = New System.Drawing.Size(538, 460)
+        Me.MaximumSize = New System.Drawing.Size(990, 465)
+        Me.MinimumSize = New System.Drawing.Size(534, 465)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Tim's OWON Meter UI"

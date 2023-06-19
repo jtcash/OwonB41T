@@ -126,6 +126,78 @@ Namespace My
                 Me("NumericUpDown_PlotPoints_Value") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property CheckBox_Auto_Checked() As Boolean
+            Get
+                Return CType(Me("CheckBox_Auto_Checked"),Boolean)
+            End Get
+            Set
+                Me("CheckBox_Auto_Checked") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property RadioButton_Range_Checked() As Integer
+            Get
+                Return CType(Me("RadioButton_Range_Checked"),Integer)
+            End Get
+            Set
+                Me("RadioButton_Range_Checked") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.6")>  _
+        Public Property NumericUpDown_ReadInterval_Value() As Decimal
+            Get
+                Return CType(Me("NumericUpDown_ReadInterval_Value"),Decimal)
+            End Get
+            Set
+                Me("NumericUpDown_ReadInterval_Value") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property NumericUpDown_ZoomLevel_Value() As Decimal
+            Get
+                Return CType(Me("NumericUpDown_ZoomLevel_Value"),Decimal)
+            End Get
+            Set
+                Me("NumericUpDown_ZoomLevel_Value") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property SaveFileDialog1_FileName() As String
+            Get
+                Return CType(Me("SaveFileDialog1_FileName"),String)
+            End Get
+            Set
+                Me("SaveFileDialog1_FileName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property CheckBox_AppendFile_Checked() As Boolean
+            Get
+                Return CType(Me("CheckBox_AppendFile_Checked"),Boolean)
+            End Get
+            Set
+                Me("CheckBox_AppendFile_Checked") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
