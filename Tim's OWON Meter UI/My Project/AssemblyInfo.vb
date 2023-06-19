@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Tim's OWON Meter UI")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("User front end for: OwonB41T By: Jeffrey Cash")>
 <Assembly: AssemblyCompany("Tim")>
 <Assembly: AssemblyProduct("Tim's OWON Meter UI")>
 <Assembly: AssemblyCopyright("Copyright ©  2023")>

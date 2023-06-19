@@ -1,0 +1,11 @@
+
+Copy The "Tim's OWON Meter UI" Folder to a place of your choosing.
+Remember where you save it, you will need to enter the path in the application.
+
+Run the: "Setup.exe"
+Install the UI.
+
+When you run the Application for the first time,
+you will need to enter the path to to the "OwonB41T.exe" file in the "Shell Path" text box in the application.
+If you can not see the "Shell Path" text box, click "UI" button to expand the application.
+It needs to be the full path including \OwonB41T.exe
