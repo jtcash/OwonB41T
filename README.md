@@ -7,6 +7,10 @@ I will be posting binaries in the future, but you should be able to compile this
 <picture>
   <img alt="User Interface." src="Tim's OWON Meter UI/Images/User_Interface.png">
 </picture>
+<picture>
+  <img alt="User Interface." src="Tim's OWON Meter UI/Images/Plot.png">
+</picture>
+
 
 ## Current Features
 This project is currently early in development, but I've completed the core functionality: 
