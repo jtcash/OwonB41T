@@ -1,5 +1,5 @@
 
-Copy The "Tim's OWON Meter UI" Folder to a place of your choosing.
+Copy The "Tim's OWON Meter UI" Folder (The folder this file is in) to a place of your choosing.
 Remember where you save it, you will need to enter the path in the application.
 
 Run the: "Setup.exe"
