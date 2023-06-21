@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Tim's OWON Meter UI.exe.manifest" size="4827">
+    <dependentAssembly dependencyType="install" codebase="Tim's OWON Meter UI.exe.manifest" size="4981">
       <assemblyIdentity name="Tim's OWON Meter UI.exe" version="1.0.0.11" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>TmddrbX9htcsB/vkh0+SHQ3eBwuGTIKM/+RlpyPgj6g=</dsig:DigestValue>
+        <dsig:DigestValue>yPR9Y9STkANV2ELEaTTU/dZgwJ2XAxbLliuY6InN6C8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

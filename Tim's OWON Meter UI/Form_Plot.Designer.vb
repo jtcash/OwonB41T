@@ -23,8 +23,8 @@ Partial Class Form_Plot
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form_Plot))
         Me.Chart_Plot = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Timer_ReadValue = New System.Windows.Forms.Timer(Me.components)
@@ -53,6 +53,17 @@ Partial Class Form_Plot
         Me.RadioButton_Mode2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton_Mode1 = New System.Windows.Forms.RadioButton()
         Me.Button_ZeroCursor = New System.Windows.Forms.Button()
+        Me.GroupBox_OffLine = New System.Windows.Forms.GroupBox()
+        Me.GroupBox_RetrieveOffLineData = New System.Windows.Forms.GroupBox()
+        Me.GroupBox_SetOffLineRecording = New System.Windows.Forms.GroupBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.NumericUpDown_RecordNumberOfReading = New System.Windows.Forms.NumericUpDown()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.NumericUpDown_RecordInterval = New System.Windows.Forms.NumericUpDown()
+        Me.Button_StartOffLineRecording = New System.Windows.Forms.Button()
+        Me.GroupBox_LoadOffLineData = New System.Windows.Forms.GroupBox()
+        Me.Button_SaveOffLineRecording = New System.Windows.Forms.Button()
+        Me.Button_LoadCSV = New System.Windows.Forms.Button()
         CType(Me.Chart_Plot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox_Range.SuspendLayout()
         CType(Me.NumericUpDown_PlotPoints, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,6 +74,12 @@ Partial Class Form_Plot
         CType(Me.NumericUpDown_ZoomLevel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox_SaveData.SuspendLayout()
         Me.GroupBoxMode.SuspendLayout()
+        Me.GroupBox_OffLine.SuspendLayout()
+        Me.GroupBox_RetrieveOffLineData.SuspendLayout()
+        Me.GroupBox_SetOffLineRecording.SuspendLayout()
+        CType(Me.NumericUpDown_RecordNumberOfReading, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown_RecordInterval, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox_LoadOffLineData.SuspendLayout()
         Me.SuspendLayout()
         '
         'Chart_Plot
@@ -73,69 +90,69 @@ Partial Class Form_Plot
         Me.Chart_Plot.BackColor = System.Drawing.Color.Silver
         Me.Chart_Plot.BackSecondaryColor = System.Drawing.Color.Silver
         Me.Chart_Plot.BorderlineColor = System.Drawing.Color.Silver
-        ChartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea1.AxisX.IsLabelAutoFit = False
-        ChartArea1.AxisX.LabelAutoFitMaxFontSize = 12
-        ChartArea1.AxisX.LabelAutoFitMinFontSize = 8
-        ChartArea1.AxisX.LabelAutoFitStyle = CType((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.IncreaseFont Or System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.DecreaseFont), System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles)
-        ChartArea1.AxisX.LabelStyle.Font = New System.Drawing.Font("Tims_OWON_Meter", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        ChartArea1.AxisX.MajorGrid.Enabled = False
-        ChartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver
-        ChartArea1.AxisX.MajorTickMark.Interval = 0R
-        ChartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Red
-        ChartArea1.AxisX.MajorTickMark.TickMarkStyle = System.Windows.Forms.DataVisualization.Charting.TickMarkStyle.AcrossAxis
-        ChartArea1.AxisX.MaximumAutoSize = 12.0!
-        ChartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Silver
-        ChartArea1.AxisX.MinorTickMark.Enabled = True
-        ChartArea1.AxisX.MinorTickMark.Interval = 5.0R
-        ChartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Red
-        ChartArea1.AxisX.ScaleView.MinSize = 100.0R
-        ChartArea1.AxisX.ScaleView.Size = 100.0R
-        ChartArea1.AxisX.ScrollBar.BackColor = System.Drawing.Color.MidnightBlue
-        ChartArea1.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver
-        ChartArea1.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll
-        ChartArea1.AxisY.Interval = 1.0R
-        ChartArea1.AxisY.IsLabelAutoFit = False
-        ChartArea1.AxisY.LabelAutoFitMaxFontSize = 16
-        ChartArea1.AxisY.LabelAutoFitMinFontSize = 10
-        ChartArea1.AxisY.LabelStyle.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        ChartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Red
-        ChartArea1.AxisY.MajorTickMark.TickMarkStyle = System.Windows.Forms.DataVisualization.Charting.TickMarkStyle.AcrossAxis
-        ChartArea1.AxisY.Maximum = 6.0R
-        ChartArea1.AxisY.MaximumAutoSize = 16.0!
-        ChartArea1.AxisY.Minimum = -6.0R
-        ChartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Silver
-        ChartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Silver
-        ChartArea1.AxisY.ScaleView.SizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea1.AxisY.ScrollBar.Enabled = False
-        ChartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal
-        ChartArea1.AxisY.TitleFont = New System.Drawing.Font("Tims_OWON_Meter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        ChartArea1.BackColor = System.Drawing.Color.MidnightBlue
-        ChartArea1.BackSecondaryColor = System.Drawing.Color.Silver
-        ChartArea1.CursorY.IsUserEnabled = True
-        ChartArea1.CursorY.Position = 0R
-        ChartArea1.Name = "ChartArea_Plot"
-        ChartArea1.Position.Auto = False
-        ChartArea1.Position.Height = 100.0!
-        ChartArea1.Position.Width = 100.0!
-        Me.Chart_Plot.ChartAreas.Add(ChartArea1)
+        ChartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea4.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea4.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea4.AxisX.IsLabelAutoFit = False
+        ChartArea4.AxisX.LabelAutoFitMaxFontSize = 12
+        ChartArea4.AxisX.LabelAutoFitMinFontSize = 8
+        ChartArea4.AxisX.LabelAutoFitStyle = CType((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.IncreaseFont Or System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.DecreaseFont), System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles)
+        ChartArea4.AxisX.LabelStyle.Font = New System.Drawing.Font("Tims_OWON_Meter", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea4.AxisX.MajorGrid.Enabled = False
+        ChartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver
+        ChartArea4.AxisX.MajorTickMark.Interval = 0R
+        ChartArea4.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Red
+        ChartArea4.AxisX.MajorTickMark.TickMarkStyle = System.Windows.Forms.DataVisualization.Charting.TickMarkStyle.AcrossAxis
+        ChartArea4.AxisX.MaximumAutoSize = 12.0!
+        ChartArea4.AxisX.MinorGrid.LineColor = System.Drawing.Color.Silver
+        ChartArea4.AxisX.MinorTickMark.Enabled = True
+        ChartArea4.AxisX.MinorTickMark.Interval = 5.0R
+        ChartArea4.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Red
+        ChartArea4.AxisX.ScaleView.MinSize = 100.0R
+        ChartArea4.AxisX.ScaleView.Size = 100.0R
+        ChartArea4.AxisX.ScrollBar.BackColor = System.Drawing.Color.MidnightBlue
+        ChartArea4.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.Silver
+        ChartArea4.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll
+        ChartArea4.AxisY.Interval = 1.0R
+        ChartArea4.AxisY.IsLabelAutoFit = False
+        ChartArea4.AxisY.LabelAutoFitMaxFontSize = 16
+        ChartArea4.AxisY.LabelAutoFitMinFontSize = 10
+        ChartArea4.AxisY.LabelStyle.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea4.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Red
+        ChartArea4.AxisY.MajorTickMark.TickMarkStyle = System.Windows.Forms.DataVisualization.Charting.TickMarkStyle.AcrossAxis
+        ChartArea4.AxisY.Maximum = 6.0R
+        ChartArea4.AxisY.MaximumAutoSize = 16.0!
+        ChartArea4.AxisY.Minimum = -6.0R
+        ChartArea4.AxisY.MinorGrid.LineColor = System.Drawing.Color.Silver
+        ChartArea4.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Silver
+        ChartArea4.AxisY.ScaleView.SizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea4.AxisY.ScrollBar.Enabled = False
+        ChartArea4.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal
+        ChartArea4.AxisY.TitleFont = New System.Drawing.Font("Tims_OWON_Meter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea4.BackColor = System.Drawing.Color.MidnightBlue
+        ChartArea4.BackSecondaryColor = System.Drawing.Color.Silver
+        ChartArea4.CursorY.IsUserEnabled = True
+        ChartArea4.CursorY.Position = 0R
+        ChartArea4.Name = "ChartArea_Plot"
+        ChartArea4.Position.Auto = False
+        ChartArea4.Position.Height = 100.0!
+        ChartArea4.Position.Width = 100.0!
+        Me.Chart_Plot.ChartAreas.Add(ChartArea4)
         Me.Chart_Plot.Location = New System.Drawing.Point(200, 5)
         Me.Chart_Plot.Name = "Chart_Plot"
         Me.Chart_Plot.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
-        Series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left
-        Series1.BackSecondaryColor = System.Drawing.Color.Silver
-        Series1.ChartArea = "ChartArea_Plot"
-        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine
-        Series1.Color = System.Drawing.Color.Yellow
-        Series1.IsVisibleInLegend = False
-        Series1.LabelBackColor = System.Drawing.Color.Transparent
-        Series1.MarkerBorderColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Series1.Name = "Series_Plot"
-        Me.Chart_Plot.Series.Add(Series1)
-        Me.Chart_Plot.Size = New System.Drawing.Size(1007, 766)
+        Series4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Left
+        Series4.BackSecondaryColor = System.Drawing.Color.Silver
+        Series4.ChartArea = "ChartArea_Plot"
+        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine
+        Series4.Color = System.Drawing.Color.Yellow
+        Series4.IsVisibleInLegend = False
+        Series4.LabelBackColor = System.Drawing.Color.Transparent
+        Series4.MarkerBorderColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Series4.Name = "Series_Plot"
+        Me.Chart_Plot.Series.Add(Series4)
+        Me.Chart_Plot.Size = New System.Drawing.Size(1007, 692)
         Me.Chart_Plot.TabIndex = 0
         Me.Chart_Plot.Text = "Plot"
         '
@@ -149,11 +166,11 @@ Partial Class Form_Plot
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Red
-        Me.Label1.Location = New System.Drawing.Point(4, 741)
+        Me.Label1.Location = New System.Drawing.Point(51, 1)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(144, 18)
+        Me.Label1.Size = New System.Drawing.Size(167, 22)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Work in Progress"
         '
@@ -423,12 +440,153 @@ Partial Class Form_Plot
         Me.Button_ZeroCursor.Text = "Zero Cursor"
         Me.Button_ZeroCursor.UseVisualStyleBackColor = False
         '
+        'GroupBox_OffLine
+        '
+        Me.GroupBox_OffLine.Controls.Add(Me.GroupBox_LoadOffLineData)
+        Me.GroupBox_OffLine.Controls.Add(Me.GroupBox_RetrieveOffLineData)
+        Me.GroupBox_OffLine.Controls.Add(Me.GroupBox_SetOffLineRecording)
+        Me.GroupBox_OffLine.Enabled = False
+        Me.GroupBox_OffLine.Location = New System.Drawing.Point(12, 414)
+        Me.GroupBox_OffLine.Name = "GroupBox_OffLine"
+        Me.GroupBox_OffLine.Size = New System.Drawing.Size(182, 285)
+        Me.GroupBox_OffLine.TabIndex = 56
+        Me.GroupBox_OffLine.TabStop = False
+        Me.GroupBox_OffLine.Text = "Off-Line"
+        '
+        'GroupBox_RetrieveOffLineData
+        '
+        Me.GroupBox_RetrieveOffLineData.Controls.Add(Me.Button_SaveOffLineRecording)
+        Me.GroupBox_RetrieveOffLineData.Location = New System.Drawing.Point(3, 150)
+        Me.GroupBox_RetrieveOffLineData.Name = "GroupBox_RetrieveOffLineData"
+        Me.GroupBox_RetrieveOffLineData.Size = New System.Drawing.Size(176, 70)
+        Me.GroupBox_RetrieveOffLineData.TabIndex = 58
+        Me.GroupBox_RetrieveOffLineData.TabStop = False
+        Me.GroupBox_RetrieveOffLineData.Text = "Retrieve Off-Line Data"
+        '
+        'GroupBox_SetOffLineRecording
+        '
+        Me.GroupBox_SetOffLineRecording.Controls.Add(Me.Button_StartOffLineRecording)
+        Me.GroupBox_SetOffLineRecording.Controls.Add(Me.Label6)
+        Me.GroupBox_SetOffLineRecording.Controls.Add(Me.NumericUpDown_RecordNumberOfReading)
+        Me.GroupBox_SetOffLineRecording.Controls.Add(Me.Label5)
+        Me.GroupBox_SetOffLineRecording.Controls.Add(Me.NumericUpDown_RecordInterval)
+        Me.GroupBox_SetOffLineRecording.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupBox_SetOffLineRecording.Location = New System.Drawing.Point(3, 16)
+        Me.GroupBox_SetOffLineRecording.Name = "GroupBox_SetOffLineRecording"
+        Me.GroupBox_SetOffLineRecording.Size = New System.Drawing.Size(176, 130)
+        Me.GroupBox_SetOffLineRecording.TabIndex = 57
+        Me.GroupBox_SetOffLineRecording.TabStop = False
+        Me.GroupBox_SetOffLineRecording.Text = "Set Off-Line Recording"
+        '
+        'Label6
+        '
+        Me.Label6.Location = New System.Drawing.Point(83, 44)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(90, 26)
+        Me.Label6.TabIndex = 25
+        Me.Label6.Text = "Number of" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Readings"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'NumericUpDown_RecordNumberOfReading
+        '
+        Me.NumericUpDown_RecordNumberOfReading.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Tim_s_OWON_Meter_UI.My.MySettings.Default, "NumericUpDown_RecordNumberOfReading", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.NumericUpDown_RecordNumberOfReading.Location = New System.Drawing.Point(15, 47)
+        Me.NumericUpDown_RecordNumberOfReading.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NumericUpDown_RecordNumberOfReading.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NumericUpDown_RecordNumberOfReading.Name = "NumericUpDown_RecordNumberOfReading"
+        Me.NumericUpDown_RecordNumberOfReading.Size = New System.Drawing.Size(60, 20)
+        Me.NumericUpDown_RecordNumberOfReading.TabIndex = 24
+        Me.NumericUpDown_RecordNumberOfReading.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown_RecordNumberOfReading.Value = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.NumericUpDown_RecordNumberOfReading
+        '
+        'Label5
+        '
+        Me.Label5.Location = New System.Drawing.Point(80, 12)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(90, 26)
+        Me.Label5.TabIndex = 23
+        Me.Label5.Text = "Interval" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Seconds)"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'NumericUpDown_RecordInterval
+        '
+        Me.NumericUpDown_RecordInterval.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Tim_s_OWON_Meter_UI.My.MySettings.Default, "NumericUpDown_RecordInterval_Value", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.NumericUpDown_RecordInterval.Location = New System.Drawing.Point(15, 15)
+        Me.NumericUpDown_RecordInterval.Maximum = New Decimal(New Integer() {43200, 0, 0, 0})
+        Me.NumericUpDown_RecordInterval.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown_RecordInterval.Name = "NumericUpDown_RecordInterval"
+        Me.NumericUpDown_RecordInterval.Size = New System.Drawing.Size(60, 20)
+        Me.NumericUpDown_RecordInterval.TabIndex = 22
+        Me.NumericUpDown_RecordInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown_RecordInterval.Value = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.NumericUpDown_RecordInterval_Value
+        '
+        'Button_StartOffLineRecording
+        '
+        Me.Button_StartOffLineRecording.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button_StartOffLineRecording.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.Button_StartOffLineRecording.FlatAppearance.BorderSize = 2
+        Me.Button_StartOffLineRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button_StartOffLineRecording.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow
+        Me.Button_StartOffLineRecording.Font = New System.Drawing.Font("Tims_OWON_Meter", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_StartOffLineRecording.ForeColor = System.Drawing.Color.Silver
+        Me.Button_StartOffLineRecording.Location = New System.Drawing.Point(3, 73)
+        Me.Button_StartOffLineRecording.Name = "Button_StartOffLineRecording"
+        Me.Button_StartOffLineRecording.Size = New System.Drawing.Size(170, 50)
+        Me.Button_StartOffLineRecording.TabIndex = 56
+        Me.Button_StartOffLineRecording.Text = "Start Off-Line" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Recording"
+        Me.Button_StartOffLineRecording.UseVisualStyleBackColor = False
+        '
+        'GroupBox_LoadOffLineData
+        '
+        Me.GroupBox_LoadOffLineData.Controls.Add(Me.Button_LoadCSV)
+        Me.GroupBox_LoadOffLineData.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GroupBox_LoadOffLineData.Location = New System.Drawing.Point(3, 227)
+        Me.GroupBox_LoadOffLineData.Name = "GroupBox_LoadOffLineData"
+        Me.GroupBox_LoadOffLineData.Size = New System.Drawing.Size(176, 55)
+        Me.GroupBox_LoadOffLineData.TabIndex = 59
+        Me.GroupBox_LoadOffLineData.TabStop = False
+        Me.GroupBox_LoadOffLineData.Text = "Load Off-Line Data"
+        '
+        'Button_SaveOffLineRecording
+        '
+        Me.Button_SaveOffLineRecording.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button_SaveOffLineRecording.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.Button_SaveOffLineRecording.FlatAppearance.BorderSize = 2
+        Me.Button_SaveOffLineRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button_SaveOffLineRecording.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow
+        Me.Button_SaveOffLineRecording.Font = New System.Drawing.Font("Tims_OWON_Meter", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_SaveOffLineRecording.ForeColor = System.Drawing.Color.Silver
+        Me.Button_SaveOffLineRecording.Location = New System.Drawing.Point(3, 15)
+        Me.Button_SaveOffLineRecording.Name = "Button_SaveOffLineRecording"
+        Me.Button_SaveOffLineRecording.Size = New System.Drawing.Size(170, 50)
+        Me.Button_SaveOffLineRecording.TabIndex = 57
+        Me.Button_SaveOffLineRecording.Text = "Save Multi-Meter" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Recordings"
+        Me.Button_SaveOffLineRecording.UseVisualStyleBackColor = False
+        '
+        'Button_LoadCSV
+        '
+        Me.Button_LoadCSV.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button_LoadCSV.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.Button_LoadCSV.FlatAppearance.BorderSize = 2
+        Me.Button_LoadCSV.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Button_LoadCSV.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow
+        Me.Button_LoadCSV.Font = New System.Drawing.Font("Tims_OWON_Meter", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_LoadCSV.ForeColor = System.Drawing.Color.Silver
+        Me.Button_LoadCSV.Location = New System.Drawing.Point(3, 15)
+        Me.Button_LoadCSV.Name = "Button_LoadCSV"
+        Me.Button_LoadCSV.Size = New System.Drawing.Size(170, 36)
+        Me.Button_LoadCSV.TabIndex = 58
+        Me.Button_LoadCSV.Text = "Load CSV"
+        Me.Button_LoadCSV.UseVisualStyleBackColor = False
+        '
         'Form_Plot
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(1219, 783)
+        Me.ClientSize = New System.Drawing.Size(1219, 709)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.GroupBox_OffLine)
         Me.Controls.Add(Me.Button_ZeroCursor)
         Me.Controls.Add(Me.GroupBoxMode)
         Me.Controls.Add(Me.GroupBox_SaveData)
@@ -437,11 +595,10 @@ Partial Class Form_Plot
         Me.Controls.Add(Me.GroupBox_ReadInterval)
         Me.Controls.Add(Me.GroupBox_PlotPoints)
         Me.Controls.Add(Me.GroupBox_Range)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Chart_Plot)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Tim_s_OWON_Meter_UI.My.MySettings.Default, "Form_Plot_Location", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.Form_Plot_Location
-        Me.MinimumSize = New System.Drawing.Size(820, 500)
+        Me.MinimumSize = New System.Drawing.Size(820, 740)
         Me.Name = "Form_Plot"
         Me.Text = "Plot"
         CType(Me.Chart_Plot, System.ComponentModel.ISupportInitialize).EndInit()
@@ -455,6 +612,12 @@ Partial Class Form_Plot
         Me.GroupBox_SaveData.ResumeLayout(False)
         Me.GroupBox_SaveData.PerformLayout()
         Me.GroupBoxMode.ResumeLayout(False)
+        Me.GroupBox_OffLine.ResumeLayout(False)
+        Me.GroupBox_RetrieveOffLineData.ResumeLayout(False)
+        Me.GroupBox_SetOffLineRecording.ResumeLayout(False)
+        CType(Me.NumericUpDown_RecordNumberOfReading, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown_RecordInterval, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox_LoadOffLineData.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -487,4 +650,15 @@ Partial Class Form_Plot
     Friend WithEvents RadioButton_Mode1 As RadioButton
     Friend WithEvents CheckBox_AppendFile As CheckBox
     Friend WithEvents Button_ZeroCursor As Button
+    Friend WithEvents GroupBox_OffLine As GroupBox
+    Friend WithEvents GroupBox_RetrieveOffLineData As GroupBox
+    Friend WithEvents GroupBox_SetOffLineRecording As GroupBox
+    Friend WithEvents NumericUpDown_RecordInterval As NumericUpDown
+    Friend WithEvents Label6 As Label
+    Friend WithEvents NumericUpDown_RecordNumberOfReading As NumericUpDown
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Button_StartOffLineRecording As Button
+    Friend WithEvents GroupBox_LoadOffLineData As GroupBox
+    Friend WithEvents Button_SaveOffLineRecording As Button
+    Friend WithEvents Button_LoadCSV As Button
 End Class

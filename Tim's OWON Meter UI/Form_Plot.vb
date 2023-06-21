@@ -33,40 +33,43 @@ Public Class Form_Plot
     'PLOT (Add value to Array)
     Private Sub Timer_ReadValue_Tick(sender As Object, e As EventArgs) Handles Timer_ReadValue.Tick
 
-        If Database_Count > Database_Length Then
-            Database_Count = Database_Length - 1
-        End If
-
-        'Read value
-        If Form1.OwonB41T_Data IsNot Nothing Then
-
-            Database(Database_Count) = True_UnitValue(Form1.OwonB41T_Data(1), Form1.Dec_Value)
-
-            If Database_Count < Database.Length - 2 Then
-                Chart_Plot.ChartAreas.Item("ChartArea_Plot").AxisX.ScaleView.Position = Database_Count - NumericUpDown_ZoomLevel.Value
+        If RadioButton_Mode1.Checked Then
+            'LIVE MODE
+            If Database_Count > Database_Length Then
+                Database_Count = Database_Length - 1
             End If
 
+            'Read value
+            If Form1.OwonB41T_Data IsNot Nothing Then
 
-            If CheckBox_AutoRange.Checked Then
-                'Find MAX
-                If Database(Database_Count) > MAX_Value Then MAX_Value = Database(Database_Count)
-                Auto_Range()
+                Database(Database_Count) = True_UnitValue(Form1.OwonB41T_Data(1), Form1.Dec_Value)
+
+                If Database_Count < Database.Length - 2 Then
+                    Chart_Plot.ChartAreas.Item("ChartArea_Plot").AxisX.ScaleView.Position = Database_Count - NumericUpDown_ZoomLevel.Value
+                End If
+
+
+                If CheckBox_AutoRange.Checked Then
+                    'Find MAX
+                    If Database(Database_Count) > MAX_Value Then MAX_Value = Database(Database_Count)
+                    Auto_Range()
+                End If
+
+                Database_Count += 1
+
+                If Database_Count >= Database.Length Then
+
+                    Database_Count = Database.Length - 1
+
+                    For index = 0 To Database.Length - 2
+
+                        Database(index) = Database(index + 1)
+
+                    Next
+                End If
+
+                Plot_Values()
             End If
-
-            Database_Count += 1
-
-            If Database_Count >= Database.Length Then
-
-                Database_Count = Database.Length - 1
-
-                For index = 0 To Database.Length - 2
-
-                    Database(index) = Database(index + 1)
-
-                Next
-            End If
-
-            Plot_Values()
         End If
 
     End Sub
@@ -397,6 +400,18 @@ Public Class Form_Plot
     Private Sub Button_ZeroCursor_Click(sender As Object, e As EventArgs) Handles Button_ZeroCursor.Click
 
         Chart_Plot.ChartAreas.Item("ChartArea_Plot").CursorY.Position = 0
+
+    End Sub
+
+    Private Sub RadioButton_Mode1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton_Mode1.CheckedChanged
+        Change_Mode()
+    End Sub
+    Private Sub Change_Mode()
+        If RadioButton_Mode1.Checked Then
+            GroupBox_OffLine.Enabled = False
+        Else
+            GroupBox_OffLine.Enabled = True
+        End If
 
     End Sub
 End Class

@@ -198,6 +198,30 @@ Namespace My
                 Me("CheckBox_AppendFile_Checked") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property NumericUpDown_RecordInterval_Value() As Decimal
+            Get
+                Return CType(Me("NumericUpDown_RecordInterval_Value"),Decimal)
+            End Get
+            Set
+                Me("NumericUpDown_RecordInterval_Value") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
+        Public Property NumericUpDown_RecordNumberOfReading() As Decimal
+            Get
+                Return CType(Me("NumericUpDown_RecordNumberOfReading"),Decimal)
+            End Get
+            Set
+                Me("NumericUpDown_RecordNumberOfReading") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
