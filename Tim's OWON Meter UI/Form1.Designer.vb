@@ -656,7 +656,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(980, 432)
+        Me.ClientSize = New System.Drawing.Size(990, 442)
         Me.Controls.Add(Me.Button_Plot)
         Me.Controls.Add(Me.Button_Auto)
         Me.Controls.Add(Me.Label2)
@@ -680,8 +680,8 @@ Partial Class Form1
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Location = Global.Tim_s_OWON_Meter_UI.My.MySettings.Default.Form1_Location
-        Me.MaximumSize = New System.Drawing.Size(990, 465)
-        Me.MinimumSize = New System.Drawing.Size(534, 465)
+        Me.MaximumSize = New System.Drawing.Size(1000, 475)
+        Me.MinimumSize = New System.Drawing.Size(545, 475)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Tim's OWON Meter UI"

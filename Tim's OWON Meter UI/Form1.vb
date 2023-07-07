@@ -73,6 +73,12 @@ Public Class Form1
     Private Abs_Value As Decimal = Math.Abs(Dec_Value)
     Private Bar_Value As Decimal = Abs_Value
     Private Bar_Size As New Rectangle(0, 0, Bar_Value, 44)
+    Public OffLineMode As Boolean = False
+    Public Off_Line_Data() As Array
+    Public Off_Line_Data_Count As Integer = 0
+    Public Downloading As Boolean = False
+
+
 
     'FORM
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -86,9 +92,9 @@ Public Class Form1
     End Sub
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
-        If Polt_Open Then Form_Plot.Dispose()
+        If Polt_Open = True Then Form_Plot.Dispose()
         If OwonB41T_Shell_Process IsNot Nothing Then
-            If Shell_Open Then OwonB41T_Shell_Process.Kill()
+            If Shell_Open = True Then OwonB41T_Shell_Process.Kill()
         End If
 
     End Sub
@@ -145,9 +151,21 @@ Public Class Form1
 
                     OwonB41T_Data = OwonB41T_Output.Split(vbTab)
                     ValueNegative = False
+                    OffLineMode = False
                     If OwonB41T_Data(0).StartsWith("-") Then ValueNegative = True
+                    If OwonB41T_Data(0).StartsWith("#") Then
+                        Downloading = True
+                        AddToOffLineData(OwonB41T_Data)
+                    Else
+                        If Downloading = True Then
+                            Form_Plot.Save_Downloaded_Data()
+                        End If
+                        Downloading = False
+                    End If
                     Invoke(New EventHandler(AddressOf Update_Display))
-                    Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
+                    If OffLineMode = False Then
+                        Invoke(New EventHandler(AddressOf Draw_Bar_Graph))
+                    End If
 
                 End If
             End Sub
@@ -171,24 +189,34 @@ Public Class Form1
         Button_Connected = Not Button_Connected
         If Button_Connected Then
 
-            StartCmdProcess(Me)
-            Shell_Open = True
-            Button_Connect.Enabled = True
-            Button_Connect.BackColor = Color.DarkRed
-            Button_Connect.Text = "Disconect"
-            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Red
+            Start_Reading()
 
         Else
 
-            OwonB41T_Shell_Process?.Kill()
-            Shell_Open = False
-            Button_Connect.Enabled = True
-            Button_Connect.BackColor = Color.DarkGreen
-            Button_Connect.Text = "Connect"
-            Button_Connect.FlatAppearance.MouseOverBackColor = Color.Green
+            Stop_Reading()
 
         End If
 
+
+    End Sub
+    Public Sub Start_Reading()
+
+        StartCmdProcess(Me)
+        Shell_Open = True
+        Button_Connect.Enabled = True
+        Button_Connect.BackColor = Color.DarkRed
+        Button_Connect.Text = "Disconect"
+        Button_Connect.FlatAppearance.MouseOverBackColor = Color.Red
+
+    End Sub
+    Public Sub Stop_Reading()
+
+        If Shell_Open = True Then OwonB41T_Shell_Process.Kill()
+        Shell_Open = False
+        Button_Connect.Enabled = True
+        Button_Connect.BackColor = Color.DarkGreen
+        Button_Connect.Text = "Connect"
+        Button_Connect.FlatAppearance.MouseOverBackColor = Color.Green
 
     End Sub
     Private Sub Button_Send_Click(sender As Object, e As EventArgs) Handles Button_Send.Click
@@ -258,7 +286,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SendCommand(command As String)
+    Public Sub SendCommand(command As String)
 
         If OwonB41T_StreamWriter Is Nothing Then
             RichTextBox_ErrorStream.AppendText("Shell not Running or not Connected." + Environment.NewLine)
@@ -289,153 +317,163 @@ Public Class Form1
     'Display
     Private Sub Update_Display()
 
-        'NEGATIVE
+        If OffLineMode Then
 
-        If ValueNegative Then
-            RichTextBox_Negative.Text = "-"
-            Picture_BoxNegative.Visible = True
-        Else
-            RichTextBox_Negative.Text = ""
-            Picture_BoxNegative.Visible = False
-        End If
+            RichTextBox_MeterValue.Text = "DL-D"
 
-        'VALUE need to check it is a number
-        If OwonB41T_Data(0) <> "OL" Then
-            RichTextBox_MeterValue.Text = Math.Abs(Convert.ToDecimal(OwonB41T_Data(0))).ToString()
-        End If
-        If OwonB41T_Data(0) = "OL" Then
-            RichTextBox_MeterValue.Text = "OL"
-        End If
-        'ACDC
-        If OwonB41T_Data(1).Contains("AC") Then
-            Label_ACDC.Text = "AC"
-        ElseIf OwonB41T_Data(1).Contains("DC") Then
-            Label_ACDC.Text = "DC"
         Else
-            Label_ACDC.Text = ""
-        End If
-        'VOLTS
-        If OwonB41T_Data(1).Contains("m V") Then
-            Label_Volts.Text = "mV"
-        ElseIf OwonB41T_Data(1).Contains("V") Then
-            Label_Volts.Text = "V"
-        Else
-            Label_Volts.Text = ""
-        End If
-        'AMPS NANO FARAD
-        If OwonB41T_Data(1).Contains("u A") Then
-            Label_Amps.Text = "µA"
-        ElseIf OwonB41T_Data(1).Contains("m A") Then
-            Label_Amps.Text = "mA"
-        ElseIf OwonB41T_Data(1).Contains("A ") Then
-            Label_Amps.Text = "A"
-        ElseIf OwonB41T_Data(1).Contains("n Farad") Then
-            Label_Amps.Text = "nF"
-        Else
-            Label_Amps.Text = ""
-        End If
-        'TEMP
-        If OwonB41T_Data(1).Contains("TempC") Then
-            Label_Temp.Text = "°C"
-        ElseIf OwonB41T_Data(1).Contains("TempF") Then
-            Label_Temp.Text = "°F"
-        Else
-            Label_Temp.Text = ""
-        End If
-        'hFE
-        If OwonB41T_Data(1).Contains("hFE") Then
-            Label_Hfe.Text = "hFE"
-        Else
-            Label_Hfe.Text = ""
-        End If
-        'OHM
-        If OwonB41T_Data(1).Contains("M Ohm") Then
-            Label_Ohm.Text = "MΩ"
-        ElseIf OwonB41T_Data(1).Contains("k Ohm") Then
-            Label_Ohm.Text = "kΩ"
-        ElseIf OwonB41T_Data(1).Contains("Ohm") Then
-            Label_Ohm.Text = "Ω"
-        Else
-            Label_Ohm.Text = ""
-        End If
-        'hFE
-        If OwonB41T_Data(1).Contains("Hz") Then
-            Label_Hz.Text = "Hz"
-        Else
-            Label_Hz.Text = ""
-        End If
-        'AUTO
-        If OwonB41T_Data(2).Contains("AUTO") Then
-            Label_Auto.Text = "AUTO"
-        Else
-            Label_Auto.Text = ""
-        End If
-        'DUTY
-        If OwonB41T_Data(1).Contains("Duty") Then
-            Label_Duty.Text = "%"
-        Else
-            Label_Duty.Text = ""
-        End If
-        'MAX
-        If OwonB41T_Data(2).Contains("MAX") Then
-            Label_Max.Text = "MAX"
-        Else
-            Label_Max.Text = ""
-        End If
-        'MIN
-        If OwonB41T_Data(2).Contains("MIN") Then
-            Label_Min.Text = "MIN"
-        Else
-            Label_Min.Text = ""
-        End If
 
+            'NEGATIVE
 
-        'Images
-        'HOLD
-        If OwonB41T_Data(2).Contains("HOLD") Then
-            PictureBox_Hold.Visible = True
-        Else
-            PictureBox_Hold.Visible = False
-        End If
-        'RELATIVE
-        If OwonB41T_Data(2).Contains("REL") Then
-            PictureBox_Triangle.Visible = True
-        Else
-            PictureBox_Triangle.Visible = False
-        End If
-        'DIODE
-        If OwonB41T_Data(1).Contains("Volts Diode") Then
-            PictureBox_Diode.Visible = True
-        Else
-            PictureBox_Diode.Visible = False
-        End If
-        'CONTINUITY
-        If OwonB41T_Data(1).Contains("Ohms Continuity") Then
-            PictureBox_Speaker.Visible = True
-        Else
-            PictureBox_Speaker.Visible = False
-        End If
-        ''HIGH VOLTAGE
-        'If OwonB41T_Data(1).Contains("") Then
-        '    PictureBox_HighV.Visible = True
-        'Else
-        '    PictureBox_HighV.Visible = False
-        'End If
+            If ValueNegative Then
+                RichTextBox_Negative.Text = "-"
+                Picture_BoxNegative.Visible = True
+            Else
+                RichTextBox_Negative.Text = ""
+                Picture_BoxNegative.Visible = False
+            End If
+
+            'VALUE need to check it is a number
+            If OwonB41T_Data(0) <> "OL" And OwonB41T_Data(0) <> "#" Then
+                RichTextBox_MeterValue.Text = Math.Abs(Convert.ToDecimal(OwonB41T_Data(0))).ToString()
+            End If
+            If OwonB41T_Data(0) = "OL" Then
+                RichTextBox_MeterValue.Text = "OL"
+            End If
+            If OwonB41T_Data(0) = "#" Then
+                RichTextBox_MeterValue.Text = "####"
+            End If
+            'ACDC
+            If OwonB41T_Data(1).Contains("AC") Then
+                Label_ACDC.Text = "AC"
+            ElseIf OwonB41T_Data(1).Contains("DC") Then
+                Label_ACDC.Text = "DC"
+            Else
+                Label_ACDC.Text = ""
+            End If
+            'VOLTS
+            If OwonB41T_Data(1).Contains("m V") Then
+                Label_Volts.Text = "mV"
+            ElseIf OwonB41T_Data(1).Contains("V") Then
+                Label_Volts.Text = "V"
+            Else
+                Label_Volts.Text = ""
+            End If
+            'AMPS NANO FARAD
+            If OwonB41T_Data(1).Contains("u A") Then
+                Label_Amps.Text = "µA"
+            ElseIf OwonB41T_Data(1).Contains("m A") Then
+                Label_Amps.Text = "mA"
+            ElseIf OwonB41T_Data(1).Contains("A ") Then
+                Label_Amps.Text = "A"
+            ElseIf OwonB41T_Data(1).Contains("n Farad") Then
+                Label_Amps.Text = "nF"
+            Else
+                Label_Amps.Text = ""
+            End If
+            'TEMP
+            If OwonB41T_Data(1).Contains("TempC") Then
+                Label_Temp.Text = "°C"
+            ElseIf OwonB41T_Data(1).Contains("TempF") Then
+                Label_Temp.Text = "°F"
+            Else
+                Label_Temp.Text = ""
+            End If
+            'hFE
+            If OwonB41T_Data(1).Contains("hFE") Then
+                Label_Hfe.Text = "hFE"
+            Else
+                Label_Hfe.Text = ""
+            End If
+            'OHM
+            If OwonB41T_Data(1).Contains("M Ohm") Then
+                Label_Ohm.Text = "MΩ"
+            ElseIf OwonB41T_Data(1).Contains("k Ohm") Then
+                Label_Ohm.Text = "kΩ"
+            ElseIf OwonB41T_Data(1).Contains("Ohm") Then
+                Label_Ohm.Text = "Ω"
+            Else
+                Label_Ohm.Text = ""
+            End If
+            'hFE
+            If OwonB41T_Data(1).Contains("Hz") Then
+                Label_Hz.Text = "Hz"
+            Else
+                Label_Hz.Text = ""
+            End If
+            'AUTO
+            If OwonB41T_Data(2).Contains("AUTO") Then
+                Label_Auto.Text = "AUTO"
+            Else
+                Label_Auto.Text = ""
+            End If
+            'DUTY
+            If OwonB41T_Data(1).Contains("Duty") Then
+                Label_Duty.Text = "%"
+            Else
+                Label_Duty.Text = ""
+            End If
+            'MAX
+            If OwonB41T_Data(2).Contains("MAX") Then
+                Label_Max.Text = "MAX"
+            Else
+                Label_Max.Text = ""
+            End If
+            'MIN
+            If OwonB41T_Data(2).Contains("MIN") Then
+                Label_Min.Text = "MIN"
+            Else
+                Label_Min.Text = ""
+            End If
 
 
+            'Images
+            'HOLD
+            If OwonB41T_Data(2).Contains("HOLD") Then
+                PictureBox_Hold.Visible = True
+            Else
+                PictureBox_Hold.Visible = False
+            End If
+            'RELATIVE
+            If OwonB41T_Data(2).Contains("REL") Then
+                PictureBox_Triangle.Visible = True
+            Else
+                PictureBox_Triangle.Visible = False
+            End If
+            'DIODE
+            If OwonB41T_Data(1).Contains("Volts Diode") Then
+                PictureBox_Diode.Visible = True
+            Else
+                PictureBox_Diode.Visible = False
+            End If
+            'CONTINUITY
+            If OwonB41T_Data(1).Contains("Ohms Continuity") Then
+                PictureBox_Speaker.Visible = True
+            Else
+                PictureBox_Speaker.Visible = False
+            End If
+            ''HIGH VOLTAGE
+            'If OwonB41T_Data(1).Contains("") Then
+            '    PictureBox_HighV.Visible = True
+            'Else
+            '    PictureBox_HighV.Visible = False
+            'End If
 
 
-        'Ω°µ
-        'm V DC
-        'Volts Diode
-        'Ohms Continuity
-        'k Ohm
-        'M Ohm
-        'u A DC
-        'm A DC
-        'n Farad
-        'u Farad
 
+
+            'Ω°µ
+            'm V DC
+            'Volts Diode
+            'Ohms Continuity
+            'k Ohm
+            'M Ohm
+            'u A DC
+            'm A DC
+            'n Farad
+            'u Farad
+
+        End If
 
 
     End Sub
@@ -447,7 +485,7 @@ Public Class Form1
 
         If OwonB41T_Data IsNot Nothing Then
             'VALUE need to check it is a number
-            If OwonB41T_Data(0) <> "OL" Then
+            If OwonB41T_Data(0) <> "OL" And OwonB41T_Data(0) <> "#" Then
 
                 Dec_Value = Convert.ToDecimal(OwonB41T_Data(0))
                 Abs_Value = Math.Abs(Dec_Value)
@@ -531,6 +569,15 @@ Public Class Form1
         Graphics_Draw_Bar.DrawImage(My.Resources.Bar, Bar_Size, Bar_Size, GraphicsUnit.Pixel)
         PictureBox_Bar.Image = _New_Image
         PictureBox_Bar.Update()
+
+    End Sub
+
+    'OFFLINE
+    Public Sub AddToOffLineData(ByVal thisValue() As String)
+
+        ReDim Preserve Off_Line_Data(Off_Line_Data_Count)
+        Off_Line_Data(Off_Line_Data_Count) = thisValue
+        Off_Line_Data_Count += 1
 
     End Sub
 

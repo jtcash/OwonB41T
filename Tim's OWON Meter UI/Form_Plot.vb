@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Reflection
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class Form_Plot
 
@@ -408,10 +409,104 @@ Public Class Form_Plot
     End Sub
     Private Sub Change_Mode()
         If RadioButton_Mode1.Checked Then
+            Form1.OffLineMode = False
             GroupBox_OffLine.Enabled = False
         Else
+            Form1.OffLineMode = True
             GroupBox_OffLine.Enabled = True
         End If
 
     End Sub
+    'DOWNLOAD
+    Private Sub Button_SaveOffLineRecording_Click(sender As Object, e As EventArgs) Handles Button_SaveOffLineRecording.Click
+        DownloadData()
+    End Sub
+    Private Sub DownloadData()
+
+        SaveFileDialog1.Filter = "Comma-Separated Values|*.CSV|Text|*.txt|All|*.*"
+        SaveFileDialog1.FilterIndex = 1
+        SaveFileDialog1.Title = "Save to File"
+        SaveFileDialog1.ShowDialog()
+
+        If SaveFileDialog1.FileName <> "" And DialogResult.OK Then
+
+            Form1.Off_Line_Data_Count = 0
+
+            Form1.SendCommand("o")
+
+        End If
+
+    End Sub
+    Public Sub Save_Downloaded_Data()
+
+        Dim file As StreamWriter
+        file = My.Computer.FileSystem.OpenTextFileWriter(SaveFileDialog1.FileName, CheckBox_AppendFile.Checked)
+
+        Dim _count As Integer = 0
+
+        For Each _value In Form1.Off_Line_Data
+
+            file.Write(_value(2))
+            _count += 1
+            If _count >= Database.Length - 1 Then Exit For
+            file.Write(",")
+
+        Next
+        file.Write(vbCrLf)
+        file.Close()
+
+    End Sub
+    'SET METER RECORDING
+    Private Sub Button_StartOffLineRecording_Click(sender As Object, e As EventArgs) Handles Button_StartOffLineRecording.Click
+        Set_Meter_Recording()
+    End Sub
+    Private Sub Set_Meter_Recording()
+
+        If Form1.Shell_Open = True Then
+
+            Form1.SendCommand("p " + NumericUpDown_RecordInterval.Value.ToString() + " " + NumericUpDown_RecordNumberOfReading.Value.ToString())
+            Form1.Stop_Reading()
+        Else
+
+            MessageBox.Show("Warning: The Digital Multimeter is not connected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+    'LOAD CSV FILE
+    Private Sub Button_LoadCSV_Click(sender As Object, e As EventArgs) Handles Button_LoadCSV.Click
+
+        Dim data As Decimal()()
+        Database_Length = 0
+
+        OpenFileDialog1.Filter = "Tim's Comma-Separated Values|*.CSV|Text|*.txt|All|*.*"
+        OpenFileDialog1.Title = "Select a CSV File"
+        OpenFileDialog1.FilterIndex = 1
+
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            Dim filePath As String = OpenFileDialog1.FileName
+            Dim lines As String() = File.ReadAllLines(filePath)
+            data = New Decimal(lines.Length - 1)() {}
+            For i As Integer = 0 To lines.Length - 1
+                Dim line As String = lines(i).TrimEnd(","c)
+                Dim fields As String() = line.Split(","c)
+                data(i) = Array.ConvertAll(fields, Function(str) Decimal.Parse(str))
+            Next
+            ' data now contains an array of Decimal arrays, where each element of the outer array represents a line from the file
+
+
+            Database = data(0)
+            Database_Length = Database.Length
+            Database_Count = Database.Length
+            NumericUpDown_PlotPoints.Value = Database_Length
+
+
+            Plot_Values()
+        End If
+
+    End Sub
+
+
+
+
+
+    '
 End Class
