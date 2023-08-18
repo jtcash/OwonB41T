@@ -1,5 +1,5 @@
 # OwonB41T
-A Windows Bluetooth(BLE) client for the Owon B41T+ multimeter. Any BLE adaptor is compatible, so no dongle needed!  
+A Windows Bluetooth(BLE) client for the Owon B41T+ multimeter. Any BLE adaptor is compatible, so no Special Dongle needed!  
 Requires Windows 10  
 I will be posting binaries in the future, but you should be able to compile this yourself if your Visual Studio environment is up to date.
 
@@ -10,7 +10,8 @@ I will be posting binaries in the future, but you should be able to compile this
 <picture>
   <img alt="User Interface." src="Tim's OWON Meter UI/Images/Plot.png">
 </picture>
-
+## Windows 11
+Should now be Windows 11 Compatable, Updated issue with getting "characteristics"
 
 ## Current Features
 This project is currently early in development, but I've completed the core functionality: 
