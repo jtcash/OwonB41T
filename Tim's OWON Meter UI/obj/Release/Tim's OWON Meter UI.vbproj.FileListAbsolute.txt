@@ -22,7 +22,6 @@ C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Release\Tim's OWON Meter UI.pdb
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\bin\Release\Tim's OWON Meter UI.xml
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Release\Tim's OWON Meter UI.vbproj.AssemblyReference.cache
-C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Release\Tim's OWON Meter UI.vbproj.SuggestedBindingRedirects.cache
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Release\Tim_s_OWON_Meter_UI.Form1.resources
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Release\Tim_s_OWON_Meter_UI.Form_Plot.resources
 C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Tim's OWON Meter UI\obj\Release\Tim_s_OWON_Meter_UI.Resources.resources

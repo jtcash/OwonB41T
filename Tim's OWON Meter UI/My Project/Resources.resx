@@ -160,6 +160,9 @@
   <data name="Meter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Meter.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Meter_Semi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Meter_Semi.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Me_64_x_64_colour" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Me 64 x 64 colour.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

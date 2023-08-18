@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="TextBox_Shell_Path_Text" Type="System.String" Scope="User">
-      <Value Profile="(Default)">E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41T.exe</Value>
+      <Value Profile="(Default)">C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41T.exe</Value>
     </Setting>
     <Setting Name="UI_Width_Max" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

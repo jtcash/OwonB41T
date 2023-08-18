@@ -12,7 +12,7 @@ std::vector<uint8_t> read_IBuffer(winrt::Windows::Storage::Streams::IBuffer cons
 	std::vector<uint8_t> toret(ibuf.Length());
 	auto reader = winrt::Windows::Storage::Streams::DataReader::FromBuffer(ibuf);
 
-	for (size_t i = 0; i<toret.size(); ++i)
+	for (size_t i = 0; i < toret.size(); ++i)
 		toret[i] = reader.ReadByte();
 
 	return toret;
@@ -28,7 +28,7 @@ void B41T::waitUntilConnected() {
 
 
 void B41T::connectByName(std::wstring nameSubstrMatch) {
-	connectByNames({nameSubstrMatch});
+	connectByNames({ nameSubstrMatch });
 }
 
 
@@ -36,7 +36,7 @@ void B41T::connectByName(std::wstring nameSubstrMatch) {
 
 void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 
-		// Thread-global list of the addresses and names found to avoid reporting or checking the same device more than once
+	// Thread-global list of the addresses and names found to avoid reporting or checking the same device more than once
 	static struct {
 		std::set<std::pair<uint64_t, std::wstring>> addrs;
 		std::mutex mut;
@@ -58,7 +58,8 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 			// Skip this result if it is a duplicate advertisement
 			if (foundList.addrs.find(key) == foundList.addrs.end()) {
 				foundList.addrs.emplace(key);
-			} else {
+			}
+			else {
 				return; // Skip this device, as it's a duplicate
 			}
 		}
@@ -70,7 +71,7 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 		for (const auto& nameSubstr : nameSubstrMatches) {
 			if (name.find(nameSubstr) != std::wstring::npos) {
 				watcher.Stop(); // End the advertisement watcher, we don't need it anymore
-				std::cerr << "\nFOUND OWON B41T+" << std::endl;
+				std::wcerr << "\nFOUND OWON " << nameSubstr << std::endl;
 
 				bool status = connectByAddress(eventArgs.BluetoothAddress()).get();
 
@@ -81,7 +82,7 @@ void B41T::connectByNames(std::vector<std::wstring> nameSubstrMatches) {
 			}
 		}
 
-	});
+		});
 
 	// Start looking for the meter
 	bleAdvertisementWatcher.Start();
@@ -108,8 +109,8 @@ concurrency::task<bool> B41T::sendCommand(const std::vector<uint8_t>& buf) {
 	}
 
 	winrt::Windows::Storage::Streams::DataWriter writer;
-	std::cerr << "Sending command: " <<  std::string_view(reinterpret_cast<const char*>(buf.data()), buf.size()) << std::endl;
-	
+	std::cerr << "Sending command: " << std::string_view(reinterpret_cast<const char*>(buf.data()), buf.size()) << std::endl;
+
 	winrt::array_view<const uint8_t> view(buf);
 	writer.WriteBytes(buf);
 
@@ -135,15 +136,15 @@ concurrency::task<bool> B41T::sendRenameCommand(std::string_view sv) {
 		std::cerr << "rename strings cannot be longer than 14 characters" << std::endl;
 		co_return false;
 	}
-	for (auto&& c : sv) 
+	for (auto&& c : sv)
 		if (!std::isprint(c) || c == '?' || c == '*' || c == '@' || c == ',') { // blacklist these to be safe
 			std::cerr << "rename strings cannot contain ceratain special characters" << std::endl;
 			co_return false;
 		}
-	
+
 	std::vector<uint8_t> buf(16); // zero filled
 	buf[0] = '@';
-	std::copy(sv.begin(), sv.end(), buf.begin()+1);
+	std::copy(sv.begin(), sv.end(), buf.begin() + 1);
 
 	co_return co_await sendCommand(buf);
 }
@@ -168,14 +169,14 @@ concurrency::task<bool> B41T::sendDateCommand() {
 	std::vector<uint8_t> cmd(16);
 
 	auto it = std::copy(prefix.begin(), prefix.end(), cmd.begin());
-	
+
 	int year = tm.tm_year + 1900;
-	*it++ = uint8_t(year/100);
-	*it++ = uint8_t(year%100);
+	*it++ = uint8_t(year / 100);
+	*it++ = uint8_t(year % 100);
 
 	*it++ = uint8_t(tm.tm_mon + 1);
 	*it++ = uint8_t(tm.tm_mday);
-	
+
 	*it++ = uint8_t(tm.tm_hour);
 	*it++ = uint8_t(tm.tm_min);
 	*it++ = uint8_t(tm.tm_sec);
@@ -191,11 +192,11 @@ concurrency::task<bool> B41T::sendRecordCommand(uint32_t interval, uint32_t coun
 		co_return false;
 	}
 	if (!interval) {
-		std::cerr << "Recording interval cannot be 0"<< std::endl;
+		std::cerr << "Recording interval cannot be 0" << std::endl;
 		co_return false;
 	}
 	constexpr std::string_view prefix = "*RECOrd,"; // such weird command syntax
-	
+
 	std::vector<uint8_t> cmd(16);
 	auto it = std::copy(prefix.begin(), prefix.end(), cmd.begin());
 
@@ -270,26 +271,8 @@ concurrency::task<bool> B41T::startDownload() {
 
 }
 
-
-
-
-
-// Given a UID and a member reference as a target, open the characteristic
-concurrency::task<bool> B41T::getCharacteristic(winrt::guid uid, winrt::Windows::Devices::Bluetooth::GenericAttributeProfile::GattCharacteristic& target, std::string_view characteristicName) {
-	using namespace winrt::Windows::Devices::Bluetooth;
-
-	decltype(auto) characteristicResult = co_await service.GetCharacteristicsForUuidAsync(uid);
-	if (characteristicResult.Status() != GenericAttributeProfile::GattCommunicationStatus::Success) {
-		std::cerr << "Failed to find " << characteristicName << " characteristic" << std::endl;
-		co_return false;
-	}
-	target = characteristicResult.Characteristics().GetAt(0);
-	co_return true;
-}
-
-
 void B41T::handlePacket(std::vector<uint8_t> pak) {
-		// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
+	// TODO: add a lock here to ensure packets are always handled in order, even in circumstances I have not encountered
 	if (options.rawOutput) {
 		for (const auto& e : pak)
 			std::cout << e;
@@ -298,26 +281,27 @@ void B41T::handlePacket(std::vector<uint8_t> pak) {
 	packets << std::move(pak);
 
 	if (packets.isDownloading()) {
-		std::cerr << "downloading: " << packets.downloadedPercent() << '%' <<  std::endl;
-	} else if (packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
+		std::cerr << "downloading: " << packets.downloadedPercent() << '%' << std::endl;
+	}
+	else if (packets.isDoneDownloading()) { // Just finished downloading, data has not been handled yet
 
 		auto dd = packets.getDownloadedData();
 		dd.print();
 
 		packets.clear();
 
-	} else {
+	}
+	else {
 		data_parser dp(packets.getPrevious());
 		if (dp.isValidFromData()) {
 			std::cout << dp.formattedString() << std::endl;
-		} else {
+		}
+		else {
 			std::cerr << "BAD DATA PASSED TO PARSER" << std::endl;
 		}
 	}
 
 }
-
-
 
 concurrency::task<bool> B41T::registerNotifications() {
 	using namespace winrt::Windows::Devices::Bluetooth;
@@ -336,9 +320,9 @@ concurrency::task<bool> B41T::registerNotifications() {
 		co_return false;
 	}
 
-	readCharacteristic.ValueChanged([this](GattCharacteristic const& , GattValueChangedEventArgs const& args) {
+	readCharacteristic.ValueChanged([this](GattCharacteristic const&, GattValueChangedEventArgs const& args) {
 		handlePacket(read_IBuffer(args.CharacteristicValue()));
-	});
+		});
 
 
 	registered = true;
@@ -357,9 +341,9 @@ concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress)
 	device = co_await BluetoothLEDevice::FromBluetoothAddressAsync(deviceAddress);
 	std::wcerr <<
 		"Meter Info:\n" <<
-		"\tName:\t"			<< device.Name().c_str() << '\n' <<
-		"\tAddr:\t"			<< std::hex << device.BluetoothAddress() << std::dec << '\n' <<
-		"\tId:\t"				<< device.DeviceId().c_str()  << "\n\n";
+		"\tName:\t" << device.Name().c_str() << '\n' <<
+		"\tAddr:\t" << std::hex << device.BluetoothAddress() << std::dec << '\n' <<
+		"\tId:\t" << device.DeviceId().c_str() << "\n\n";
 
 
 	decltype(auto) services = co_await device.GetGattServicesForUuidAsync(serviceUUID);
@@ -369,20 +353,34 @@ concurrency::task<bool> B41T::connectByAddress(unsigned long long deviceAddress)
 	}
 	service = services.Services().GetAt(0);
 
+	// Retrieve all characteristics at once
+	const auto &characteristicsResult = co_await service.GetCharacteristicsAsync(BluetoothCacheMode::Uncached);
 
-
-	if (!getCharacteristic(cmdCharacteristicUUID, cmdCharacteristic, "cmd").get())
+	// Check if the operation was successful
+	if (characteristicsResult.Status() != GenericAttributeProfile::GattCommunicationStatus::Success) {
+		std::cerr << "Failed to retrieve characteristics" << std::endl;
 		co_return false;
+	}
 
-	if (!getCharacteristic(ctrlCharacteristicUUID, ctrlCharacteristic, "ctrl").get())
+	// Filter the characteristics locally
+	auto characteristics = characteristicsResult.Characteristics();
+	for (const auto& characteristic : characteristics) {
+		if (characteristic.Uuid() == cmdCharacteristicUUID) {
+			cmdCharacteristic = characteristic;
+		}
+		else if (characteristic.Uuid() == ctrlCharacteristicUUID) {
+			ctrlCharacteristic = characteristic;
+		}
+		else if (characteristic.Uuid() == readCharacteristicUUID) {
+			readCharacteristic = characteristic;
+		}
+	}
+
+	// Check if all characteristics were found
+	if (!cmdCharacteristic || !ctrlCharacteristic || !readCharacteristic) {
+		std::cerr << "Failed to find one or more characteristics" << std::endl;
 		co_return false;
-
-	if (!getCharacteristic(readCharacteristicUUID, readCharacteristic, "read").get())
-		co_return false;
-
-
-
-	std::cerr << "done finding characteristics" << std::endl;
+	}
 
 	if (!co_await registerNotifications())
 		co_return false;
@@ -407,7 +405,7 @@ concurrency::task<bool> B41T::hold(char c) {
 }
 
 concurrency::task<bool> B41T::press(char c) {
-	return c >= 'A' && c <= 'Z' 
-		? hold(c-'A'+'a') 
+	return c >= 'A' && c <= 'Z'
+		? hold(c - 'A' + 'a')
 		: press(buttons::get(c));
 }

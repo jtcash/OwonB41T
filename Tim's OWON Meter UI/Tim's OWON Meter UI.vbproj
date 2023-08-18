@@ -15,7 +15,7 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>E:\tim\Documents\My VB Projects\Tim%27s OWON Meter UI\</PublishUrl>
+    <PublishUrl>C:\Users\timon\Documents\My VB Projects\Tim%27s OWON Meter UI\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -29,7 +29,7 @@
     <ProductName>OwonB41T User Interface</ProductName>
     <PublisherName>Tim</PublisherName>
     <SuiteName>OWON Insruments %28Tim%29</SuiteName>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -80,7 +80,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Meter.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Meter_Semi.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -174,6 +174,7 @@
     <Content Include="Images\Display_Mask.png" />
     <Content Include="Images\Plot.png" />
     <Content Include="Images\User_Interface.png" />
+    <None Include="Resources\Meter_Semi.ico" />
     <None Include="Resources\Meter.ico" />
     <None Include="Resources\Plotter.ico" />
     <None Include="Resources\Bar_Values100.png" />

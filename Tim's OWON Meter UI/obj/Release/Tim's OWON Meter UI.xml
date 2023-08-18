@@ -97,6 +97,11 @@ Tim's OWON Meter UI
   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
 </summary>
 </member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Meter_Semi">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
 <member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Negative">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.

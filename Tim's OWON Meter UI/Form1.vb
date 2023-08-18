@@ -60,7 +60,8 @@ Public Class Form1
 
     Private OwonB41T_Shell_Process As Process = Nothing
     Private OwonB41T_StreamWriter As StreamWriter = Nothing
-    Private OwonB41T_Path As String = "E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41T.exe" ' This path can be entered in the Application. And will be remembered.
+    'Private OwonB41T_Path As String = "C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41T.exe" ' This path can be entered in the Application. And will be remembered.
+    Private OwonB41T_Path As String = "" ' This path can be entered in the Application. And will be remembered.
     Private OwonB41T_Output As String = ""
     Private ValueNegative As Boolean = False
     Private Button_Connected As Boolean = False
@@ -85,6 +86,7 @@ Public Class Form1
 
         Icon = My.Resources.Meter
         AcceptButton = Button_Send
+        OwonB41T_Path = My.Settings.TextBox_Shell_Path_Text
         Set_UI_Width()
         Clear_Screen()
         Draw_Bar_Graph()
@@ -118,6 +120,10 @@ Public Class Form1
 
     End Sub
     'Process
+    Private Sub TextBox_Shell_Path_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Shell_Path.TextChanged
+        OwonB41T_Path = TextBox_Shell_Path.Text
+
+    End Sub
     Private Sub StartCmdProcess(synchObj As Control)
 
         Dim OwonB41T_Start_Info = New ProcessStartInfo() With {

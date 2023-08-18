@@ -22,33 +22,33 @@
     <ProjectGuid>{D415077E-CC9E-4C6B-919B-80F4F467307E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OwonB41T</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.20348.0</WindowsTargetPlatformVersion>
     <ProjectName>OwonB41T</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -98,6 +98,7 @@
       <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(WindowsSDK_UnionMetadataPath);$(VCIDEInstallDir)\vcpackages</AdditionalUsingDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,6 +116,12 @@
       <AdditionalUsingDirectories>$(WindowsSDK_UnionMetadataPath);$(VCIDEInstallDir)\vcpackages</AdditionalUsingDirectories>
       <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <EnableModules>
+      </EnableModules>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +144,7 @@
       <StringPooling>true</StringPooling>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +175,12 @@
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <EnableModules>
+      </EnableModules>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

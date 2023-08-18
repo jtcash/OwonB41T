@@ -1,7 +1,4 @@
 ﻿Imports System.IO
-Imports System.Reflection
-Imports System.Windows.Forms.DataVisualization.Charting
-Imports Microsoft.VisualBasic.FileIO
 
 Public Class Form_Plot
 
@@ -116,7 +113,7 @@ Public Class Form_Plot
         '  A DC
         '  A AC
 
-        If dataType = "m V DC" Or dataType = "m V AC" Then recivedValue *= 1000
+        If dataType = "m V DC" Or dataType = "m V AC" Then recivedValue *= 1
         If dataType = "  V DC" Or dataType = "  V AC" Then recivedValue *= 1
         If dataType = "  Ohm" Then recivedValue *= 1
         If dataType = "k Ohm" Then recivedValue *= 1000

@@ -1,6 +1,6 @@
 /** OwonB41T.cpp
  * Jeffrey Cash
- * 
+ *
  */
 
 
@@ -29,32 +29,34 @@ bool parse_arguments(Platform::Array<Platform::String^>^ args) {
 int main(Platform::Array<Platform::String^>^ args) {
 	winrt::init_apartment();
 	//Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
-	
-	// Not sure if necessary, but I'm leaving this here for now until I figure out. All UWP BLE examples had something like this,
+
+	// Not sure if necesssary, but I'm leaving this here for now until I figure out. All UWP BLE examples had something like this,
 	/// But I cannot do SDDL stuff here because it is not UWP
 	/// L"O:BAG:BAD:(A;;0x7;;;PS)(A;;0x3;;;SY)(A;;0x7;;;BA)(A;;0x3;;;AC)(A;;0x3;;;LS)(A;;0x3;;;NS)"
 	//(void)CoInitializeSecurity(nullptr, -1, nullptr, nullptr, RPC_C_AUTHN_LEVEL_DEFAULT, RPC_C_IMP_LEVEL_IDENTIFY, NULL, EOAC_NONE, nullptr);
 
-	
+
 
 	// Set to your meter's mac address to directly connect
-	uint64_t addr{}; 
+	uint64_t addr{};
 	// note that you cannot connect back for a few seconds after a connection has been
 	// interrupted, so if you ctrl-c out of the program, it will fail if you restart it within
 	// a few seconds. The connectByName option does not fail in this way, it just takes longer to connect
 
 
-	// TODO: allow connection through Bluetooth address
+	// TODO: allow connection through bluetoo th address
 	if (addr) {
 		meter.connectByAddress(addr);
-	} else {
+	}
+	else {
 		// TODO: clean up this workaround. Now, it will connect to the command line argument name, or search for BDM and B41T
 		if (args->Length > 1) {
 			std::wstring nameSubstring = args[1]->Data();
 			meter.connectByName(nameSubstring);
-		} else {
-			// I learned that the default name for the multi-meter seems to be BDM (Bench Digital Meter)
-			std::vector<std::wstring> nameSubstrings{L"BDM", L"B41T",L"B35T", L"B35T+"};
+		}
+		else {
+			// I learned that the default name for the multimeter seems to be BDM
+			std::vector<std::wstring> nameSubstrings{ L"BDM", L"B41T", L"B41T+", L"B35T", L"B35T+" };
 			meter.connectByNames(nameSubstrings);
 		}
 	}
@@ -71,13 +73,14 @@ int main(Platform::Array<Platform::String^>^ args) {
 	for (;;) {
 		char c;
 		std::cin >> c;
-		std::cerr << "typed: '" << c << '\'' <<  std::endl;
+		std::cerr << "typed: '" << c << '\'' << std::endl;
 
 		if (c == 'o') {
 			auto status = meter.startDownload().get();
-			if (!status) 
+			if (!status)
 				std::cerr << "FAILED TO START DOWNLOAD" << std::endl;
-		} else if (c == '@') {
+		}
+		else if (c == '@') {
 			std::string name;
 			std::getline(std::cin, name);
 
@@ -86,13 +89,15 @@ int main(Platform::Array<Platform::String^>^ args) {
 			if (!status)
 				std::cerr << "Failed to rename device to \"" << name << "\"" << std::endl;
 			std::cerr << "renamed device to \"" << name << "\"" << std::endl;
-			
-		} else if (c == 'l') { // TODO: Choose key 
+
+		}
+		else if (c == 'l') { // TODO: Choose key 
 			auto status = meter.sendDateCommand().get();
 			if (!status) {
 				std::cerr << "Failed to send date command!" << std::endl;
 			}
-		} else if (c == 'p') {
+		}
+		else if (c == 'p') {
 			uint32_t interval{};
 			uint32_t count{};
 
@@ -103,19 +108,23 @@ int main(Platform::Array<Platform::String^>^ args) {
 				std::cerr << "ERROR: For starting offline recording, interval and count must be provided and must be positive integers\n";
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard this line of input
-			} else {
+			}
+			else {
 				eecho(interval);
 				eecho(count);
 				if (interval <= 0 || count <= 0) {
 					std::cerr << "ERROR: For starting offline recording, interval nad count must be positive integers\n";
-				} else {
+				}
+				else {
 					meter.startRecording(interval, count);
 				}
 			}
-		} else {
+		}
+		else {
 			if (meter.check_button(c)) {
 				meter.press(c);
-			} else {
+			}
+			else {
 				std::cerr << "WARNING: attempting to send invalid command: '" << c << "'\n";
 			}
 		}

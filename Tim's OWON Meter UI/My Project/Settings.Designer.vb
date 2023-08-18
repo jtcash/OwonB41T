@@ -56,8 +56,8 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("E:\tim\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release\OwonB41"& _ 
-            "T.exe")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\x64\Release"& _ 
+            "\OwonB41T.exe")>  _
         Public Property TextBox_Shell_Path_Text() As String
             Get
                 Return CType(Me("TextBox_Shell_Path_Text"),String)
