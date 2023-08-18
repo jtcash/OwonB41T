@@ -270,15 +270,12 @@ Public Class Form1
     Private Sub Button_Auto_Click(sender As Object, e As EventArgs) Handles Button_Auto.Click
 
         'MIN MAX
-        If OwonB41T_Data(2).Contains("MAX") Or OwonB41T_Data(2).Contains("MIN") Then
+        If OwonB41T_Data(2).Contains("MIN") Or OwonB41T_Data(2).Contains("MAX") Then
             SendCommand("M")
-        End If
-        'VOLTS
-        If OwonB41T_Data(1).Contains("V") Then
+            'RANGE
+        ElseIf OwonB41T_Data(1).Contains("") Then
             SendCommand("R")
         End If
-
-
 
     End Sub
     Private Sub Button_Plot_Click(sender As Object, e As EventArgs) Handles Button_Plot.Click
