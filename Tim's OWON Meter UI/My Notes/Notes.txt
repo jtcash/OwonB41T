@@ -1,0 +1,34 @@
+Chart_Plot > ChartAreas(collection) > ChartArea_Plot > Axes(collection) > Y(Value)axis > scale = Maximum/Minimum
+Chart_Plot.ChartAreas.Item("ChartArea_Plot").AxisY.Maximum = 6
+
+As abouve: Interval = number of lines.
+
+
+OwonB41T_Data(1)
+m V DC
+m V AC
+  V DC
+  V AC
+  Ohm
+k Ohm
+M Ohm
+  Volts Diode
+  Ohms Continuity
+n Farad
+u Farad
+  Hz
+  Duty
+  hFE
+  TempC
+  TempF
+u A DC
+u A AC
+m A DC
+m A AC
+  A DC
+  A AC
+
+
+
+
+

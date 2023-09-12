@@ -7,6 +7,9 @@
 
 #include "targetver.h"
 
+/*	Tim	*/
+/*	Tempory Libs removed	*/
+/*	Tim	*/
 
 #include <utility>
 #include <array>
@@ -46,6 +49,7 @@
 #include <ppltasks.h>
 #include <pplawait.h>
 // TODO: reference additional headers your program requires here
+
 
 
 // What the heck is microsoft thinking??? Clobbering min and max is absurdly ignorant

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Tim's OWON Meter UI
+</name>
+</assembly>
+<members>
+<member name="T:Tim_s_OWON_Meter_UI.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values01">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values10">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bar_Values100">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Battery">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bluetooth">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Bluetooth25">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Diode">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Hold">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Hold_25">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Hold_30">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Light25">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Me_64_x_64_colour">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Meter">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Meter_Semi">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Negative">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Plotter">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Speaker">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Triangle">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Triangle25">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Tim_s_OWON_Meter_UI.My.Resources.Resources.Zap">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+</members>
+</doc>
