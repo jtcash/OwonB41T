@@ -1,6 +1,11 @@
 
-Copy The "Tim's OWON Meter UI" Folder (The folder this file is in) to a place of your choosing.
-Remember where you save it, you will need to enter the path in the application.
+Copy The "Tim's OWON Meter UI.zip"
+Not the "Tim's OWON Meter UI" Folder
+to a place of your choosing.
+And Un-zip it.
+The zip file is a zip of the "Tim's OWON Meter UI" folder but if I dont zip it, Git does somthing with the hash settings.
+
+Remember where you unziped it, you will need to enter the path in the application.
 
 Run the: "Setup.exe"
 Install the UI.
