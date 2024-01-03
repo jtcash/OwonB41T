@@ -18,9 +18,12 @@ Public Class Form_Plot
         AcceptButton = Button_Hold
         Icon = My.Resources.Plotter
         Change_Database_Length()
-        Auto_Range()
         Set_RadioButtons()
         Change_Zoom_Level()
+
+    End Sub
+    Private Sub Form_Plot_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        My.Settings.Save()
 
     End Sub
     Private Sub Form_Plot_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -163,6 +166,8 @@ Public Class Form_Plot
     End Sub
     Private Sub Set_Range()
 
+        Current_Range = ComboBox_Range.SelectedIndex
+
         Select Case Current_Range
 
             Case 0 '0.6
@@ -209,14 +214,12 @@ Public Class Form_Plot
 
     End Sub
     Private Sub ComboBox_Range_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_Range.SelectedIndexChanged
-        Current_Range = ComboBox_Range.SelectedIndex
         Set_Range()
     End Sub
     Private Sub RadioButton_Range1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton_Range1.CheckedChanged
         If RadioButton_Range1.Focused Then
             If RadioButton_Range1.Checked Then
                 Save_RadioButtons(1)
-                Set_Range()
             End If
         End If
     End Sub
@@ -224,7 +227,6 @@ Public Class Form_Plot
         If RadioButton_Range2.Focused Then
             If RadioButton_Range2.Checked Then
                 Save_RadioButtons(2)
-                Set_Range()
             End If
         End If
     End Sub
@@ -232,7 +234,6 @@ Public Class Form_Plot
         If RadioButton_Range3.Focused Then
             If RadioButton_Range3.Checked Then
                 Save_RadioButtons(3)
-                Set_Range()
             End If
         End If
     End Sub
@@ -369,11 +370,13 @@ Public Class Form_Plot
             Case Else
                 RadioButton_Range1.Checked = True
         End Select
+        Set_Range()
 
     End Sub
     Private Sub Save_RadioButtons(radioButton As Integer)
 
         My.Settings.RadioButton_Range_Checked = radioButton
+        Set_Range()
 
     End Sub
     'BUTTONS
@@ -500,6 +503,7 @@ Public Class Form_Plot
         End If
 
     End Sub
+
 
 
 
