@@ -15,7 +15,7 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Install Files\Tim%27s OWON Meter UI\</PublishUrl>
+    <PublishUrl>E:\Users\timon\Documents\Visual Studio Projects\_Repositorys\OwonB41T\Install Files\Tim%27s OWON Meter UI\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -29,7 +29,7 @@
     <ProductName>OwonB41T User Interface</ProductName>
     <PublisherName>Tim</PublisherName>
     <SuiteName>OWON Insruments %28Tim%29</SuiteName>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -169,6 +169,9 @@
     </None>
     <None Include="App.config" />
     <None Include="Tim%27s OWON Meter UI_TemporaryKey.pfx" />
+    <None Include="Tims_OWON_Meter.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Display_Mask.png" />

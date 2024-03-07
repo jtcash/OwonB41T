@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
+Imports System.Drawing.Text
+Imports System.Runtime.InteropServices
 
 'A user Inteface to use the Output from OwonB41T.cpp by: Jeffrey Cash https://github.com/jtcash/OwonB41T
 '
@@ -78,11 +80,18 @@ Public Class Form1
     Public Off_Line_Data() As Array
     Public Off_Line_Data_Count As Integer = 0
     Public Downloading As Boolean = False
-
+    'Font
+    Private My_PrivateFontCollection As New PrivateFontCollection()
+    Public Tims_OWON_Meter_12 As Font
+    Public Tims_OWON_Meter_15_75 As Font
+    Public Tims_OWON_Meter_100 As Font
+    Public Tims_OWON_Meter_120 As Font
 
 
     'FORM
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Set_Tims_OWON_Meter_Font()
 
         Icon = My.Resources.Meter
         AcceptButton = Button_Send
@@ -92,6 +101,37 @@ Public Class Form1
         Draw_Bar_Graph()
 
     End Sub
+    Private Sub Set_Tims_OWON_Meter_Font()
+
+        Dim fontPath As String = Path.Combine(Application.StartupPath, "Tims_OWON_Meter.ttf")
+        My_PrivateFontCollection.AddFontFile(fontPath)
+
+        Tims_OWON_Meter_12 = New Font(My_PrivateFontCollection.Families(0), 12, FontStyle.Regular)
+        Tims_OWON_Meter_15_75 = New Font(My_PrivateFontCollection.Families(0), 15.75, FontStyle.Regular)
+        Tims_OWON_Meter_100 = New Font(My_PrivateFontCollection.Families(0), 100, FontStyle.Regular)
+        Tims_OWON_Meter_120 = New Font(My_PrivateFontCollection.Families(0), 120, FontStyle.Regular)
+
+
+        Label_ACDC.Font = Tims_OWON_Meter_15_75
+        Label_Hfe.Font = Tims_OWON_Meter_15_75
+        Label_Temp.Font = Tims_OWON_Meter_15_75
+        Label_Duty.Font = Tims_OWON_Meter_15_75
+        Label_RPM.Font = Tims_OWON_Meter_15_75
+        Label_Ohm.Font = Tims_OWON_Meter_15_75
+        Label_Hz.Font = Tims_OWON_Meter_15_75
+        Label_Volts.Font = Tims_OWON_Meter_15_75
+        Label_Amps.Font = Tims_OWON_Meter_15_75
+        Label_Auto.Font = Tims_OWON_Meter_15_75
+        Label_Max.Font = Tims_OWON_Meter_15_75
+        Label_Min.Font = Tims_OWON_Meter_15_75
+        RichTextBox_Negative.Font = Tims_OWON_Meter_100
+        RichTextBox_MeterValue.Font = Tims_OWON_Meter_120
+
+
+
+
+    End Sub
+
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Polt_Open = True Then Form_Plot.Dispose()
@@ -337,11 +377,12 @@ Public Class Form1
             End If
 
             'VALUE need to check it is a number
+            'In the font I have made ][ = OL
             If OwonB41T_Data(0) <> "OL" And OwonB41T_Data(0) <> "#" Then
                 RichTextBox_MeterValue.Text = Math.Abs(Convert.ToDecimal(OwonB41T_Data(0))).ToString()
             End If
             If OwonB41T_Data(0) = "OL" Then
-                RichTextBox_MeterValue.Text = "OL"
+                RichTextBox_MeterValue.Text = "]["  'Is actualy OL
             End If
             If OwonB41T_Data(0) = "#" Then
                 RichTextBox_MeterValue.Text = "####"

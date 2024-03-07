@@ -356,7 +356,7 @@ Partial Class Form1
         '
         'Label_Auto
         '
-        Me.Label_Auto.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Auto.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Auto.Location = New System.Drawing.Point(30, 4)
         Me.Label_Auto.Name = "Label_Auto"
         Me.Label_Auto.Size = New System.Drawing.Size(80, 22)
@@ -398,7 +398,7 @@ Partial Class Form1
         '
         'Label_Max
         '
-        Me.Label_Max.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Max.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Max.Location = New System.Drawing.Point(108, 4)
         Me.Label_Max.Name = "Label_Max"
         Me.Label_Max.Size = New System.Drawing.Size(64, 22)
@@ -408,7 +408,7 @@ Partial Class Form1
         '
         'Label_Min
         '
-        Me.Label_Min.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Min.Font = New System.Drawing.Font("Tims_OWON_Meter", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label_Min.Location = New System.Drawing.Point(167, 4)
         Me.Label_Min.Name = "Label_Min"
         Me.Label_Min.Size = New System.Drawing.Size(64, 22)

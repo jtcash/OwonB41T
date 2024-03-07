@@ -15,11 +15,18 @@ Public Class Form_Plot
     'FORM
     Private Sub Form_Plot_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Set_Tims_OWON_Meter_Font()
+
         AcceptButton = Button_Hold
         Icon = My.Resources.Plotter
         Change_Database_Length()
         Set_RadioButtons()
         Change_Zoom_Level()
+
+    End Sub
+    Private Sub Set_Tims_OWON_Meter_Font()
+
+        Chart_Plot.ChartAreas(0).Axes(0).LabelStyle.Font = Form1.Tims_OWON_Meter_12
 
     End Sub
     Private Sub Form_Plot_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
